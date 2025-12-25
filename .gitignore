@@ -1,0 +1,6 @@
+/flwr-env
+ven/
+venv/
+__pycache__/
+*.pyc
+data

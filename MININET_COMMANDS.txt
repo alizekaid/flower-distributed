@@ -1,0 +1,23 @@
+# Mininet Commands for Flower FL
+# Copy and paste these commands in the Mininet CLI
+
+# Run federated learning training (3 rounds)
+server bash -c "cd /home/alizekaid/Desktop/Flower_distributed/flower-distributed && export PATH=/home/alizekaid/Desktop/Flower_distributed/flwr-env/bin:\$PATH && flwr run . mininet-deployment --run-config num-server-rounds=3"
+
+# Check server logs
+server cat /tmp/flower_mininet_logs/server.log
+
+# Check client logs
+server cat /tmp/flower_mininet_logs/client_1.log
+server cat /tmp/flower_mininet_logs/client_2.log
+server cat /tmp/flower_mininet_logs/client_3.log
+server cat /tmp/flower_mininet_logs/client_4.log
+
+# Test connectivity
+pingall
+
+# Show network info
+net
+
+# Dump node info
+dump
