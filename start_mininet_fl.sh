@@ -150,7 +150,7 @@ else
     echo "Once the network starts, you can:"
     echo "  - Use Mininet CLI commands (pingall, net, dump, etc.)"
     echo "  - Check logs in /tmp/flower_mininet_logs/"
-    echo "  - Run 'server flwr run $FLOWER_APP_PATH' to start FL training"
+    echo "  - Run 'server $VENV_PATH/bin/flwr run $FLOWER_APP_PATH' to start FL training"
     echo ""
     echo "Press Ctrl+C in the Mininet CLI to stop the network"
     echo ""

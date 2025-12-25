@@ -50,8 +50,27 @@ class FlowerTopology:
         info("*** Adding controller\n")
         controller = self.net.addController('c0', controller=Controller)
         
-        info("*** Adding switch\n")
-        self.switch = self.net.addSwitch(config.SWITCH_NAME)
+        info("*** Adding switches\n")
+        # Core Layer
+        switch1 = self.net.addSwitch('Switch1')
+        
+        # Distribution Layer
+        s1 = self.net.addSwitch('s1')
+        s2 = self.net.addSwitch('s2')
+        
+        # Intermediate Layer
+        s3 = self.net.addSwitch('s3')
+        s4 = self.net.addSwitch('s4')
+        s5 = self.net.addSwitch('s5')
+        s6 = self.net.addSwitch('s6')
+        
+        # Access Layer
+        s7 = self.net.addSwitch('s7')
+        s8 = self.net.addSwitch('s8')
+        s9 = self.net.addSwitch('s9')
+        s10 = self.net.addSwitch('s10')
+        
+        self.switch = switch1 # Set main switch reference for any legacy checks, though mostly unused now
         
         info("*** Adding server node\n")
         self.server = self.net.addHost(
@@ -71,22 +90,42 @@ class FlowerTopology:
             info(f"    Added {client_name} with IP {client_ip}\n")
         
         info("*** Creating links\n")
-        # Connect server to switch
-        self.net.addLink(
-            self.server,
-            self.switch,
-            bw=config.BANDWIDTH,
-            delay=config.DELAY
-        )
         
-        # Connect all clients to switch
-        for client in self.clients:
-            self.net.addLink(
-                client,
-                self.switch,
-                bw=config.BANDWIDTH,
-                delay=config.DELAY
-            )
+        # Core to Distribution
+        self.net.addLink(switch1, s1, bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(switch1, s2, bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # Distribution to Intermediate
+        self.net.addLink(s1, s3, bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s1, s4, bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s2, s5, bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s2, s6, bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # Intermediate to Access
+        self.net.addLink(s3, s7, bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s4, s8, bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s5, s9, bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s6, s10, bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # Access to Clients
+        # S7 -> C1, C2
+        self.net.addLink(s7, self.clients[0], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s7, self.clients[1], bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # S8 -> C3, C4
+        self.net.addLink(s8, self.clients[2], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s8, self.clients[3], bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # S9 -> C5, C6
+        self.net.addLink(s9, self.clients[4], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s9, self.clients[5], bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # S10 -> C7, C8
+        self.net.addLink(s10, self.clients[6], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(s10, self.clients[7], bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # Server Connection (to S2)
+        self.net.addLink(self.server, s2, bw=config.BANDWIDTH, delay=config.DELAY)
         
         info("*** Starting network\n")
         self.net.start()
@@ -99,8 +138,8 @@ class FlowerTopology:
         info("\n" + "="*60 + "\n")
         info("Network Topology Information:\n")
         info("="*60 + "\n")
-        info(f"Server: {config.SERVER_NAME} ({config.SERVER_IP})\n")
-        info(f"Switch: {config.SWITCH_NAME}\n")
+        info(f"Server: {config.SERVER_NAME} ({config.SERVER_IP}) -> Connected to S2\n")
+        info(f"Core Switch: Switch1\n")
         info("Clients:\n")
         for name, ip in zip(config.CLIENT_NAMES, config.CLIENT_IPS):
             info(f"  - {name} ({ip})\n")
@@ -279,7 +318,7 @@ class FlowerTopology:
             info(f"SuperLink running on {config.SERVER_IP}:{config.SUPERLINK_PORT}\n")
             info(f"{config.NUM_CLIENTS} SuperNodes connected\n")
             info("\nYou can now:\n")
-            info("1. Run 'flwr run' from the server to start training\n")
+            info(f"1. Run 'server {config.VENV_PATH}/bin/flwr run {config.FLOWER_APP_PATH}' to start training\n")
             info("2. Use Mininet CLI commands (pingall, net, dump, etc.)\n")
             info("3. Check logs in /tmp/flower_mininet_logs/\n")
             info("="*60 + "\n\n")
