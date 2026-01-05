@@ -1,0 +1,170 @@
+{
+    "switches": [
+        {
+            "dpid": "0000000000000001",
+            "name": "Switch1"
+        },
+        {
+            "dpid": "0000000000000001",
+            "name": "s1"
+        },
+        {
+            "dpid": "0000000000000002",
+            "name": "s2"
+        },
+        {
+            "dpid": "0000000000000003",
+            "name": "s3"
+        },
+        {
+            "dpid": "0000000000000004",
+            "name": "s4"
+        },
+        {
+            "dpid": "0000000000000005",
+            "name": "s5"
+        },
+        {
+            "dpid": "0000000000000006",
+            "name": "s6"
+        },
+        {
+            "dpid": "0000000000000007",
+            "name": "s7"
+        },
+        {
+            "dpid": "0000000000000008",
+            "name": "s8"
+        },
+        {
+            "dpid": "0000000000000009",
+            "name": "s9"
+        },
+        {
+            "dpid": "000000000000000a",
+            "name": "s10"
+        }
+    ],
+    "links": [
+        {
+            "src": "nat1",
+            "dst": "Switch1",
+            "src_port": "nat1-eth0",
+            "dst_port": "Switch1-eth1"
+        },
+        {
+            "src": "Switch1",
+            "dst": "s1",
+            "src_port": "Switch1-eth2",
+            "dst_port": "s1-eth1"
+        },
+        {
+            "src": "Switch1",
+            "dst": "s2",
+            "src_port": "Switch1-eth3",
+            "dst_port": "s2-eth1"
+        },
+        {
+            "src": "s1",
+            "dst": "s5",
+            "src_port": "s1-eth2",
+            "dst_port": "s5-eth1"
+        },
+        {
+            "src": "s1",
+            "dst": "s3",
+            "src_port": "s1-eth3",
+            "dst_port": "s3-eth1"
+        },
+        {
+            "src": "s2",
+            "dst": "s6",
+            "src_port": "s2-eth2",
+            "dst_port": "s6-eth1"
+        },
+        {
+            "src": "s2",
+            "dst": "s4",
+            "src_port": "s2-eth3",
+            "dst_port": "s4-eth1"
+        },
+        {
+            "src": "server",
+            "dst": "s2",
+            "src_port": "server-eth0",
+            "dst_port": "s2-eth4"
+        },
+        {
+            "src": "s3",
+            "dst": "s7",
+            "src_port": "s3-eth2",
+            "dst_port": "s7-eth1"
+        },
+        {
+            "src": "s4",
+            "dst": "s8",
+            "src_port": "s4-eth2",
+            "dst_port": "s8-eth1"
+        },
+        {
+            "src": "s5",
+            "dst": "s9",
+            "src_port": "s5-eth2",
+            "dst_port": "s9-eth1"
+        },
+        {
+            "src": "s6",
+            "dst": "s10",
+            "src_port": "s6-eth2",
+            "dst_port": "s10-eth1"
+        },
+        {
+            "src": "s7",
+            "dst": "client1",
+            "src_port": "s7-eth2",
+            "dst_port": "client1-eth0"
+        },
+        {
+            "src": "s7",
+            "dst": "client2",
+            "src_port": "s7-eth3",
+            "dst_port": "client2-eth0"
+        },
+        {
+            "src": "s8",
+            "dst": "client3",
+            "src_port": "s8-eth2",
+            "dst_port": "client3-eth0"
+        },
+        {
+            "src": "s8",
+            "dst": "client4",
+            "src_port": "s8-eth3",
+            "dst_port": "client4-eth0"
+        },
+        {
+            "src": "s9",
+            "dst": "client5",
+            "src_port": "s9-eth2",
+            "dst_port": "client5-eth0"
+        },
+        {
+            "src": "s9",
+            "dst": "client6",
+            "src_port": "s9-eth3",
+            "dst_port": "client6-eth0"
+        },
+        {
+            "src": "s10",
+            "dst": "client7",
+            "src_port": "s10-eth2",
+            "dst_port": "client7-eth0"
+        },
+        {
+            "src": "s10",
+            "dst": "client8",
+            "src_port": "s10-eth3",
+            "dst_port": "client8-eth0"
+        }
+    ]
+}

@@ -9,10 +9,12 @@ import sys
 import time
 import argparse
 from mininet.net import Mininet
-from mininet.node import Controller, OVSSwitch
+from mininet.node import RemoteController, OVSSwitch
 from mininet.cli import CLI
 from mininet.log import setLogLevel, info
 from mininet.link import TCLink
+import json
+import os
 
 # Import configuration
 import mininet_config as config
@@ -47,8 +49,15 @@ class FlowerTopology:
         )
         
         # Add controller explicitly
-        info("*** Adding controller\n")
-        controller = self.net.addController('c0', controller=Controller)
+        # Add remote controller
+        info("*** Adding remote controller\n")
+        # We use RemoteController so Mininet waits for an external controller (Ryu)
+        controller = self.net.addController(
+            'c0',
+            controller=RemoteController,
+            ip='127.0.0.1',
+            port=6633
+        )
         
         info("*** Adding switches (STP enabled)\n")
         # Helper to add switch with STP enabled
@@ -152,6 +161,63 @@ class FlowerTopology:
         
         info("*** Network topology created successfully\n")
         self._print_network_info()
+        
+        # Export topology to JSON for Ryu
+        self.export_topology_json()
+        
+        # Wait for controller connection
+        self.wait_for_controller()
+
+    def export_topology_json(self):
+        """Export topology to JSON file for the controller."""
+        info("*** Exporting topology to topology.json\n")
+        topo_data = {
+            "switches": [],
+            "links": []
+        }
+        
+        # Add switches
+        for s in self.net.switches:
+            topo_data["switches"].append({"dpid": s.dpid, "name": s.name})
+            
+        # Add links
+        for link in self.net.links:
+            node1, node2 = link.intf1.node, link.intf2.node
+            port1, port2 = link.intf1.name, link.intf2.name
+            # Only include switch-to-switch or switch-to-host links
+            topo_data["links"].append({
+                "src": node1.name,
+                "dst": node2.name,
+                "src_port": port1,
+                "dst_port": port2
+            })
+            
+        with open("topology.json", "w") as f:
+            json.dump(topo_data, f, indent=4)
+        info("    Topology exported successfully\n")
+
+    def wait_for_controller(self):
+        """Wait for the controller to connect to all switches."""
+        info("*** Waiting for controller to connect...\n")
+        info("    Please start the Ryu controller now.\n")
+        
+        # Simple wait loop - check if switches are connected
+        # In Mininet, we can check if the switch has an active connection
+        while True:
+            all_connected = True
+            for sw in self.net.switches:
+                if not sw.connected():
+                    all_connected = False
+                    break
+            
+            if all_connected:
+                info("*** Controller connected!\n")
+                break
+            
+            time.sleep(1)
+            sys.stdout.write(".")
+            sys.stdout.flush()
+        print() # Newline
         
     def _print_network_info(self):
         """Print network information."""
