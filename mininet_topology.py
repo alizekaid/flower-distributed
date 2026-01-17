@@ -60,12 +60,14 @@ class FlowerTopology:
         )
         
         info("*** Adding switches (STP enabled)\n")
-        # Helper to add switch with STP enabled
+        # Helper to add switch (Standard mode, STP disabled)
         def add_stp_switch(name):
-            return self.net.addSwitch(name, failMode='standalone', stp=True)
+            # Use default failMode (secure) and disable STP
+            return self.net.addSwitch(name, stp=False)
 
         # Core Layer
-        switch1 = add_stp_switch('Switch1')
+        # Assign explicit DPID to avoid collision with 's1' (both would default to dpid=1)
+        switch1 = self.net.addSwitch('Switch1', dpid='100', stp=False)
         
         # Distribution Layer
         s1 = add_stp_switch('s1')
@@ -371,10 +373,6 @@ class FlowerTopology:
             self.create_topology()
             
             # Test connectivity
-            # Wait for STP to converge
-            info("*** Waiting 30 seconds for STP to converge...\n")
-            time.sleep(30)
-            
             if not self.test_connectivity():
                 info("*** WARNING: Connectivity test had some packet loss (expected with STP).\n")
                 info("*** Continuing with simulation...\n")

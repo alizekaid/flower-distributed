@@ -4,7 +4,7 @@ from torchvision.transforms import ToTensor
 
 def download_cifar10():
     # Use the same path as task.py expects
-    dataset_root = os.getenv("CIFAR10_DATASET_ROOT", "/home/alizekaid/Desktop/Flower_distributed/data/cifar10")
+    dataset_root = os.getenv("CIFAR10_DATASET_ROOT", "/home/alizekaid/Desktop/flower-distributed/data/cifar10")
     
     print(f"Downloading CIFAR-10 dataset to {dataset_root}...")
     

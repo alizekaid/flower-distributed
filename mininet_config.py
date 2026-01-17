@@ -21,8 +21,8 @@ SUPERLINK_PORT = 9092
 NUM_CLIENTS = 8
 
 # Paths
-VENV_PATH = "/home/alizekaid/Desktop/Flower_distributed/flwr-env"
-FLOWER_APP_PATH = "/home/alizekaid/Desktop/Flower_distributed/flower-distributed"
+VENV_PATH = "/home/alizekaid/Desktop/flower-distributed/flwr-env"
+FLOWER_APP_PATH = "/home/alizekaid/Desktop/flower-distributed/flower-distributed"
 PYTHON_BIN = f"{VENV_PATH}/bin/python3"
 FLOWER_SUPERLINK_BIN = f"{VENV_PATH}/bin/flower-superlink"
 FLOWER_SUPERNODE_BIN = f"{VENV_PATH}/bin/flower-supernode"
@@ -41,4 +41,4 @@ CLIENT_LOG_PREFIX = f"{LOG_DIR}/client"
 HF_CACHE_DIR = "/home/alizekaid/.cache/huggingface/datasets"
 
 # Dataset Configuration
-DATASET_ROOT = "/home/alizekaid/Desktop/Flower_distributed/data/cifar10"
+DATASET_ROOT = "/home/alizekaid/Desktop/flower-distributed/data/cifar10"

@@ -2,7 +2,7 @@
 # Copy and paste these commands in the Mininet CLI
 
 # Run federated learning training (3 rounds)
-server bash -c "cd /home/alizekaid/Desktop/Flower_distributed/flower-distributed && export PATH=/home/alizekaid/Desktop/Flower_distributed/flwr-env/bin:\$PATH && flwr run . mininet-deployment --run-config num-server-rounds=3"
+server bash -c "cd /home/alizekaid/Desktop/flower-distributed/flower-distributed && export PATH=/home/alizekaid/Desktop/flower-distributed/flwr-env/bin:\$PATH && flwr run . mininet-deployment --run-config num-server-rounds=3"
 
 # Check server logs
 server cat /tmp/flower_mininet_logs/server.log
