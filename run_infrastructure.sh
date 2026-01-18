@@ -25,6 +25,7 @@ sleep 2
 echo "Starting Ryu Controller..."
 # Use absolute path to ryu-manager in the virtual environment
 /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager flower_controller.py &
+#/home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager traffic_aware_controller.py &
 RYU_PID=$!
 
 # Bring Mininet to foreground so CLI works
