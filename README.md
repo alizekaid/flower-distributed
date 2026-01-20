@@ -42,10 +42,18 @@ python download_dataset.py
 
 ## 4. Running the System
 
-To start the network and the training processes:
-```bash
-sudo bash run_infrastructure.sh
-```
+1.  **Start the infrastructure**:
+    ```bash
+    sudo bash run_infrastructure.sh
+    ```
+    This command starts the Mininet topology and the Ryu controller. After it initializes, you will see the **Mininet CLI** (`mininet>`).
+
+2.  **Start Federated Learning Training**:
+    Inside the `mininet>` prompt, run the following command to begin the 3-round FL process:
+    ```bash
+    server bash -c "cd /home/alizekaid/Desktop/flower-distributed/flower-distributed && export PATH=/home/alizekaid/Desktop/flower-distributed/flwr-env/bin:\$PATH && flwr run . mininet-deployment --run-config num-server-rounds=3"
+    ```
+    *(Note: Ensure the paths in the command above match your project directory if you have moved it.)*
 
 ## 5. Traffic Awareness (Optional)
 
