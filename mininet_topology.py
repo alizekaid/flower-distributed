@@ -18,6 +18,7 @@ import os
 
 # Import configuration
 import mininet_config as config
+from traffic_manager import TrafficManager, add_traffic_commands
 
 
 class FlowerTopology:
@@ -35,6 +36,7 @@ class FlowerTopology:
         self.server = None
         self.clients = []
         self.switch = None
+        self.traffic_manager = None
         
     def create_topology(self):
         """Create the Mininet network topology."""
@@ -160,6 +162,9 @@ class FlowerTopology:
         
         info("*** Starting network\n")
         self.net.start()
+        
+        # Initialize Traffic Manager
+        self.traffic_manager = TrafficManager(self.net)
         
         info("*** Network topology created successfully\n")
         self._print_network_info()
@@ -413,6 +418,9 @@ class FlowerTopology:
             info("2. Use Mininet CLI commands (pingall, net, dump, etc.)\n")
             info("3. Check logs in /tmp/flower_mininet_logs/\n")
             info("="*60 + "\n\n")
+            
+            # Add traffic commands to CLI
+            add_traffic_commands(CLI, self.traffic_manager)
             
             # Enter CLI for monitoring
             CLI(self.net)

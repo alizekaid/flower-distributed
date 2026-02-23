@@ -68,6 +68,25 @@ By default, the system uses a standard L2 controller. However, you can enable th
 ### Why use it?
 The advanced controller monitors network traffic and uses **Dijkstra's Algorithm** to route Flower training packets through paths with the lowest latency and congestion, reducing packet loss during Federated Learning rounds.
 
+## 6. Virtual Traffic Control (New Feature)
+
+You can now generate background traffic to test how the system performs under stress.
+
+### How to use:
+In the `mininet>` CLI, use the `traffic` command:
+
+*   **Congestion Scenario**: `traffic congested 50M` (creates high traffic across core switches).
+*   **Bottleneck Scenario**: `traffic bottleneck 20M` (multiple clients flood the server).
+*   **Random Noise**: `traffic random` (low-bandwidth bursts between random nodes).
+*   **Stop All Traffic**: `traffic stop` (immediately kills all background traffic).
+
+### Testing Strategy:
+1. Enable the **Traffic-Aware Controller** (Section 5).
+2. Start the infrastructure.
+3. In the Mininet CLI, run `traffic congested 40M`.
+4. Observe the controller logs; it will detect the congestion and reroute FL traffic.
+5. Run your Flower training rounds and compare performance.
+
 ## 6. Monitoring Progress (How to see the logs)
 
 Since the system runs in the background, you won't see training progress in the main terminal. Open **two new terminals** and run these commands to watch what's happening:
