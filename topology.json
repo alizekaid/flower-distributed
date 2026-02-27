@@ -47,21 +47,15 @@
     ],
     "links": [
         {
-            "src": "nat1",
-            "dst": "Switch1",
-            "src_port": "nat1-eth0",
-            "dst_port": "Switch1-eth1"
-        },
-        {
             "src": "Switch1",
             "dst": "s1",
-            "src_port": "Switch1-eth2",
+            "src_port": "Switch1-eth1",
             "dst_port": "s1-eth1"
         },
         {
             "src": "Switch1",
             "dst": "s2",
-            "src_port": "Switch1-eth3",
+            "src_port": "Switch1-eth2",
             "dst_port": "s2-eth1"
         },
         {
@@ -165,6 +159,71 @@
             "dst": "client8",
             "src_port": "s10-eth3",
             "dst_port": "client8-eth0"
+        }
+    ],
+    "hosts": [
+        {
+            "name": "server",
+            "mac": "00:00:00:00:00:01",
+            "ip": "10.0.0.1",
+            "switch": "s2",
+            "port": 4
+        },
+        {
+            "name": "client1",
+            "mac": "00:00:00:00:00:02",
+            "ip": "10.0.0.2",
+            "switch": "s7",
+            "port": 2
+        },
+        {
+            "name": "client2",
+            "mac": "00:00:00:00:00:03",
+            "ip": "10.0.0.3",
+            "switch": "s7",
+            "port": 3
+        },
+        {
+            "name": "client3",
+            "mac": "00:00:00:00:00:04",
+            "ip": "10.0.0.4",
+            "switch": "s8",
+            "port": 2
+        },
+        {
+            "name": "client4",
+            "mac": "00:00:00:00:00:05",
+            "ip": "10.0.0.5",
+            "switch": "s8",
+            "port": 3
+        },
+        {
+            "name": "client5",
+            "mac": "00:00:00:00:00:06",
+            "ip": "10.0.0.6",
+            "switch": "s9",
+            "port": 2
+        },
+        {
+            "name": "client6",
+            "mac": "00:00:00:00:00:07",
+            "ip": "10.0.0.7",
+            "switch": "s9",
+            "port": 3
+        },
+        {
+            "name": "client7",
+            "mac": "00:00:00:00:00:08",
+            "ip": "10.0.0.8",
+            "switch": "s10",
+            "port": 2
+        },
+        {
+            "name": "client8",
+            "mac": "00:00:00:00:00:09",
+            "ip": "10.0.0.9",
+            "switch": "s10",
+            "port": 3
         }
     ]
 }

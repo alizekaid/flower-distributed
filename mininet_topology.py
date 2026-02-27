@@ -95,9 +95,6 @@ class FlowerTopology:
             ip=f"{config.SERVER_IP}/24"
         )
         
-        info("*** Adding NAT node\n")
-        # Add NAT connected to Switch1
-        nat = self.net.addNAT(name='nat1', linkTo=switch1)
         
         info("*** Adding client nodes\n")
         for i, (client_name, client_ip) in enumerate(
@@ -116,7 +113,6 @@ class FlowerTopology:
         # Switch1 connected to s1 and s2
         self.net.addLink(switch1, s1, bw=config.BANDWIDTH, delay=config.DELAY)
         self.net.addLink(switch1, s2, bw=config.BANDWIDTH, delay=config.DELAY)
-        # NAT is already linked via addNAT(linkTo=switch1)
         
         # Distribution Connections
         # s1 is connected to s5 and s3
@@ -180,7 +176,8 @@ class FlowerTopology:
         info("*** Exporting topology to topology.json\n")
         topo_data = {
             "switches": [],
-            "links": []
+            "links": [],
+            "hosts": []
         }
         
         # Add switches
@@ -197,6 +194,36 @@ class FlowerTopology:
                 "dst": node2.name,
                 "src_port": port1,
                 "dst_port": port2
+            })
+            
+        # Add hosts
+        for h in self.net.hosts:
+            # Find the switch and port this host is connected to
+            # In Mininet, we can check the interfaces
+            switch_name = None
+            port_id = None
+            for intf in h.intfList():
+                link = intf.link
+                if link:
+                    node1, node2 = link.intf1.node, link.intf2.node
+                    if node1 == h:
+                        other = node2
+                        other_intf = link.intf2
+                    else:
+                        other = node1
+                        other_intf = link.intf1
+                    
+                    if isinstance(other, OVSSwitch):
+                        switch_name = other.name
+                        # Get port number from the switch interface
+                        port_id = other.ports[other_intf]
+            
+            topo_data["hosts"].append({
+                "name": h.name,
+                "mac": h.MAC(),
+                "ip": h.IP(),
+                "switch": switch_name,
+                "port": port_id
             })
             
         with open("topology.json", "w") as f:
@@ -233,7 +260,6 @@ class FlowerTopology:
         info("="*60 + "\n")
         info(f"Server: {config.SERVER_NAME} ({config.SERVER_IP}) -> Connected to S2\n")
         info(f"Core Switch: Switch1 (STP Enabled)\n")
-        info(f"NAT: nat1 -> Connected to Switch1\n")
         info("Clients:\n")
         for name, ip in zip(config.CLIENT_NAMES, config.CLIENT_IPS):
             info(f"  - {name} ({ip})\n")

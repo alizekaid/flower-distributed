@@ -6,8 +6,7 @@ from ryu.ofproto import ofproto_v1_3
 from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
-import json
-import os
+from network_managers import NetworkManager
 
 class FlowerController(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
@@ -15,19 +14,29 @@ class FlowerController(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(FlowerController, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
+        self.datapaths = {} # dpid -> datapath object
         self.topology_file = "topology.json"
-        self.load_topology()
+        
+        # Initialize the new Network Manager
+        self.logger.info("Initializing Network Manager...")
+        self.network_manager = NetworkManager(self.topology_file)
+        self._print_manager_info()
+
+    def _print_manager_info(self):
+        """Log some info from the managers to verify they are working."""
+        hosts = self.network_manager.host_manager.HostDict
+        self.logger.info("-" * 40)
+        self.logger.info("NETWORK MANAGERS INITIALIZED")
+        self.logger.info("Number of Hosts: %d", len(hosts))
+        self.logger.info("Number of Switches: %d", len(self.network_manager.switch_manager.SwitchDict) // 2)
+        
+        paths = self.network_manager.get_all_possible_paths()
+        self.logger.info("Total switch-to-switch paths calculated: %d", len(paths))
+        self.logger.info("-" * 40)
 
     def load_topology(self):
-        """Load topology from JSON file."""
-        if os.path.exists(self.topology_file):
-            with open(self.topology_file, 'r') as f:
-                self.topo_data = json.load(f)
-            self.logger.info("Loaded topology from %s", self.topology_file)
-            # You can process the topology data here to build a graph
-            # self.build_graph(self.topo_data)
-        else:
-            self.logger.warning("Topology file %s not found. Waiting for discovery...", self.topology_file)
+        """Deprecated: NetworkManager handles this now."""
+        pass
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
@@ -35,18 +44,75 @@ class FlowerController(app_manager.RyuApp):
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
 
+        # Store datapath
+        self.datapaths[datapath.id] = datapath
+
         # Install table-miss flow entry
-        #
-        # We specify NO BUFFER to max_len of the output action due to
-        # OVS bug. At this moment, if we specify a lesser number, e.g.,
-        # 128, OVS will send Packet-In with invalid buffer_id and
-        # truncated packet data. In that case, we cannot output packets
-        # correctly.  The bug has been fixed in OVS v2.1.0.
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
         self.add_flow(datapath, 0, match, actions)
-        self.logger.info("Switch connected: %s", datapath.id)
+        self.logger.info("Switch connected: %d", datapath.id)
+
+        # Trigger proactive installation after a short delay to ensure all switches connect
+        from threading import Timer
+        Timer(5.0, self._install_proactive_flows).start()
+
+    def _install_proactive_flows(self):
+        """Pre-install flows for all server-client pairs."""
+        # Wait until we have enough switches connected (optional safety check)
+        num_switches = len(self.network_manager.switch_manager.SwitchDict) // 2
+        if len(self.datapaths) < num_switches:
+            self.logger.info("Waiting for more switches... (%d/%d)", len(self.datapaths), num_switches)
+            from threading import Timer
+            Timer(5.0, self._install_proactive_flows).start()
+            return
+
+        self.logger.info("Starting Proactive Flow Installation...")
+        
+        hosts = self.network_manager.host_manager.HostDict
+        server = None
+        clients = []
+
+        for host in hosts.values():
+            if "server" in host.name:
+                server = host
+            elif "client" in host.name:
+                clients.append(host)
+
+        if not server:
+            self.logger.warning("No server found in topology for proactive installation.")
+            return
+
+        for client in clients:
+            self.logger.info("Installing path: %s <-> %s", server.name, client.name)
+            # Server to Client
+            self._install_path(server.mac, client.mac)
+            # Client to Server
+            self._install_path(client.mac, server.mac)
+
+        self.logger.info("Proactive Flow Installation Complete.")
+
+    def _install_path(self, src_mac, dst_mac):
+        path = self.network_manager.get_path_with_ports(src_mac, dst_mac)
+        if not path:
+            return
+
+        for hop in path:
+            dpid = hop['dpid']
+            datapath = self._get_datapath(dpid)
+            if not datapath: continue
+
+            parser = datapath.ofproto_parser
+            match = parser.OFPMatch(eth_src=src_mac, eth_dst=dst_mac)
+            actions = [parser.OFPActionOutput(hop['out_port'])]
+            
+            # Priority 10 for proactive flows
+            self.add_flow(datapath, 10, match, actions)
+
+    def _get_datapath(self, dpid):
+        """Helper to find datapath object by DPID."""
+        return self.datapaths.get(dpid)
 
     def add_flow(self, datapath, priority, match, actions, buffer_id=None):
         ofproto = datapath.ofproto

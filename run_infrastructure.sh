@@ -6,9 +6,12 @@ set -m
 # Clean up previous runs
 sudo mn -c
 
+# Set PYTHONPATH to include project root
+export PYTHONPATH=$PYTHONPATH:$(pwd)
+
 # Start Mininet in the background
 echo "Starting Mininet Topology..."
-sudo python3 mininet_topology.py &
+sudo PYTHONPATH=$PYTHONPATH python3 mininet_topology.py &
 MININET_PID=$!
 
 # Wait for Mininet to create the topology file
@@ -24,8 +27,8 @@ sleep 2
 # Start Ryu Controller
 echo "Starting Ryu Controller..."
 # Use absolute path to ryu-manager in the virtual environment
-/home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager flower_controller.py &
-#/home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager traffic_aware_controller.py &
+PYTHONPATH=$PYTHONPATH /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager flower_controller.py &
+#PYTHONPATH=$PYTHONPATH /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager traffic_aware_controller.py &
 RYU_PID=$!
 
 # Bring Mininet to foreground so CLI works
