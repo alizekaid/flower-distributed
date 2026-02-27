@@ -156,23 +156,19 @@ class NetworkManager:
             return self.all_paths.get_paths()
         return {}
 
-    def get_path_with_ports(self, src_mac, dst_mac):
-        """
-        Returns a proactive path structure:
-        [ {'dpid': dpid, 'in_port': p1, 'out_port': p2}, ... ]
-        """
-        src_host = self.host_manager.get_host(src_mac)
-        dst_host = self.host_manager.get_host(dst_mac)
-
-        if not src_host or not dst_host:
-            return None
-
-        # Shortest path between the switches the hosts are connected to
+    def _parse_port(self, p):
+        """Convert port strings (e.g. 's1-eth1') to integers."""
+        if isinstance(p, int):
+            return p
         try:
-            sw_path = nx.shortest_path(self.graph, source=src_host.switch_id, target=dst_host.switch_id)
-        except nx.NetworkXNoPath:
-            return None
+            return int(str(p).split('eth')[-1])
+        except (ValueError, IndexError):
+            return p
 
+    def _build_path_structure(self, sw_path, src_port_str=None, dst_port_str=None):
+        """
+        Internal helper to convert a list of switch names into a path structure with ports.
+        """
         path_with_ports = []
 
         for i, sw_name in enumerate(sw_path):
@@ -183,8 +179,8 @@ class NetworkManager:
             
             # Determine in_port
             if i == 0:
-                # First switch: in_port is the host's port
-                in_port_str = src_host.switch_port
+                # First switch: in_port is the host's port or None (if switch-to-switch only)
+                in_port_str = src_port_str
             else:
                 # Middle/Last switch: in_port comes from the link with previous switch
                 prev_sw = sw_path[i-1]
@@ -193,31 +189,59 @@ class NetworkManager:
 
             # Determine out_port
             if i == len(sw_path) - 1:
-                # Last switch: out_port is the host's port
-                out_port_str = dst_host.switch_port
+                # Last switch: out_port is the host's port or None
+                out_port_str = dst_port_str
             else:
                 # First/Middle switch: out_port comes from the link with next switch
                 next_sw = sw_path[i+1]
                 edge_data = self.graph.get_edge_data(sw_name, next_sw)
                 out_port_str = edge_data['ports'][sw_name]
 
-            # Convert port strings (e.g. "s1-eth1") to integers
-            # Mininet format: name-ethN -> N
-            def parse_port(p):
-                if isinstance(p, int):
-                    return p
-                try:
-                    return int(str(p).split('eth')[-1])
-                except (ValueError, IndexError):
-                    return p
-
-            in_port = parse_port(in_port_str)
-            out_port = parse_port(out_port_str)
+            in_port = self._parse_port(in_port_str)
+            out_port = self._parse_port(out_port_str)
 
             path_with_ports.append({
+                'name': sw_name,
                 'dpid': dpid_int,
                 'in_port': in_port,
                 'out_port': out_port
             })
 
         return path_with_ports
+
+    def get_path_with_ports(self, src_mac, dst_mac):
+        """
+        Returns the SHORTEST proactive path structure:
+        [ {'dpid': dpid, 'in_port': p1, 'out_port': p2}, ... ]
+        """
+        src_host = self.host_manager.get_host(src_mac)
+        dst_host = self.host_manager.get_host(dst_mac)
+
+        if not src_host or not dst_host:
+            return None
+
+        try:
+            sw_path = nx.shortest_path(self.graph, source=src_host.switch_id, target=dst_host.switch_id)
+        except nx.NetworkXNoPath:
+            return None
+
+        return self._build_path_structure(sw_path, src_host.switch_port, dst_host.switch_port)
+
+    def get_all_paths_between_switches(self, src_sw_name, dst_sw_name):
+        """
+        Finds ALL simple paths between two switch names and returns them with ports.
+        Returns: [ [path1_hops], [path2_hops], ... ]
+        """
+        if src_sw_name not in self.graph or dst_sw_name not in self.graph:
+            return []
+
+        try:
+            all_sw_paths = list(nx.all_simple_paths(self.graph, source=src_sw_name, target=dst_sw_name))
+        except nx.NetworkXError:
+            return []
+
+        all_paths_structured = []
+        for sw_path in all_sw_paths:
+            all_paths_structured.append(self._build_path_structure(sw_path))
+        
+        return all_paths_structured

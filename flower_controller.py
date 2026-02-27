@@ -18,20 +18,56 @@ class FlowerController(app_manager.RyuApp):
         self.topology_file = "topology.json"
         
         # Initialize the new Network Manager
+        # Add file logging for verification
+        import logging
+        fh = logging.FileHandler('controller_startup.log', mode='w')
+        fh.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+        self.logger.addHandler(fh)
+
         self.logger.info("Initializing Network Manager...")
         self.network_manager = NetworkManager(self.topology_file)
         self._print_manager_info()
 
     def _print_manager_info(self):
-        """Log some info from the managers to verify they are working."""
+        """Log the discovery of all paths between all switch pairs."""
         hosts = self.network_manager.host_manager.HostDict
         self.logger.info("-" * 40)
         self.logger.info("NETWORK MANAGERS INITIALIZED")
         self.logger.info("Number of Hosts: %d", len(hosts))
-        self.logger.info("Number of Switches: %d", len(self.network_manager.switch_manager.SwitchDict) // 2)
         
-        paths = self.network_manager.get_all_possible_paths()
-        self.logger.info("Total switch-to-switch paths calculated: %d", len(paths))
+        switches = list(set(self.network_manager.switch_manager.SwitchDict.values()))
+        sw_names = sorted([sw.name for sw in switches])
+        self.logger.info("Number of Switches: %d", len(sw_names))
+        self.logger.info("-" * 40)
+
+        self.logger.info("MULTI-PATH DISCOVERY REPORT:")
+        
+        # Track pairs to avoid double-logging (A->B and B->A)
+        processed_pairs = set()
+
+        for s1_name in sw_names:
+            for s2_name in sw_names:
+                if s1_name == s2_name: continue
+                
+                # Sort names to create a unique key for the pair
+                pair = tuple(sorted([s1_name, s2_name]))
+                if pair in processed_pairs: continue
+                processed_pairs.add(pair)
+
+                paths = self.network_manager.get_all_paths_between_switches(s1_name, s2_name)
+                self.logger.info("  %s <-> %s : %d path(s) found", s1_name, s2_name, len(paths))
+                for idx, path in enumerate(paths):
+                    # Format as s1(p1) -> s2(p2) -> ...
+                    hops = []
+                    for hop in path:
+                        name = hop.get('name', f"dpid:{hop['dpid']}")
+                        out_port = hop.get('out_port')
+                        if out_port is not None:
+                            hops.append(f"{name}(port {out_port})")
+                        else:
+                            hops.append(f"{name}")
+                    self.logger.info("    Path %d: %s", idx + 1, " -> ".join(hops))
+        
         self.logger.info("-" * 40)
 
     def load_topology(self):
@@ -59,8 +95,7 @@ class FlowerController(app_manager.RyuApp):
         Timer(5.0, self._install_proactive_flows).start()
 
     def _install_proactive_flows(self):
-        """Pre-install flows for all server-client pairs."""
-        # Wait until we have enough switches connected (optional safety check)
+        """Pre-install flows for all host-to-host pairs and broadcast traffic."""
         num_switches = len(self.network_manager.switch_manager.SwitchDict) // 2
         if len(self.datapaths) < num_switches:
             self.logger.info("Waiting for more switches... (%d/%d)", len(self.datapaths), num_switches)
@@ -68,30 +103,46 @@ class FlowerController(app_manager.RyuApp):
             Timer(5.0, self._install_proactive_flows).start()
             return
 
-        self.logger.info("Starting Proactive Flow Installation...")
+        self.logger.info("Starting Full Proactive Flow Installation...")
         
-        hosts = self.network_manager.host_manager.HostDict
-        server = None
-        clients = []
+        hosts = list(self.network_manager.host_manager.HostDict.values())
+        
+        # 1. All-to-All Unicast paths
+        for i in range(len(hosts)):
+            for j in range(len(hosts)):
+                if i == j: continue
+                src = hosts[i]
+                dst = hosts[j]
+                self.logger.debug("Installing path: %s -> %s", src.name, dst.name)
+                self._install_path(src.mac, dst.mac)
 
-        for host in hosts.values():
-            if "server" in host.name:
-                server = host
-            elif "client" in host.name:
-                clients.append(host)
+        # 2. Broadcast and Multicast handling
+        self._install_broadcast_rules()
 
-        if not server:
-            self.logger.warning("No server found in topology for proactive installation.")
-            return
+        self.logger.info("Full Proactive Flow Installation Complete.")
 
-        for client in clients:
-            self.logger.info("Installing path: %s <-> %s", server.name, client.name)
-            # Server to Client
-            self._install_path(server.mac, client.mac)
-            # Client to Server
-            self._install_path(client.mac, server.mac)
+    def _install_broadcast_rules(self):
+        """Install rules for ARP (Broadcast) and Discovery (Multicast) traffic."""
+        # Common broadcast/multicast MACs
+        broadcast_macs = [
+            "ff:ff:ff:ff:ff:ff",  # ARP
+            "33:33:00:00:00:02", # IPv6 Router Discovery
+            "33:33:00:00:00:fb"  # mDNS
+        ]
 
-        self.logger.info("Proactive Flow Installation Complete.")
+        for datapath in self.datapaths.values():
+            ofproto = datapath.ofproto
+            parser = datapath.ofproto_parser
+            
+            for mac in broadcast_macs:
+                match = parser.OFPMatch(eth_dst=mac)
+                # For simplicity, we use FLOOD. 
+                # Note: In a looped topology, this would require a spanning tree.
+                # Since topology.json may have loops, we use OFPP_FLOOD as a basic mechanism.
+                actions = [parser.OFPActionOutput(ofproto.OFPP_FLOOD)]
+                self.add_flow(datapath, 5, match, actions)
+            
+            self.logger.info("Broadcast rules installed on switch %d", datapath.id)
 
     def _install_path(self, src_mac, dst_mac):
         path = self.network_manager.get_path_with_ports(src_mac, dst_mac)
@@ -131,55 +182,19 @@ class FlowerController(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_handler(self, ev):
-        # If you hit this point, it means the switch doesn't know what to do
-        # and sent the packet to the controller.
-        # For a proactive controller (infrastructure), you might want to 
-        # install flows beforehand based on the loaded topology.
-        
-        # For now, this is a simple learning switch implementation as a fallback
+        """
+        Handle packets that didn't match any proactive flow.
+        Now that we are 100% proactive, this should only happen for 
+        extremely rare or unwanted traffic.
+        """
         msg = ev.msg
         datapath = msg.datapath
-        ofproto = datapath.ofproto
-        parser = datapath.ofproto_parser
         in_port = msg.match['in_port']
-
         pkt = packet.Packet(msg.data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
 
         if eth.ethertype == ether_types.ETH_TYPE_LLDP:
-            # ignore lldp packet
             return
-        
-        dst = eth.dst
-        src = eth.src
 
-        dpid = datapath.id
-        self.mac_to_port.setdefault(dpid, {})
-
-        # learn a mac address to avoid FLOOD next time.
-        self.mac_to_port[dpid][src] = in_port
-
-        if dst in self.mac_to_port[dpid]:
-            out_port = self.mac_to_port[dpid][dst]
-        else:
-            out_port = ofproto.OFPP_FLOOD
-
-        actions = [parser.OFPActionOutput(out_port)]
-
-        # install a flow to avoid packet_in next time
-        if out_port != ofproto.OFPP_FLOOD:
-            match = parser.OFPMatch(in_port=in_port, eth_dst=dst, eth_src=src)
-            # verify if we have a valid buffer_id, if yes avoid to send both
-            # flow_mod & packet_out
-            if msg.buffer_id != ofproto.OFP_NO_BUFFER:
-                self.add_flow(datapath, 1, match, actions, msg.buffer_id)
-                return
-            else:
-                self.add_flow(datapath, 1, match, actions)
-        data = None
-        if msg.buffer_id == ofproto.OFP_NO_BUFFER:
-            data = msg.data
-
-        out = parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id,
-                                  in_port=in_port, actions=actions, data=data)
-        datapath.send_msg(out)
+        self.logger.info("UNMATCHED PACKET: src=%s dst=%s in_port=%d dpid=%d",
+                         eth.src, eth.dst, in_port, datapath.id)
