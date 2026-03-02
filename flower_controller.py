@@ -16,6 +16,7 @@ class FlowerController(app_manager.RyuApp):
         self.mac_to_port = {}
         self.datapaths = {} # dpid -> datapath object
         self.topology_file = "topology.json"
+        self.proactive_installed = False # Flag to ensure single run
         
         # Initialize the new Network Manager
         # Add file logging for verification
@@ -55,8 +56,23 @@ class FlowerController(app_manager.RyuApp):
                 processed_pairs.add(pair)
 
                 paths = self.network_manager.get_all_paths_between_switches(s1_name, s2_name)
+                # Sort paths by hop count to easily identify shortest/longest
+                paths.sort(key=len)
+                
                 self.logger.info("  %s <-> %s : %d path(s) found", s1_name, s2_name, len(paths))
                 for idx, path in enumerate(paths):
+                    # Determine labels
+                    labels = []
+                    if idx == 0:
+                        labels.append("SHORTEST")
+                    if idx == len(paths) - 1 and len(paths) > 1:
+                        labels.append("LONGEST")
+                    if idx == len(paths) // 2 and len(paths) > 2:
+                        # Only label median if we have at least 3 distinct paths
+                        labels.append("MEDIAN")
+                    
+                    label_str = f" ({', '.join(labels)})" if labels else ""
+                    
                     # Format as s1(p1) -> s2(p2) -> ...
                     hops = []
                     for hop in path:
@@ -66,7 +82,7 @@ class FlowerController(app_manager.RyuApp):
                             hops.append(f"{name}(port {out_port})")
                         else:
                             hops.append(f"{name}")
-                    self.logger.info("    Path %d: %s", idx + 1, " -> ".join(hops))
+                    self.logger.info("    Path %d%s: %s", idx + 1, label_str, " -> ".join(hops))
         
         self.logger.info("-" * 40)
 
@@ -96,6 +112,10 @@ class FlowerController(app_manager.RyuApp):
 
     def _install_proactive_flows(self):
         """Pre-install flows for all host-to-host pairs and broadcast traffic."""
+        # Check if already installed or installation is underway
+        if self.proactive_installed:
+            return
+        
         num_switches = len(self.network_manager.switch_manager.SwitchDict) // 2
         if len(self.datapaths) < num_switches:
             self.logger.info("Waiting for more switches... (%d/%d)", len(self.datapaths), num_switches)
@@ -103,6 +123,7 @@ class FlowerController(app_manager.RyuApp):
             Timer(5.0, self._install_proactive_flows).start()
             return
 
+        self.proactive_installed = True # Mark as started
         self.logger.info("Starting Full Proactive Flow Installation...")
         
         hosts = list(self.network_manager.host_manager.HostDict.values())
