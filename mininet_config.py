@@ -6,19 +6,17 @@ Contains network topology parameters, paths, and FL settings.
 # Network Configuration
 SERVER_IP = "10.0.0.1"
 CLIENT_IPS = [
-    "10.0.0.2", "10.0.0.3", "10.0.0.4", "10.0.0.5",
-    "10.0.0.6", "10.0.0.7", "10.0.0.8", "10.0.0.9"
+    "10.0.0.2", "10.0.0.3"
 ]
-SWITCH_NAME = "s1" # Base name, topology will use specific names
-SERVER_NAME = "server"
+SWITCH_NAME = "s1"
+SERVER_NAME = "h1"
 CLIENT_NAMES = [
-    "client1", "client2", "client3", "client4",
-    "client5", "client6", "client7", "client8"
+    "h2", "h3"
 ]
 
 # Flower Configuration
 SUPERLINK_PORT = 9092
-NUM_CLIENTS = 8
+NUM_CLIENTS = 2
 
 # Paths
 VENV_PATH = "./flwr-env"

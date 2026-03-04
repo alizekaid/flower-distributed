@@ -16,7 +16,7 @@ MININET_PID=$!
 
 # Wait for Mininet to create the topology file
 echo "Waiting for Mininet to initialize and export topology..."
-while [ ! -f topology.json ]; do
+while [ ! -f topology.json ]; do #|| [ ! -s topology.json ]; do
     sleep 1
 done
 echo "Topology file found!"
@@ -27,7 +27,7 @@ sleep 2
 # Start Ryu Controller
 echo "Starting Ryu Controller..."
 # Use absolute path to ryu-manager in the virtual environment
-PYTHONPATH=$PYTHONPATH /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager flower_controller.py &
+#PYTHONPATH=$PYTHONPATH /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager flower_controller.py &
 #PYTHONPATH=$PYTHONPATH /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager traffic_aware_controller.py &
 RYU_PID=$!
 

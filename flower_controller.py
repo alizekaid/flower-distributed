@@ -86,9 +86,6 @@ class FlowerController(app_manager.RyuApp):
         
         self.logger.info("-" * 40)
 
-    def load_topology(self):
-        """Deprecated: NetworkManager handles this now."""
-        pass
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
@@ -99,71 +96,19 @@ class FlowerController(app_manager.RyuApp):
         # Store datapath
         self.datapaths[datapath.id] = datapath
 
+        # If we have no topology info, try to reload it (sync with Mininet)
+        if len(self.network_manager.switch_manager.SwitchDict) == 0:
+            self.logger.info("Switch connected but no topology map found. Checking topology.json...")
+            if self.network_manager.reload_topology():
+                self.logger.info("Topology loaded successfully.")
+                self._print_manager_info()
+
         # Install table-miss flow entry
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
         self.add_flow(datapath, 0, match, actions)
         self.logger.info("Switch connected: %d", datapath.id)
-
-        # Trigger proactive installation after a short delay to ensure all switches connect
-        from threading import Timer
-        Timer(5.0, self._install_proactive_flows).start()
-
-    def _install_proactive_flows(self):
-        """Pre-install flows for all host-to-host pairs and broadcast traffic."""
-        # Check if already installed or installation is underway
-        if self.proactive_installed:
-            return
-        
-        num_switches = len(self.network_manager.switch_manager.SwitchDict) // 2
-        if len(self.datapaths) < num_switches:
-            self.logger.info("Waiting for more switches... (%d/%d)", len(self.datapaths), num_switches)
-            from threading import Timer
-            Timer(5.0, self._install_proactive_flows).start()
-            return
-
-        self.proactive_installed = True # Mark as started
-        self.logger.info("Starting Full Proactive Flow Installation...")
-        
-        hosts = list(self.network_manager.host_manager.HostDict.values())
-        
-        # 1. All-to-All Unicast paths
-        for i in range(len(hosts)):
-            for j in range(len(hosts)):
-                if i == j: continue
-                src = hosts[i]
-                dst = hosts[j]
-                self.logger.debug("Installing path: %s -> %s", src.name, dst.name)
-                self._install_path(src.mac, dst.mac)
-
-        # 2. Broadcast and Multicast handling
-        self._install_broadcast_rules()
-
-        self.logger.info("Full Proactive Flow Installation Complete.")
-
-    def _install_broadcast_rules(self):
-        """Install rules for ARP (Broadcast) and Discovery (Multicast) traffic."""
-        # Common broadcast/multicast MACs
-        broadcast_macs = [
-            "ff:ff:ff:ff:ff:ff",  # ARP
-            "33:33:00:00:00:02", # IPv6 Router Discovery
-            "33:33:00:00:00:fb"  # mDNS
-        ]
-
-        for datapath in self.datapaths.values():
-            ofproto = datapath.ofproto
-            parser = datapath.ofproto_parser
-            
-            for mac in broadcast_macs:
-                match = parser.OFPMatch(eth_dst=mac)
-                # For simplicity, we use FLOOD. 
-                # Note: In a looped topology, this would require a spanning tree.
-                # Since topology.json may have loops, we use OFPP_FLOOD as a basic mechanism.
-                actions = [parser.OFPActionOutput(ofproto.OFPP_FLOOD)]
-                self.add_flow(datapath, 5, match, actions)
-            
-            self.logger.info("Broadcast rules installed on switch %d", datapath.id)
 
     def _install_path(self, src_mac, dst_mac):
         path = self.network_manager.get_path_with_ports(src_mac, dst_mac)
@@ -203,13 +148,10 @@ class FlowerController(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_handler(self, ev):
-        """
-        Handle packets that didn't match any proactive flow.
-        Now that we are 100% proactive, this should only happen for 
-        extremely rare or unwanted traffic.
-        """
         msg = ev.msg
         datapath = msg.datapath
+        ofproto = datapath.ofproto
+        parser = datapath.ofproto_parser
         in_port = msg.match['in_port']
         pkt = packet.Packet(msg.data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
@@ -217,5 +159,67 @@ class FlowerController(app_manager.RyuApp):
         if eth.ethertype == ether_types.ETH_TYPE_LLDP:
             return
 
-        self.logger.info("UNMATCHED PACKET: src=%s dst=%s in_port=%d dpid=%d",
-                         eth.src, eth.dst, in_port, datapath.id)
+        dst = eth.dst
+        src = eth.src
+        dpid = datapath.id
+
+        self.logger.debug("PacketIn: dpid=%d src=%s dst=%s in_port=%d", dpid, src, dst, in_port)
+
+        # 1. Host Learning (Self-Healing)
+        # If the switch is known but the host isn't, or if the host moved, update the manager
+        sw_name = self.network_manager.switch_manager.SwitchDict.get(dpid, None)
+        if sw_name:
+            host_obj = self.network_manager.host_manager.get_host(src)
+            # Simple learning: if host unknown or port/switch changed
+            if not host_obj or host_obj.switch_id != sw_name.name or host_obj.switch_port != in_port:
+                from network_managers import Host
+                self.logger.info("  Learning/Updating host: %s at %s port %d", src, sw_name.name, in_port)
+                self.network_manager.host_manager.add_host(Host(
+                    name=f"learned-{src}", mac=src, ip=None,
+                    switch_id=sw_name.name, switch_port=in_port
+                ))
+                # Add host port to switch record
+                sw_name.add_host_port(in_port, f"learned-{src}")
+                # We don't necessarily need to reload topology, but we could re-run path discovery if needed
+                # For now, host ports are added to switch objects dynamically
+
+        # 2. Handle Broadcast / Multicast / Unknown Unicast
+        is_broadcast = dst.startswith("ff:ff:ff") or dst.startswith("33:33:00") or dst.startswith("01:00:5e")
+        
+        path = None
+        if not is_broadcast:
+            path = self.network_manager.get_path_with_ports(src, dst)
+
+        if is_broadcast or not path:
+            if is_broadcast:
+                self.logger.debug("  Dropping broadcast/multicast packet (fallback disabled)")
+            else:
+                self.logger.warning("  No path found for %s -> %s and fallback is disabled. Dropping.", src, dst)
+            return
+
+        # 3. Handle Unicast with known path
+        self.logger.info("  Path found for %s -> %s: %s", src, dst, path)
+        
+        # Install flows on ALL switches in the path (Reactive-Proactive)
+        for hop in path:
+            sw_dpid = hop['dpid']
+            sw_dp = self._get_datapath(sw_dpid)
+            if sw_dp:
+                sw_parser = sw_dp.ofproto_parser
+                match = sw_parser.OFPMatch(eth_src=src, eth_dst=dst)
+                actions = [sw_parser.OFPActionOutput(hop['out_port'])]
+                self.add_flow(sw_dp, 10, match, actions)
+        
+        # Send current packet out from the correct port on the current switch
+        out_port = None
+        for hop in path:
+            if hop['dpid'] == dpid:
+                out_port = hop['out_port']
+                break
+        
+        if out_port:
+            actions = [parser.OFPActionOutput(out_port)]
+            out = parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id,
+                                    in_port=in_port, actions=actions, data=msg.data)
+            datapath.send_msg(out)
+        

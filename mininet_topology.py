@@ -9,7 +9,7 @@ import sys
 import time
 import argparse
 from mininet.net import Mininet
-from mininet.node import RemoteController, OVSSwitch
+from mininet.node import RemoteController, OVSSwitch, OVSKernelSwitch
 from mininet.cli import CLI
 from mininet.log import setLogLevel, info
 from mininet.link import TCLink
@@ -44,126 +44,66 @@ class FlowerTopology:
         
         # Create network with custom link parameters
         self.net = Mininet(
-            switch=OVSSwitch,
+            switch=OVSKernelSwitch,
+            controller=RemoteController,
             link=TCLink,
             autoSetMacs=True,
             autoStaticArp=True
         )
         
         # Add controller explicitly
-        # Add remote controller
-        info("*** Adding remote controller\n")
-        # We use RemoteController so Mininet waits for an external controller (Ryu)
-        controller = self.net.addController(
-            'c0',
-            controller=RemoteController,
-            ip='127.0.0.1',
-            port=6633
-        )
+        info("*** Adding remote controller (Ryu)\n")
+        self.net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6653)
         
-        info("*** Adding switches (STP enabled)\n")
-        # Helper to add switch (Standard mode, STP disabled)
-        def add_stp_switch(name):
-            # Use default failMode (secure) and disable STP
-            return self.net.addSwitch(name, stp=False)
-
-        # Core Layer
-        # Assign explicit DPID to avoid collision with 's1' (both would default to dpid=1)
-        switch1 = self.net.addSwitch('Switch1', dpid='100', stp=False)
+        info("*** Adding 11 switches with fixed DPID...\n")
+        switches = {}
+        for i in range(1, 12):
+            swname = f's{i}'
+            dpid_str = str(i).zfill(16) 
+            switches[swname] = self.net.addSwitch(swname, dpid=dpid_str)
         
-        # Distribution Layer
-        s1 = add_stp_switch('s1')
-        s2 = add_stp_switch('s2')
+        self.switch = switches['s1'] # Set main hub reference
         
-        # Intermediate Layer
-        s3 = add_stp_switch('s3')
-        s4 = add_stp_switch('s4')
-        s5 = add_stp_switch('s5')
-        s6 = add_stp_switch('s6')
+        info("*** Creating links between switches...\n")
+        links = [
+            ('s1', 's2'), ('s1', 's3'), ('s1', 's4'),
+            ('s2', 's5'), ('s2', 's6'),
+            ('s3', 's7'), ('s3', 's8'),
+            ('s4', 's9'), ('s4', 's10'),
+            ('s10', 's11'), ('s5', 's11')
+        ]
         
-        # Access Layer
-        s7 = add_stp_switch('s7')
-        s8 = add_stp_switch('s8')
-        s9 = add_stp_switch('s9')
-        s10 = add_stp_switch('s10')
+        for src, dst in links:
+            self.net.addLink(switches[src], switches[dst], bw=config.BANDWIDTH, delay=config.DELAY)
+            
+        info("*** Adding hosts (h1, h2, h3)...\n")
+        self.server = self.net.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01')
+        h2 = self.net.addHost('h2', ip='10.0.0.2/24', mac='00:00:00:00:00:02')
+        h3 = self.net.addHost('h3', ip='10.0.0.3/24', mac='00:00:00:00:00:03')
+        self.clients = [h2, h3]
         
-        self.switch = switch1 # Set main switch reference
+        info("*** Connecting hosts to switches...\n")
+        self.net.addLink(self.server, switches['s5'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(h2, switches['s8'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(h3, switches['s11'], bw=config.BANDWIDTH, delay=config.DELAY)
         
-        info("*** Adding server node\n")
-        self.server = self.net.addHost(
-            config.SERVER_NAME,
-            ip=f"{config.SERVER_IP}/24"
-        )
-        
-        
-        info("*** Adding client nodes\n")
-        for i, (client_name, client_ip) in enumerate(
-            zip(config.CLIENT_NAMES, config.CLIENT_IPS)
-        ):
-            client = self.net.addHost(
-                client_name,
-                ip=f"{client_ip}/24"
-            )
-            self.clients.append(client)
-            info(f"    Added {client_name} with IP {client_ip}\n")
-        
-        info("*** Creating links\n")
-        
-        # Core Connections
-        # Switch1 connected to s1 and s2
-        self.net.addLink(switch1, s1, bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(switch1, s2, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # Distribution Connections
-        # s1 is connected to s5 and s3
-        self.net.addLink(s1, s5, bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(s1, s3, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # s2 is connected to s6 and s4
-        self.net.addLink(s2, s6, bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(s2, s4, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # Server is connected to s2
-        self.net.addLink(self.server, s2, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # Intermediate -> Access Connections (Tree Topology)
-        # s3 is connected to s7
-        self.net.addLink(s3, s7, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # s4 is connected to s8
-        self.net.addLink(s4, s8, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # s5 is connected to s9
-        self.net.addLink(s5, s9, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # s6 is connected to s10
-        self.net.addLink(s6, s10, bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # Access -> Clients Connections
-        # s7 is connected to c1, c2
-        self.net.addLink(s7, self.clients[0], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(s7, self.clients[1], bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # s8 is connected to c3, c4
-        self.net.addLink(s8, self.clients[2], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(s8, self.clients[3], bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # s9 is connected to c5, c6
-        self.net.addLink(s9, self.clients[4], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(s9, self.clients[5], bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        # s10 is connected to c7, c8
-        self.net.addLink(s10, self.clients[6], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(s10, self.clients[7], bw=config.BANDWIDTH, delay=config.DELAY)
-        
-        info("*** Starting network\n")
+        info("*** IPv6 and Multicast noise suppression...\n")
+        for node in self.net.values():
+            # Disable IPv6
+            node.cmd('sysctl -w net.ipv6.conf.all.disable_ipv6=1')
+            node.cmd('sysctl -w net.ipv6.conf.default.disable_ipv6=1')
+            node.cmd('sysctl -w net.ipv6.conf.lo.disable_ipv6=1')
+            
+            # Additional suppression for hosts
+            if node in [self.server] + self.clients:
+                node.cmd('sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1')
+            
+            # Kill avahi-daemon to prevent mDNS noise
+            node.cmd('killall -9 avahi-daemon 2>/dev/null')
+            
+        info("*** Starting network...\n")
         self.net.start()
-        
-        # Initialize Traffic Manager
-        self.traffic_manager = TrafficManager(self.net)
-        
-        info("*** Network topology created successfully\n")
-        self._print_network_info()
+        self.net.staticArp()
         
         # Export topology to JSON for Ryu
         self.export_topology_json()
@@ -231,13 +171,13 @@ class FlowerTopology:
         info("    Topology exported successfully\n")
 
     def wait_for_controller(self):
-        """Wait for the controller to connect to all switches."""
+        """Wait for all switches to connect to the controller."""
         info("*** Waiting for controller to connect...\n")
-        info("    Please start the Ryu controller now.\n")
         
-        # Simple wait loop - check if switches are connected
-        # In Mininet, we can check if the switch has an active connection
-        while True:
+        start_time = time.time()
+        timeout = 30
+        
+        while time.time() - start_time < timeout:
             all_connected = True
             for sw in self.net.switches:
                 if not sw.connected():
@@ -245,11 +185,10 @@ class FlowerTopology:
                     break
             
             if all_connected:
-                info("*** Controller connected!\n")
-                break
+                info("    All switches connected!\n")
+                return True
             
             time.sleep(1)
-            sys.stdout.write(".")
             sys.stdout.flush()
         print() # Newline
         
@@ -258,8 +197,7 @@ class FlowerTopology:
         info("\n" + "="*60 + "\n")
         info("Network Topology Information:\n")
         info("="*60 + "\n")
-        info(f"Server: {config.SERVER_NAME} ({config.SERVER_IP}) -> Connected to S2\n")
-        info(f"Core Switch: Switch1 (STP Enabled)\n")
+        info(f"Server: {config.SERVER_NAME} ({config.SERVER_IP}) -> Connected to S5\n")
         info("Clients:\n")
         for name, ip in zip(config.CLIENT_NAMES, config.CLIENT_IPS):
             info(f"  - {name} ({ip})\n")
@@ -403,10 +341,10 @@ class FlowerTopology:
             # Create topology
             self.create_topology()
             
-            # Test connectivity
-            if not self.test_connectivity():
-                info("*** WARNING: Connectivity test had some packet loss (expected with STP).\n")
-                info("*** Continuing with simulation...\n")
+            # Test connectivity (Skipping as per user request)
+            # if not self.test_connectivity():
+            #     info("*** WARNING: Connectivity test had some packet loss (expected with STP).\n")
+            #     info("*** Continuing with simulation...\n")
                 # Do not exit on partial failure for STP topologies
                 # self.cleanup()
                 # return

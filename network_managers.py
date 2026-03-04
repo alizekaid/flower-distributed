@@ -125,12 +125,18 @@ class NetworkManager:
         self.host_manager = HostManager()
         self.link_manager = LinkManager()
         self.switch_manager = SwitchManager()
-        self.graph = nx.Graph()
         self.topology_file = topology_file
         self.all_paths = None
 
         if os.path.exists(self.topology_file):
             self.load_topology()
+
+    def reload_topology(self):
+        """Reload the topology from the JSON file. Returns True if successful."""
+        if os.path.exists(self.topology_file):
+            self.load_topology()
+            return len(self.switch_manager.SwitchDict) > 0
+        return False
 
     def load_topology(self):
         with open(self.topology_file, 'r') as f:
@@ -141,12 +147,13 @@ class NetworkManager:
         self.switch_manager.load_from_topo(data.get('switches', []), data.get('hosts', []))
         
         # Build graph
+        self.graph = nx.Graph()
         for s in data.get('switches', []):
             self.graph.add_node(s['name'], dpid=s['dpid'])
         
         for l in data.get('links', []):
             self.graph.add_edge(l['src'], l['dst'], 
-                              ports={l['src']: l['src_port'], l['dst']: l['dst_port']})
+                               ports={l['src']: l['src_port'], l['dst']: l['dst_port']})
 
         switch_names = [s['name'] for s in data.get('switches', [])]
         self.all_paths = AllPaths(self.graph, self.link_manager.links, switch_names)

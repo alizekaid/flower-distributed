@@ -1,390 +1,180 @@
-2026-02-27 12:43:42,541 - FlowerController - INFO - Initializing Network Manager...
-2026-02-27 12:43:42,541 - FlowerController - INFO - ----------------------------------------
-2026-02-27 12:43:42,541 - FlowerController - INFO - NETWORK MANAGERS INITIALIZED
-2026-02-27 12:43:42,541 - FlowerController - INFO - Number of Hosts: 9
-2026-02-27 12:43:42,542 - FlowerController - INFO - Number of Switches: 11
-2026-02-27 12:43:42,542 - FlowerController - INFO - ----------------------------------------
-2026-02-27 12:43:42,542 - FlowerController - INFO - MULTI-PATH DISCOVERY REPORT:
-2026-02-27 12:43:42,543 - FlowerController - INFO -   Switch1 <-> s1 : 1 path(s) found
-2026-02-27 12:43:42,543 - FlowerController - INFO -     Path 1: Switch1(port 1) -> s1
-2026-02-27 12:43:42,544 - FlowerController - INFO -   Switch1 <-> s10 : 1 path(s) found
-2026-02-27 12:43:42,544 - FlowerController - INFO -     Path 1: Switch1(port 2) -> s2(port 2) -> s6(port 2) -> s10
-2026-02-27 12:43:42,544 - FlowerController - INFO -   Switch1 <-> s2 : 1 path(s) found
-2026-02-27 12:43:42,544 - FlowerController - INFO -     Path 1: Switch1(port 2) -> s2
-2026-02-27 12:43:42,544 - FlowerController - INFO -   Switch1 <-> s3 : 1 path(s) found
-2026-02-27 12:43:42,544 - FlowerController - INFO -     Path 1: Switch1(port 1) -> s1(port 3) -> s3
-2026-02-27 12:43:42,545 - FlowerController - INFO -   Switch1 <-> s4 : 1 path(s) found
-2026-02-27 12:43:42,545 - FlowerController - INFO -     Path 1: Switch1(port 2) -> s2(port 3) -> s4
-2026-02-27 12:43:42,545 - FlowerController - INFO -   Switch1 <-> s5 : 1 path(s) found
-2026-02-27 12:43:42,545 - FlowerController - INFO -     Path 1: Switch1(port 1) -> s1(port 2) -> s5
-2026-02-27 12:43:42,546 - FlowerController - INFO -   Switch1 <-> s6 : 1 path(s) found
-2026-02-27 12:43:42,546 - FlowerController - INFO -     Path 1: Switch1(port 2) -> s2(port 2) -> s6
-2026-02-27 12:43:42,546 - FlowerController - INFO -   Switch1 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,546 - FlowerController - INFO -     Path 1: Switch1(port 1) -> s1(port 3) -> s3(port 2) -> s7
-2026-02-27 12:43:42,546 - FlowerController - INFO -   Switch1 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,547 - FlowerController - INFO -     Path 1: Switch1(port 2) -> s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,547 - FlowerController - INFO -   Switch1 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,547 - FlowerController - INFO -     Path 1: Switch1(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,547 - FlowerController - INFO -   s1 <-> s10 : 1 path(s) found
-2026-02-27 12:43:42,547 - FlowerController - INFO -     Path 1: s1(port 1) -> Switch1(port 2) -> s2(port 2) -> s6(port 2) -> s10
-2026-02-27 12:43:42,547 - FlowerController - INFO -   s1 <-> s2 : 1 path(s) found
-2026-02-27 12:43:42,548 - FlowerController - INFO -     Path 1: s1(port 1) -> Switch1(port 2) -> s2
-2026-02-27 12:43:42,548 - FlowerController - INFO -   s1 <-> s3 : 1 path(s) found
-2026-02-27 12:43:42,548 - FlowerController - INFO -     Path 1: s1(port 3) -> s3
-2026-02-27 12:43:42,548 - FlowerController - INFO -   s1 <-> s4 : 1 path(s) found
-2026-02-27 12:43:42,548 - FlowerController - INFO -     Path 1: s1(port 1) -> Switch1(port 2) -> s2(port 3) -> s4
-2026-02-27 12:43:42,549 - FlowerController - INFO -   s1 <-> s5 : 1 path(s) found
-2026-02-27 12:43:42,549 - FlowerController - INFO -     Path 1: s1(port 2) -> s5
-2026-02-27 12:43:42,549 - FlowerController - INFO -   s1 <-> s6 : 1 path(s) found
-2026-02-27 12:43:42,549 - FlowerController - INFO -     Path 1: s1(port 1) -> Switch1(port 2) -> s2(port 2) -> s6
-2026-02-27 12:43:42,549 - FlowerController - INFO -   s1 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,550 - FlowerController - INFO -     Path 1: s1(port 3) -> s3(port 2) -> s7
-2026-02-27 12:43:42,550 - FlowerController - INFO -   s1 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,550 - FlowerController - INFO -     Path 1: s1(port 1) -> Switch1(port 2) -> s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,550 - FlowerController - INFO -   s1 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,550 - FlowerController - INFO -     Path 1: s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,550 - FlowerController - INFO -   s10 <-> s2 : 1 path(s) found
-2026-02-27 12:43:42,550 - FlowerController - INFO -     Path 1: s10(port 1) -> s6(port 1) -> s2
-2026-02-27 12:43:42,551 - FlowerController - INFO -   s10 <-> s3 : 1 path(s) found
-2026-02-27 12:43:42,551 - FlowerController - INFO -     Path 1: s10(port 1) -> s6(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 3) -> s3
-2026-02-27 12:43:42,551 - FlowerController - INFO -   s10 <-> s4 : 1 path(s) found
-2026-02-27 12:43:42,551 - FlowerController - INFO -     Path 1: s10(port 1) -> s6(port 1) -> s2(port 3) -> s4
-2026-02-27 12:43:42,551 - FlowerController - INFO -   s10 <-> s5 : 1 path(s) found
-2026-02-27 12:43:42,552 - FlowerController - INFO -     Path 1: s10(port 1) -> s6(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5
-2026-02-27 12:43:42,552 - FlowerController - INFO -   s10 <-> s6 : 1 path(s) found
-2026-02-27 12:43:42,552 - FlowerController - INFO -     Path 1: s10(port 1) -> s6
-2026-02-27 12:43:42,552 - FlowerController - INFO -   s10 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,552 - FlowerController - INFO -     Path 1: s10(port 1) -> s6(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 3) -> s3(port 2) -> s7
-2026-02-27 12:43:42,552 - FlowerController - INFO -   s10 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,553 - FlowerController - INFO -     Path 1: s10(port 1) -> s6(port 1) -> s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,553 - FlowerController - INFO -   s10 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,553 - FlowerController - INFO -     Path 1: s10(port 1) -> s6(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,553 - FlowerController - INFO -   s2 <-> s3 : 1 path(s) found
-2026-02-27 12:43:42,553 - FlowerController - INFO -     Path 1: s2(port 1) -> Switch1(port 1) -> s1(port 3) -> s3
-2026-02-27 12:43:42,553 - FlowerController - INFO -   s2 <-> s4 : 1 path(s) found
-2026-02-27 12:43:42,553 - FlowerController - INFO -     Path 1: s2(port 3) -> s4
-2026-02-27 12:43:42,554 - FlowerController - INFO -   s2 <-> s5 : 1 path(s) found
-2026-02-27 12:43:42,554 - FlowerController - INFO -     Path 1: s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5
-2026-02-27 12:43:42,554 - FlowerController - INFO -   s2 <-> s6 : 1 path(s) found
-2026-02-27 12:43:42,554 - FlowerController - INFO -     Path 1: s2(port 2) -> s6
-2026-02-27 12:43:42,554 - FlowerController - INFO -   s2 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,554 - FlowerController - INFO -     Path 1: s2(port 1) -> Switch1(port 1) -> s1(port 3) -> s3(port 2) -> s7
-2026-02-27 12:43:42,555 - FlowerController - INFO -   s2 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,555 - FlowerController - INFO -     Path 1: s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,555 - FlowerController - INFO -   s2 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,555 - FlowerController - INFO -     Path 1: s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,555 - FlowerController - INFO -   s3 <-> s4 : 1 path(s) found
-2026-02-27 12:43:42,556 - FlowerController - INFO -     Path 1: s3(port 1) -> s1(port 1) -> Switch1(port 2) -> s2(port 3) -> s4
-2026-02-27 12:43:42,556 - FlowerController - INFO -   s3 <-> s5 : 1 path(s) found
-2026-02-27 12:43:42,556 - FlowerController - INFO -     Path 1: s3(port 1) -> s1(port 2) -> s5
-2026-02-27 12:43:42,556 - FlowerController - INFO -   s3 <-> s6 : 1 path(s) found
-2026-02-27 12:43:42,556 - FlowerController - INFO -     Path 1: s3(port 1) -> s1(port 1) -> Switch1(port 2) -> s2(port 2) -> s6
-2026-02-27 12:43:42,557 - FlowerController - INFO -   s3 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,557 - FlowerController - INFO -     Path 1: s3(port 2) -> s7
-2026-02-27 12:43:42,557 - FlowerController - INFO -   s3 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,557 - FlowerController - INFO -     Path 1: s3(port 1) -> s1(port 1) -> Switch1(port 2) -> s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,558 - FlowerController - INFO -   s3 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,558 - FlowerController - INFO -     Path 1: s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,558 - FlowerController - INFO -   s4 <-> s5 : 1 path(s) found
-2026-02-27 12:43:42,558 - FlowerController - INFO -     Path 1: s4(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5
-2026-02-27 12:43:42,558 - FlowerController - INFO -   s4 <-> s6 : 1 path(s) found
-2026-02-27 12:43:42,559 - FlowerController - INFO -     Path 1: s4(port 1) -> s2(port 2) -> s6
-2026-02-27 12:43:42,559 - FlowerController - INFO -   s4 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,559 - FlowerController - INFO -     Path 1: s4(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 3) -> s3(port 2) -> s7
-2026-02-27 12:43:42,559 - FlowerController - INFO -   s4 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,559 - FlowerController - INFO -     Path 1: s4(port 2) -> s8
-2026-02-27 12:43:42,560 - FlowerController - INFO -   s4 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,560 - FlowerController - INFO -     Path 1: s4(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,560 - FlowerController - INFO -   s5 <-> s6 : 1 path(s) found
-2026-02-27 12:43:42,560 - FlowerController - INFO -     Path 1: s5(port 1) -> s1(port 1) -> Switch1(port 2) -> s2(port 2) -> s6
-2026-02-27 12:43:42,560 - FlowerController - INFO -   s5 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,560 - FlowerController - INFO -     Path 1: s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
-2026-02-27 12:43:42,561 - FlowerController - INFO -   s5 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,561 - FlowerController - INFO -     Path 1: s5(port 1) -> s1(port 1) -> Switch1(port 2) -> s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,561 - FlowerController - INFO -   s5 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,561 - FlowerController - INFO -     Path 1: s5(port 2) -> s9
-2026-02-27 12:43:42,561 - FlowerController - INFO -   s6 <-> s7 : 1 path(s) found
-2026-02-27 12:43:42,562 - FlowerController - INFO -     Path 1: s6(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 3) -> s3(port 2) -> s7
-2026-02-27 12:43:42,562 - FlowerController - INFO -   s6 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,562 - FlowerController - INFO -     Path 1: s6(port 1) -> s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,562 - FlowerController - INFO -   s6 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,562 - FlowerController - INFO -     Path 1: s6(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,563 - FlowerController - INFO -   s7 <-> s8 : 1 path(s) found
-2026-02-27 12:43:42,563 - FlowerController - INFO -     Path 1: s7(port 1) -> s3(port 1) -> s1(port 1) -> Switch1(port 2) -> s2(port 3) -> s4(port 2) -> s8
-2026-02-27 12:43:42,563 - FlowerController - INFO -   s7 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,563 - FlowerController - INFO -     Path 1: s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,563 - FlowerController - INFO -   s8 <-> s9 : 1 path(s) found
-2026-02-27 12:43:42,563 - FlowerController - INFO -     Path 1: s8(port 1) -> s4(port 1) -> s2(port 1) -> Switch1(port 1) -> s1(port 2) -> s5(port 2) -> s9
-2026-02-27 12:43:42,563 - FlowerController - INFO - ----------------------------------------
-2026-02-27 12:43:42,624 - FlowerController - INFO - Switch connected: 9
-2026-02-27 12:43:42,649 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:fb in_port=1 dpid=9
-2026-02-27 12:43:42,650 - FlowerController - INFO - Switch connected: 10
-2026-02-27 12:43:42,692 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:09 dst=33:33:00:00:00:16 in_port=3 dpid=10
-2026-02-27 12:43:42,693 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:09 dst=33:33:00:00:00:02 in_port=3 dpid=10
-2026-02-27 12:43:42,835 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:fb in_port=1 dpid=10
-2026-02-27 12:43:42,845 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:fb in_port=1 dpid=9
-2026-02-27 12:43:43,013 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:16 in_port=1 dpid=9
-2026-02-27 12:43:43,019 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:09 dst=33:33:00:00:00:16 in_port=3 dpid=10
-2026-02-27 12:43:43,035 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:fb in_port=1 dpid=10
-2026-02-27 12:43:43,078 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:08 dst=33:33:00:00:00:16 in_port=2 dpid=10
-2026-02-27 12:43:43,078 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:08 dst=33:33:00:00:00:02 in_port=2 dpid=10
-2026-02-27 12:43:43,079 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:16 in_port=1 dpid=10
-2026-02-27 12:43:43,089 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:fb in_port=1 dpid=9
-2026-02-27 12:43:43,281 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:fb in_port=1 dpid=10
-2026-02-27 12:43:43,332 - FlowerController - INFO - Switch connected: 256
-2026-02-27 12:43:43,333 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:07 dst=33:33:00:00:00:16 in_port=3 dpid=9
-2026-02-27 12:43:43,336 - FlowerController - INFO - Switch connected: 1
-2026-02-27 12:43:43,339 - FlowerController - INFO - Switch connected: 2
-2026-02-27 12:43:43,345 - FlowerController - INFO - UNMATCHED PACKET: src=3e:cf:3a:af:ba:5b dst=33:33:00:00:00:fb in_port=2 dpid=1
-2026-02-27 12:43:43,346 - FlowerController - INFO - UNMATCHED PACKET: src=ca:97:dc:f6:23:79 dst=33:33:00:00:00:fb in_port=1 dpid=1
-2026-02-27 12:43:43,348 - FlowerController - INFO - UNMATCHED PACKET: src=06:fa:4c:be:67:ed dst=33:33:00:00:00:fb in_port=1 dpid=256
-2026-02-27 12:43:43,458 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:08 dst=33:33:00:00:00:16 in_port=2 dpid=10
-2026-02-27 12:43:43,472 - FlowerController - INFO - UNMATCHED PACKET: src=ae:17:61:bb:f8:47 dst=33:33:00:00:00:fb in_port=2 dpid=256
-2026-02-27 12:43:43,473 - FlowerController - INFO - UNMATCHED PACKET: src=ee:b4:dd:4d:0e:e7 dst=33:33:00:00:00:fb in_port=2 dpid=2
-2026-02-27 12:43:43,474 - FlowerController - INFO - Switch connected: 3
-2026-02-27 12:43:43,477 - FlowerController - INFO - Switch connected: 4
-2026-02-27 12:43:43,478 - FlowerController - INFO - Switch connected: 5
-2026-02-27 12:43:43,486 - FlowerController - INFO - UNMATCHED PACKET: src=42:91:03:ce:40:dc dst=33:33:00:00:00:fb in_port=2 dpid=5
-2026-02-27 12:43:43,537 - FlowerController - INFO - UNMATCHED PACKET: src=9e:37:39:84:85:8e dst=33:33:00:00:00:fb in_port=1 dpid=3
-2026-02-27 12:43:43,550 - FlowerController - INFO - UNMATCHED PACKET: src=ce:07:6c:8c:9d:6c dst=33:33:00:00:00:fb in_port=2 dpid=4
-2026-02-27 12:43:43,551 - FlowerController - INFO - Switch connected: 7
-2026-02-27 12:43:43,552 - FlowerController - INFO - Switch connected: 6
-2026-02-27 12:43:43,695 - FlowerController - INFO - UNMATCHED PACKET: src=36:fa:30:50:bb:af dst=33:33:00:00:00:fb in_port=3 dpid=2
-2026-02-27 12:43:43,696 - FlowerController - INFO - Switch connected: 8
-2026-02-27 12:43:43,728 - FlowerController - INFO - UNMATCHED PACKET: src=7e:19:2e:85:b1:9d dst=33:33:00:00:00:fb in_port=1 dpid=8
-2026-02-27 12:43:43,730 - FlowerController - INFO - UNMATCHED PACKET: src=6a:bd:cf:76:f2:01 dst=33:33:00:00:00:fb in_port=1 dpid=7
-2026-02-27 12:43:43,730 - FlowerController - INFO - UNMATCHED PACKET: src=42:91:03:ce:40:dc dst=33:33:00:00:00:fb in_port=2 dpid=5
-2026-02-27 12:43:43,793 - FlowerController - INFO - UNMATCHED PACKET: src=ce:07:6c:8c:9d:6c dst=33:33:00:00:00:fb in_port=2 dpid=4
-2026-02-27 12:43:43,842 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:05 dst=33:33:00:00:00:16 in_port=3 dpid=8
-2026-02-27 12:43:43,889 - FlowerController - INFO - UNMATCHED PACKET: src=82:86:b8:6f:e0:ce dst=33:33:00:00:00:fb in_port=2 dpid=3
-2026-02-27 12:43:43,890 - FlowerController - INFO - UNMATCHED PACKET: src=ce:bc:33:c0:aa:41 dst=33:33:00:00:00:fb in_port=1 dpid=5
-2026-02-27 12:43:43,954 - FlowerController - INFO - UNMATCHED PACKET: src=b6:ba:b8:d6:a7:92 dst=33:33:00:00:00:fb in_port=1 dpid=2
-2026-02-27 12:43:43,955 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:fb in_port=1 dpid=9
-2026-02-27 12:43:44,017 - FlowerController - INFO - UNMATCHED PACKET: src=4e:47:37:db:29:7f dst=33:33:00:00:00:fb in_port=3 dpid=1
-2026-02-27 12:43:44,080 - FlowerController - INFO - UNMATCHED PACKET: src=1e:3b:f0:a9:72:a3 dst=33:33:00:00:00:fb in_port=2 dpid=6
-2026-02-27 12:43:44,142 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:fb in_port=1 dpid=10
-2026-02-27 12:43:44,208 - FlowerController - INFO - UNMATCHED PACKET: src=3e:cf:3a:af:ba:5b dst=33:33:00:00:00:fb in_port=2 dpid=1
-2026-02-27 12:43:44,208 - FlowerController - INFO - UNMATCHED PACKET: src=ca:97:dc:f6:23:79 dst=33:33:00:00:00:fb in_port=1 dpid=1
-2026-02-27 12:43:44,209 - FlowerController - INFO - UNMATCHED PACKET: src=06:fa:4c:be:67:ed dst=33:33:00:00:00:fb in_port=1 dpid=256
-2026-02-27 12:43:44,270 - FlowerController - INFO - UNMATCHED PACKET: src=0a:e0:93:1f:88:d7 dst=33:33:00:00:00:fb in_port=1 dpid=4
-2026-02-27 12:43:44,337 - FlowerController - INFO - UNMATCHED PACKET: src=ae:17:61:bb:f8:47 dst=33:33:00:00:00:fb in_port=2 dpid=256
-2026-02-27 12:43:44,339 - FlowerController - INFO - UNMATCHED PACKET: src=ee:b4:dd:4d:0e:e7 dst=33:33:00:00:00:fb in_port=2 dpid=2
-2026-02-27 12:43:44,399 - FlowerController - INFO - UNMATCHED PACKET: src=c6:e5:6f:86:5f:1e dst=33:33:00:00:00:fb in_port=1 dpid=6
-2026-02-27 12:43:44,400 - FlowerController - INFO - UNMATCHED PACKET: src=9e:37:39:84:85:8e dst=33:33:00:00:00:fb in_port=1 dpid=3
-2026-02-27 12:43:44,592 - FlowerController - INFO - UNMATCHED PACKET: src=6a:bd:cf:76:f2:01 dst=33:33:00:00:00:fb in_port=1 dpid=7
-2026-02-27 12:43:44,592 - FlowerController - INFO - UNMATCHED PACKET: src=42:91:03:ce:40:dc dst=33:33:00:00:00:fb in_port=2 dpid=5
-2026-02-27 12:43:44,592 - FlowerController - INFO - UNMATCHED PACKET: src=7e:19:2e:85:b1:9d dst=33:33:00:00:00:fb in_port=1 dpid=8
-2026-02-27 12:43:44,655 - FlowerController - INFO - UNMATCHED PACKET: src=ce:07:6c:8c:9d:6c dst=33:33:00:00:00:fb in_port=2 dpid=4
-2026-02-27 12:43:44,833 - FlowerController - INFO - UNMATCHED PACKET: src=36:fa:30:50:bb:af dst=33:33:00:00:00:fb in_port=3 dpid=2
-2026-02-27 12:43:45,026 - FlowerController - INFO - UNMATCHED PACKET: src=ce:bc:33:c0:aa:41 dst=33:33:00:00:00:fb in_port=1 dpid=5
-2026-02-27 12:43:45,028 - FlowerController - INFO - UNMATCHED PACKET: src=82:86:b8:6f:e0:ce dst=33:33:00:00:00:fb in_port=2 dpid=3
-2026-02-27 12:43:45,088 - FlowerController - INFO - UNMATCHED PACKET: src=b6:ba:b8:d6:a7:92 dst=33:33:00:00:00:fb in_port=1 dpid=2
-2026-02-27 12:43:45,089 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:fb in_port=1 dpid=9
-2026-02-27 12:43:45,154 - FlowerController - INFO - UNMATCHED PACKET: src=4e:47:37:db:29:7f dst=33:33:00:00:00:fb in_port=3 dpid=1
-2026-02-27 12:43:45,218 - FlowerController - INFO - UNMATCHED PACKET: src=1e:3b:f0:a9:72:a3 dst=33:33:00:00:00:fb in_port=2 dpid=6
-2026-02-27 12:43:45,280 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:fb in_port=1 dpid=10
-2026-02-27 12:43:45,344 - FlowerController - INFO - UNMATCHED PACKET: src=06:fa:4c:be:67:ed dst=33:33:00:00:00:fb in_port=1 dpid=256
-2026-02-27 12:43:45,344 - FlowerController - INFO - UNMATCHED PACKET: src=3e:cf:3a:af:ba:5b dst=33:33:00:00:00:fb in_port=2 dpid=1
-2026-02-27 12:43:45,344 - FlowerController - INFO - UNMATCHED PACKET: src=ca:97:dc:f6:23:79 dst=33:33:00:00:00:fb in_port=1 dpid=1
-2026-02-27 12:43:45,407 - FlowerController - INFO - UNMATCHED PACKET: src=0a:e0:93:1f:88:d7 dst=33:33:00:00:00:fb in_port=1 dpid=4
-2026-02-27 12:43:45,472 - FlowerController - INFO - UNMATCHED PACKET: src=ae:17:61:bb:f8:47 dst=33:33:00:00:00:fb in_port=2 dpid=256
-2026-02-27 12:43:45,472 - FlowerController - INFO - UNMATCHED PACKET: src=ee:b4:dd:4d:0e:e7 dst=33:33:00:00:00:fb in_port=2 dpid=2
-2026-02-27 12:43:45,536 - FlowerController - INFO - UNMATCHED PACKET: src=c6:e5:6f:86:5f:1e dst=33:33:00:00:00:fb in_port=1 dpid=6
-2026-02-27 12:43:45,537 - FlowerController - INFO - UNMATCHED PACKET: src=9e:37:39:84:85:8e dst=33:33:00:00:00:fb in_port=1 dpid=3
-2026-02-27 12:43:45,729 - FlowerController - INFO - UNMATCHED PACKET: src=7e:19:2e:85:b1:9d dst=33:33:00:00:00:fb in_port=1 dpid=8
-2026-02-27 12:43:45,730 - FlowerController - INFO - UNMATCHED PACKET: src=6a:bd:cf:76:f2:01 dst=33:33:00:00:00:fb in_port=1 dpid=7
-2026-02-27 12:43:45,731 - FlowerController - INFO - UNMATCHED PACKET: src=42:91:03:ce:40:dc dst=33:33:00:00:00:fb in_port=2 dpid=5
-2026-02-27 12:43:45,762 - FlowerController - INFO - UNMATCHED PACKET: src=36:fa:30:50:bb:af dst=33:33:00:00:00:02 in_port=3 dpid=2
-2026-02-27 12:43:45,763 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:02 dst=33:33:00:00:00:02 in_port=2 dpid=7
-2026-02-27 12:43:45,793 - FlowerController - INFO - UNMATCHED PACKET: src=ce:07:6c:8c:9d:6c dst=33:33:00:00:00:fb in_port=2 dpid=4
-2026-02-27 12:43:45,801 - FlowerController - INFO - UNMATCHED PACKET: src=36:fa:30:50:bb:af dst=33:33:00:00:00:fb in_port=3 dpid=2
-2026-02-27 12:43:45,954 - FlowerController - INFO - UNMATCHED PACKET: src=b6:ba:b8:d6:a7:92 dst=33:33:00:00:00:02 in_port=1 dpid=2
-2026-02-27 12:43:45,956 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:03 dst=33:33:00:00:00:02 in_port=3 dpid=7
-2026-02-27 12:43:45,996 - FlowerController - INFO - UNMATCHED PACKET: src=82:86:b8:6f:e0:ce dst=33:33:00:00:00:fb in_port=2 dpid=3
-2026-02-27 12:43:45,998 - FlowerController - INFO - UNMATCHED PACKET: src=ce:bc:33:c0:aa:41 dst=33:33:00:00:00:fb in_port=1 dpid=5
-2026-02-27 12:43:46,060 - FlowerController - INFO - UNMATCHED PACKET: src=b6:ba:b8:d6:a7:92 dst=33:33:00:00:00:fb in_port=1 dpid=2
-2026-02-27 12:43:46,061 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:fb in_port=1 dpid=9
-2026-02-27 12:43:46,082 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:02 in_port=1 dpid=10
-2026-02-27 12:43:46,122 - FlowerController - INFO - UNMATCHED PACKET: src=4e:47:37:db:29:7f dst=33:33:00:00:00:fb in_port=3 dpid=1
-2026-02-27 12:43:46,146 - FlowerController - INFO - UNMATCHED PACKET: src=ee:b4:dd:4d:0e:e7 dst=33:33:00:00:00:02 in_port=2 dpid=2
-2026-02-27 12:43:46,188 - FlowerController - INFO - UNMATCHED PACKET: src=1e:3b:f0:a9:72:a3 dst=33:33:00:00:00:fb in_port=2 dpid=6
-2026-02-27 12:43:46,209 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:04 dst=33:33:00:00:00:02 in_port=2 dpid=8
-2026-02-27 12:43:46,249 - FlowerController - INFO - UNMATCHED PACKET: src=2a:78:93:78:35:82 dst=33:33:00:00:00:fb in_port=1 dpid=10
-2026-02-27 12:43:46,264 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:01 dst=00:00:00:00:00:02 in_port=4 dpid=2
-2026-02-27 12:43:46,273 - FlowerController - INFO - UNMATCHED PACKET: src=ae:17:61:bb:f8:47 dst=33:33:00:00:00:02 in_port=2 dpid=256
-2026-02-27 12:43:46,316 - FlowerController - INFO - UNMATCHED PACKET: src=3e:cf:3a:af:ba:5b dst=33:33:00:00:00:fb in_port=2 dpid=1
-2026-02-27 12:43:46,316 - FlowerController - INFO - UNMATCHED PACKET: src=ca:97:dc:f6:23:79 dst=33:33:00:00:00:fb in_port=1 dpid=1
-2026-02-27 12:43:46,317 - FlowerController - INFO - UNMATCHED PACKET: src=06:fa:4c:be:67:ed dst=33:33:00:00:00:fb in_port=1 dpid=256
-2026-02-27 12:43:46,376 - FlowerController - INFO - UNMATCHED PACKET: src=0a:e0:93:1f:88:d7 dst=33:33:00:00:00:fb in_port=1 dpid=4
-2026-02-27 12:43:46,402 - FlowerController - INFO - UNMATCHED PACKET: src=7e:19:2e:85:b1:9d dst=33:33:00:00:00:02 in_port=1 dpid=8
-2026-02-27 12:43:46,403 - FlowerController - INFO - UNMATCHED PACKET: src=c6:e5:6f:86:5f:1e dst=33:33:00:00:00:02 in_port=1 dpid=6
-2026-02-27 12:43:46,442 - FlowerController - INFO - UNMATCHED PACKET: src=ae:17:61:bb:f8:47 dst=33:33:00:00:00:fb in_port=2 dpid=256
-2026-02-27 12:43:46,443 - FlowerController - INFO - UNMATCHED PACKET: src=ee:b4:dd:4d:0e:e7 dst=33:33:00:00:00:fb in_port=2 dpid=2
-2026-02-27 12:43:46,467 - FlowerController - INFO - UNMATCHED PACKET: src=9e:37:39:84:85:8e dst=33:33:00:00:00:02 in_port=1 dpid=3
-2026-02-27 12:43:46,468 - FlowerController - INFO - UNMATCHED PACKET: src=ce:07:6c:8c:9d:6c dst=33:33:00:00:00:02 in_port=2 dpid=4
-2026-02-27 12:43:46,469 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:07 dst=33:33:00:00:00:02 in_port=3 dpid=9
-2026-02-27 12:43:46,507 - FlowerController - INFO - UNMATCHED PACKET: src=c6:e5:6f:86:5f:1e dst=33:33:00:00:00:fb in_port=1 dpid=6
-2026-02-27 12:43:46,508 - FlowerController - INFO - UNMATCHED PACKET: src=9e:37:39:84:85:8e dst=33:33:00:00:00:fb in_port=1 dpid=3
-2026-02-27 12:43:46,530 - FlowerController - INFO - UNMATCHED PACKET: src=1e:3b:f0:a9:72:a3 dst=33:33:00:00:00:02 in_port=2 dpid=6
-2026-02-27 12:43:46,533 - FlowerController - INFO - UNMATCHED PACKET: src=82:86:b8:6f:e0:ce dst=33:33:00:00:00:02 in_port=2 dpid=3
-2026-02-27 12:43:46,533 - FlowerController - INFO - UNMATCHED PACKET: src=ce:bc:33:c0:aa:41 dst=33:33:00:00:00:02 in_port=1 dpid=5
-2026-02-27 12:43:46,533 - FlowerController - INFO - UNMATCHED PACKET: src=9a:81:f3:28:1c:37 dst=33:33:00:00:00:02 in_port=1 dpid=9
-2026-02-27 12:43:46,534 - FlowerController - INFO - UNMATCHED PACKET: src=4e:47:37:db:29:7f dst=33:33:00:00:00:02 in_port=3 dpid=1
-2026-02-27 12:43:46,534 - FlowerController - INFO - UNMATCHED PACKET: src=ca:97:dc:f6:23:79 dst=33:33:00:00:00:02 in_port=1 dpid=1
-2026-02-27 12:43:46,535 - FlowerController - INFO - UNMATCHED PACKET: src=3e:cf:3a:af:ba:5b dst=33:33:00:00:00:02 in_port=2 dpid=1
-2026-02-27 12:43:46,535 - FlowerController - INFO - UNMATCHED PACKET: src=06:fa:4c:be:67:ed dst=33:33:00:00:00:02 in_port=1 dpid=256
-2026-02-27 12:43:46,699 - FlowerController - INFO - UNMATCHED PACKET: src=7e:19:2e:85:b1:9d dst=33:33:00:00:00:fb in_port=1 dpid=8
-2026-02-27 12:43:46,701 - FlowerController - INFO - UNMATCHED PACKET: src=42:91:03:ce:40:dc dst=33:33:00:00:00:fb in_port=2 dpid=5
-2026-02-27 12:43:46,701 - FlowerController - INFO - UNMATCHED PACKET: src=6a:bd:cf:76:f2:01 dst=33:33:00:00:00:fb in_port=1 dpid=7
-2026-02-27 12:43:46,722 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:05 dst=33:33:00:00:00:02 in_port=3 dpid=8
-2026-02-27 12:43:46,762 - FlowerController - INFO - UNMATCHED PACKET: src=ce:07:6c:8c:9d:6c dst=33:33:00:00:00:fb in_port=2 dpid=4
-2026-02-27 12:43:47,042 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:09 dst=33:33:00:00:00:02 in_port=3 dpid=10
-2026-02-27 12:43:47,045 - FlowerController - INFO - UNMATCHED PACKET: src=0a:e0:93:1f:88:d7 dst=33:33:00:00:00:02 in_port=1 dpid=4
-2026-02-27 12:43:47,045 - FlowerController - INFO - UNMATCHED PACKET: src=42:91:03:ce:40:dc dst=33:33:00:00:00:02 in_port=2 dpid=5
-2026-02-27 12:43:47,046 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:01 dst=33:33:00:00:00:02 in_port=4 dpid=2
-2026-02-27 12:43:47,047 - FlowerController - INFO - UNMATCHED PACKET: src=6a:bd:cf:76:f2:01 dst=33:33:00:00:00:02 in_port=1 dpid=7
-2026-02-27 12:43:47,048 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:06 dst=33:33:00:00:00:02 in_port=2 dpid=9
-2026-02-27 12:43:47,554 - FlowerController - INFO - UNMATCHED PACKET: src=00:00:00:00:00:08 dst=33:33:00:00:00:02 in_port=2 dpid=10
-2026-02-27 12:43:47,625 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:47,669 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:47,756 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:47,756 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:47,757 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:47,757 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:47,760 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:47,761 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:47,761 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:47,762 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:47,762 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:47,762 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:47,763 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:47,763 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:47,776 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:47,777 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:47,777 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:47,778 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:47,778 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:47,778 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:47,779 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:47,779 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:47,779 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:47,779 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:47,780 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:47,780 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,333 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,374 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,375 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,494 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,495 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,495 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,513 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,514 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,514 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,514 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,529 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,529 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,529 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,530 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,530 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,530 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,530 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,530 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,560 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,561 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,586 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,586 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,587 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,587 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,599 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,599 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,600 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,600 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,601 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,601 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,601 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,602 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,617 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,617 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,617 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,618 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,634 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,635 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,635 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,636 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,636 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,636 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,637 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,637 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,703 - FlowerController - INFO - Starting Full Proactive Flow Installation...
-2026-02-27 12:43:48,828 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,828 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,829 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,829 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,839 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,840 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,840 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,840 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,841 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,841 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,842 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,842 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,852 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,852 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,862 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,863 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,863 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,864 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,864 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,865 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,865 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,865 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,866 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,866 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,866 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,866 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,867 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,867 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,870 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,871 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,871 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,872 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,872 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,872 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,873 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,873 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,898 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,899 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,899 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,899 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,902 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,903 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,903 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,903 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,905 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,906 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,906 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,906 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,907 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,907 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,908 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,908 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,910 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,910 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,911 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,911 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,911 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,912 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,912 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,912 - FlowerController - INFO - Full Proactive Flow Installation Complete.
-2026-02-27 12:43:48,926 - FlowerController - INFO - Broadcast rules installed on switch 9
-2026-02-27 12:43:48,926 - FlowerController - INFO - Broadcast rules installed on switch 10
-2026-02-27 12:43:48,927 - FlowerController - INFO - Broadcast rules installed on switch 256
-2026-02-27 12:43:48,927 - FlowerController - INFO - Broadcast rules installed on switch 1
-2026-02-27 12:43:48,928 - FlowerController - INFO - Broadcast rules installed on switch 2
-2026-02-27 12:43:48,928 - FlowerController - INFO - Broadcast rules installed on switch 3
-2026-02-27 12:43:48,928 - FlowerController - INFO - Broadcast rules installed on switch 4
-2026-02-27 12:43:48,929 - FlowerController - INFO - Broadcast rules installed on switch 5
-2026-02-27 12:43:48,929 - FlowerController - INFO - Broadcast rules installed on switch 7
-2026-02-27 12:43:48,930 - FlowerController - INFO - Broadcast rules installed on switch 6
-2026-02-27 12:43:48,930 - FlowerController - INFO - Broadcast rules installed on switch 8
-2026-02-27 12:43:48,930 - FlowerController - INFO - Full Proactive Flow Installation Complete.
+2026-03-04 13:27:43,571 - FlowerController - INFO - Initializing Network Manager...
+2026-03-04 13:27:43,572 - FlowerController - INFO - ----------------------------------------
+2026-03-04 13:27:43,573 - FlowerController - INFO - NETWORK MANAGERS INITIALIZED
+2026-03-04 13:27:43,573 - FlowerController - INFO - Number of Hosts: 3
+2026-03-04 13:27:43,573 - FlowerController - INFO - Number of Switches: 11
+2026-03-04 13:27:43,573 - FlowerController - INFO - ----------------------------------------
+2026-03-04 13:27:43,573 - FlowerController - INFO - MULTI-PATH DISCOVERY REPORT:
+2026-03-04 13:27:43,575 - FlowerController - INFO -   s1 <-> s10 : 2 path(s) found
+2026-03-04 13:27:43,575 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s4(port 3) -> s10
+2026-03-04 13:27:43,575 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10
+2026-03-04 13:27:43,576 - FlowerController - INFO -   s1 <-> s11 : 2 path(s) found
+2026-03-04 13:27:43,576 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11
+2026-03-04 13:27:43,576 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11
+2026-03-04 13:27:43,577 - FlowerController - INFO -   s1 <-> s2 : 2 path(s) found
+2026-03-04 13:27:43,577 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2
+2026-03-04 13:27:43,578 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2
+2026-03-04 13:27:43,578 - FlowerController - INFO -   s1 <-> s3 : 1 path(s) found
+2026-03-04 13:27:43,578 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s3
+2026-03-04 13:27:43,578 - FlowerController - INFO -   s1 <-> s4 : 2 path(s) found
+2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s4
+2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4
+2026-03-04 13:27:43,579 - FlowerController - INFO -   s1 <-> s5 : 2 path(s) found
+2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2(port 2) -> s5
+2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
+2026-03-04 13:27:43,580 - FlowerController - INFO -   s1 <-> s6 : 2 path(s) found
+2026-03-04 13:27:43,580 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,580 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,581 - FlowerController - INFO -   s1 <-> s7 : 1 path(s) found
+2026-03-04 13:27:43,581 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,581 - FlowerController - INFO -   s1 <-> s8 : 1 path(s) found
+2026-03-04 13:27:43,581 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,582 - FlowerController - INFO -   s1 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,582 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,582 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,582 - FlowerController - INFO -   s10 <-> s11 : 2 path(s) found
+2026-03-04 13:27:43,582 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 2) -> s11
+2026-03-04 13:27:43,583 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11
+2026-03-04 13:27:43,583 - FlowerController - INFO -   s10 <-> s2 : 2 path(s) found
+2026-03-04 13:27:43,583 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2
+2026-03-04 13:27:43,583 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2
+2026-03-04 13:27:43,584 - FlowerController - INFO -   s10 <-> s3 : 2 path(s) found
+2026-03-04 13:27:43,584 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 2) -> s3
+2026-03-04 13:27:43,584 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3
+2026-03-04 13:27:43,584 - FlowerController - INFO -   s10 <-> s4 : 2 path(s) found
+2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4
+2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4
+2026-03-04 13:27:43,585 - FlowerController - INFO -   s10 <-> s5 : 2 path(s) found
+2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 2) -> s11(port 2) -> s5
+2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 2) -> s5
+2026-03-04 13:27:43,586 - FlowerController - INFO -   s10 <-> s6 : 2 path(s) found
+2026-03-04 13:27:43,586 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,586 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,586 - FlowerController - INFO -   s10 <-> s7 : 2 path(s) found
+2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,587 - FlowerController - INFO -   s10 <-> s8 : 2 path(s) found
+2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,588 - FlowerController - INFO -   s10 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,588 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,588 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,588 - FlowerController - INFO -   s11 <-> s2 : 2 path(s) found
+2026-03-04 13:27:43,589 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 2) -> s5(port 1) -> s2
+2026-03-04 13:27:43,589 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2
+2026-03-04 13:27:43,589 - FlowerController - INFO -   s11 <-> s3 : 2 path(s) found
+2026-03-04 13:27:43,590 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3
+2026-03-04 13:27:43,590 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3
+2026-03-04 13:27:43,591 - FlowerController - INFO -   s11 <-> s4 : 2 path(s) found
+2026-03-04 13:27:43,591 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4
+2026-03-04 13:27:43,591 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4
+2026-03-04 13:27:43,592 - FlowerController - INFO -   s11 <-> s5 : 2 path(s) found
+2026-03-04 13:27:43,592 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 2) -> s5
+2026-03-04 13:27:43,592 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 2) -> s5
+2026-03-04 13:27:43,593 - FlowerController - INFO -   s11 <-> s6 : 2 path(s) found
+2026-03-04 13:27:43,593 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,593 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,594 - FlowerController - INFO -   s11 <-> s7 : 2 path(s) found
+2026-03-04 13:27:43,594 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,594 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,595 - FlowerController - INFO -   s11 <-> s8 : 2 path(s) found
+2026-03-04 13:27:43,595 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,595 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,596 - FlowerController - INFO -   s11 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,596 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,596 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,597 - FlowerController - INFO -   s2 <-> s3 : 2 path(s) found
+2026-03-04 13:27:43,597 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 2) -> s3
+2026-03-04 13:27:43,597 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3
+2026-03-04 13:27:43,597 - FlowerController - INFO -   s2 <-> s4 : 2 path(s) found
+2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 3) -> s4
+2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4
+2026-03-04 13:27:43,598 - FlowerController - INFO -   s2 <-> s5 : 2 path(s) found
+2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 2) -> s5
+2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 1) -> s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
+2026-03-04 13:27:43,599 - FlowerController - INFO -   s2 <-> s6 : 1 path(s) found
+2026-03-04 13:27:43,599 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 3) -> s6
+2026-03-04 13:27:43,600 - FlowerController - INFO -   s2 <-> s7 : 2 path(s) found
+2026-03-04 13:27:43,600 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,600 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,600 - FlowerController - INFO -   s2 <-> s8 : 2 path(s) found
+2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,601 - FlowerController - INFO -   s2 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,602 - FlowerController - INFO -   s3 <-> s4 : 2 path(s) found
+2026-03-04 13:27:43,602 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 3) -> s4
+2026-03-04 13:27:43,602 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4
+2026-03-04 13:27:43,602 - FlowerController - INFO -   s3 <-> s5 : 2 path(s) found
+2026-03-04 13:27:43,603 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 1) -> s2(port 2) -> s5
+2026-03-04 13:27:43,603 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
+2026-03-04 13:27:43,603 - FlowerController - INFO -   s3 <-> s6 : 2 path(s) found
+2026-03-04 13:27:43,603 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,604 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,604 - FlowerController - INFO -   s3 <-> s7 : 1 path(s) found
+2026-03-04 13:27:43,604 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 2) -> s7
+2026-03-04 13:27:43,604 - FlowerController - INFO -   s3 <-> s8 : 1 path(s) found
+2026-03-04 13:27:43,605 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 3) -> s8
+2026-03-04 13:27:43,605 - FlowerController - INFO -   s3 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,605 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,605 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,606 - FlowerController - INFO -   s4 <-> s5 : 2 path(s) found
+2026-03-04 13:27:43,606 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 1) -> s2(port 2) -> s5
+2026-03-04 13:27:43,606 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
+2026-03-04 13:27:43,607 - FlowerController - INFO -   s4 <-> s6 : 2 path(s) found
+2026-03-04 13:27:43,608 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,608 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,608 - FlowerController - INFO -   s4 <-> s7 : 2 path(s) found
+2026-03-04 13:27:43,609 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,609 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,609 - FlowerController - INFO -   s4 <-> s8 : 2 path(s) found
+2026-03-04 13:27:43,610 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,610 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,610 - FlowerController - INFO -   s4 <-> s9 : 1 path(s) found
+2026-03-04 13:27:43,611 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 2) -> s9
+2026-03-04 13:27:43,611 - FlowerController - INFO -   s5 <-> s6 : 2 path(s) found
+2026-03-04 13:27:43,611 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,611 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
+2026-03-04 13:27:43,612 - FlowerController - INFO -   s5 <-> s7 : 2 path(s) found
+2026-03-04 13:27:43,612 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,612 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,612 - FlowerController - INFO -   s5 <-> s8 : 2 path(s) found
+2026-03-04 13:27:43,613 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,613 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,613 - FlowerController - INFO -   s5 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,613 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,614 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,614 - FlowerController - INFO -   s6 <-> s7 : 2 path(s) found
+2026-03-04 13:27:43,614 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,614 - FlowerController - INFO -     Path 2 (LONGEST): s6(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
+2026-03-04 13:27:43,614 - FlowerController - INFO -   s6 <-> s8 : 2 path(s) found
+2026-03-04 13:27:43,615 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,615 - FlowerController - INFO -     Path 2 (LONGEST): s6(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
+2026-03-04 13:27:43,615 - FlowerController - INFO -   s6 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,616 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,616 - FlowerController - INFO -     Path 2 (LONGEST): s6(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,616 - FlowerController - INFO -   s7 <-> s8 : 1 path(s) found
+2026-03-04 13:27:43,616 - FlowerController - INFO -     Path 1 (SHORTEST): s7(port 1) -> s3(port 3) -> s8
+2026-03-04 13:27:43,617 - FlowerController - INFO -   s7 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,617 - FlowerController - INFO -     Path 1 (SHORTEST): s7(port 1) -> s3(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,617 - FlowerController - INFO -     Path 2 (LONGEST): s7(port 1) -> s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,617 - FlowerController - INFO -   s8 <-> s9 : 2 path(s) found
+2026-03-04 13:27:43,617 - FlowerController - INFO -     Path 1 (SHORTEST): s8(port 1) -> s3(port 1) -> s1(port 3) -> s4(port 2) -> s9
+2026-03-04 13:27:43,618 - FlowerController - INFO -     Path 2 (LONGEST): s8(port 1) -> s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
+2026-03-04 13:27:43,618 - FlowerController - INFO - ----------------------------------------
+2026-03-04 13:27:44,489 - FlowerController - INFO - Switch connected: 1
+2026-03-04 13:27:44,494 - FlowerController - INFO - Switch connected: 6
+2026-03-04 13:27:44,494 - FlowerController - INFO - Switch connected: 3
+2026-03-04 13:27:44,495 - FlowerController - INFO - Switch connected: 16
+2026-03-04 13:27:44,500 - FlowerController - INFO - Switch connected: 2
+2026-03-04 13:27:44,500 - FlowerController - INFO - Switch connected: 5
+2026-03-04 13:27:44,501 - FlowerController - INFO - Switch connected: 7
+2026-03-04 13:27:44,501 - FlowerController - INFO - Switch connected: 9
+2026-03-04 13:27:44,502 - FlowerController - INFO - Switch connected: 17
+2026-03-04 13:27:44,502 - FlowerController - INFO - Switch connected: 4
+2026-03-04 13:27:44,503 - FlowerController - INFO - Switch connected: 8
+2026-03-04 13:27:51,911 - FlowerController - INFO -   Path found for 00:00:00:00:00:02 -> 00:00:00:00:00:01: [{'name': 's8', 'dpid': 8, 'in_port': 2, 'out_port': 1}, {'name': 's3', 'dpid': 3, 'in_port': 3, 'out_port': 1}, {'name': 's1', 'dpid': 1, 'in_port': 2, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 1, 'out_port': 2}, {'name': 's5', 'dpid': 5, 'in_port': 1, 'out_port': 3}]
+2026-03-04 13:27:51,914 - FlowerController - INFO -   Path found for 00:00:00:00:00:03 -> 00:00:00:00:00:01: [{'name': 's11', 'dpid': 17, 'in_port': 3, 'out_port': 2}, {'name': 's5', 'dpid': 5, 'in_port': 2, 'out_port': 3}]
+2026-03-04 13:27:51,932 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:03: [{'name': 's5', 'dpid': 5, 'in_port': 3, 'out_port': 2}, {'name': 's11', 'dpid': 17, 'in_port': 2, 'out_port': 3}]
+2026-03-04 13:27:51,947 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:02: [{'name': 's5', 'dpid': 5, 'in_port': 3, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 2, 'out_port': 1}, {'name': 's1', 'dpid': 1, 'in_port': 1, 'out_port': 2}, {'name': 's3', 'dpid': 3, 'in_port': 1, 'out_port': 3}, {'name': 's8', 'dpid': 8, 'in_port': 1, 'out_port': 2}]
