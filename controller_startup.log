@@ -1,180 +1,563 @@
-2026-03-04 13:27:43,571 - FlowerController - INFO - Initializing Network Manager...
-2026-03-04 13:27:43,572 - FlowerController - INFO - ----------------------------------------
-2026-03-04 13:27:43,573 - FlowerController - INFO - NETWORK MANAGERS INITIALIZED
-2026-03-04 13:27:43,573 - FlowerController - INFO - Number of Hosts: 3
-2026-03-04 13:27:43,573 - FlowerController - INFO - Number of Switches: 11
-2026-03-04 13:27:43,573 - FlowerController - INFO - ----------------------------------------
-2026-03-04 13:27:43,573 - FlowerController - INFO - MULTI-PATH DISCOVERY REPORT:
-2026-03-04 13:27:43,575 - FlowerController - INFO -   s1 <-> s10 : 2 path(s) found
-2026-03-04 13:27:43,575 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s4(port 3) -> s10
-2026-03-04 13:27:43,575 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10
-2026-03-04 13:27:43,576 - FlowerController - INFO -   s1 <-> s11 : 2 path(s) found
-2026-03-04 13:27:43,576 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11
-2026-03-04 13:27:43,576 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11
-2026-03-04 13:27:43,577 - FlowerController - INFO -   s1 <-> s2 : 2 path(s) found
-2026-03-04 13:27:43,577 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2
-2026-03-04 13:27:43,578 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2
-2026-03-04 13:27:43,578 - FlowerController - INFO -   s1 <-> s3 : 1 path(s) found
-2026-03-04 13:27:43,578 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s3
-2026-03-04 13:27:43,578 - FlowerController - INFO -   s1 <-> s4 : 2 path(s) found
-2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s4
-2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4
-2026-03-04 13:27:43,579 - FlowerController - INFO -   s1 <-> s5 : 2 path(s) found
-2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2(port 2) -> s5
-2026-03-04 13:27:43,579 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
-2026-03-04 13:27:43,580 - FlowerController - INFO -   s1 <-> s6 : 2 path(s) found
-2026-03-04 13:27:43,580 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,580 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,581 - FlowerController - INFO -   s1 <-> s7 : 1 path(s) found
-2026-03-04 13:27:43,581 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,581 - FlowerController - INFO -   s1 <-> s8 : 1 path(s) found
-2026-03-04 13:27:43,581 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,582 - FlowerController - INFO -   s1 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,582 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,582 - FlowerController - INFO -     Path 2 (LONGEST): s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,582 - FlowerController - INFO -   s10 <-> s11 : 2 path(s) found
-2026-03-04 13:27:43,582 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 2) -> s11
-2026-03-04 13:27:43,583 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11
-2026-03-04 13:27:43,583 - FlowerController - INFO -   s10 <-> s2 : 2 path(s) found
-2026-03-04 13:27:43,583 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2
-2026-03-04 13:27:43,583 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2
-2026-03-04 13:27:43,584 - FlowerController - INFO -   s10 <-> s3 : 2 path(s) found
-2026-03-04 13:27:43,584 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 2) -> s3
-2026-03-04 13:27:43,584 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3
-2026-03-04 13:27:43,584 - FlowerController - INFO -   s10 <-> s4 : 2 path(s) found
-2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4
-2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4
-2026-03-04 13:27:43,585 - FlowerController - INFO -   s10 <-> s5 : 2 path(s) found
-2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 2) -> s11(port 2) -> s5
-2026-03-04 13:27:43,585 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 2) -> s5
-2026-03-04 13:27:43,586 - FlowerController - INFO -   s10 <-> s6 : 2 path(s) found
-2026-03-04 13:27:43,586 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,586 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,586 - FlowerController - INFO -   s10 <-> s7 : 2 path(s) found
-2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,587 - FlowerController - INFO -   s10 <-> s8 : 2 path(s) found
-2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,587 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,588 - FlowerController - INFO -   s10 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,588 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,588 - FlowerController - INFO -     Path 2 (LONGEST): s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,588 - FlowerController - INFO -   s11 <-> s2 : 2 path(s) found
-2026-03-04 13:27:43,589 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 2) -> s5(port 1) -> s2
-2026-03-04 13:27:43,589 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2
-2026-03-04 13:27:43,589 - FlowerController - INFO -   s11 <-> s3 : 2 path(s) found
-2026-03-04 13:27:43,590 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3
-2026-03-04 13:27:43,590 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3
-2026-03-04 13:27:43,591 - FlowerController - INFO -   s11 <-> s4 : 2 path(s) found
-2026-03-04 13:27:43,591 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4
-2026-03-04 13:27:43,591 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4
-2026-03-04 13:27:43,592 - FlowerController - INFO -   s11 <-> s5 : 2 path(s) found
-2026-03-04 13:27:43,592 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 2) -> s5
-2026-03-04 13:27:43,592 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 2) -> s5
-2026-03-04 13:27:43,593 - FlowerController - INFO -   s11 <-> s6 : 2 path(s) found
-2026-03-04 13:27:43,593 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,593 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,594 - FlowerController - INFO -   s11 <-> s7 : 2 path(s) found
-2026-03-04 13:27:43,594 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,594 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,595 - FlowerController - INFO -   s11 <-> s8 : 2 path(s) found
-2026-03-04 13:27:43,595 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,595 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,596 - FlowerController - INFO -   s11 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,596 - FlowerController - INFO -     Path 1 (SHORTEST): s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,596 - FlowerController - INFO -     Path 2 (LONGEST): s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,597 - FlowerController - INFO -   s2 <-> s3 : 2 path(s) found
-2026-03-04 13:27:43,597 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 2) -> s3
-2026-03-04 13:27:43,597 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3
-2026-03-04 13:27:43,597 - FlowerController - INFO -   s2 <-> s4 : 2 path(s) found
-2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 3) -> s4
-2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4
-2026-03-04 13:27:43,598 - FlowerController - INFO -   s2 <-> s5 : 2 path(s) found
-2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 2) -> s5
-2026-03-04 13:27:43,598 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 1) -> s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
-2026-03-04 13:27:43,599 - FlowerController - INFO -   s2 <-> s6 : 1 path(s) found
-2026-03-04 13:27:43,599 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 3) -> s6
-2026-03-04 13:27:43,600 - FlowerController - INFO -   s2 <-> s7 : 2 path(s) found
-2026-03-04 13:27:43,600 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,600 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,600 - FlowerController - INFO -   s2 <-> s8 : 2 path(s) found
-2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,601 - FlowerController - INFO -   s2 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,601 - FlowerController - INFO -     Path 2 (LONGEST): s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,602 - FlowerController - INFO -   s3 <-> s4 : 2 path(s) found
-2026-03-04 13:27:43,602 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 3) -> s4
-2026-03-04 13:27:43,602 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4
-2026-03-04 13:27:43,602 - FlowerController - INFO -   s3 <-> s5 : 2 path(s) found
-2026-03-04 13:27:43,603 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 1) -> s2(port 2) -> s5
-2026-03-04 13:27:43,603 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
-2026-03-04 13:27:43,603 - FlowerController - INFO -   s3 <-> s6 : 2 path(s) found
-2026-03-04 13:27:43,603 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,604 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 3) -> s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,604 - FlowerController - INFO -   s3 <-> s7 : 1 path(s) found
-2026-03-04 13:27:43,604 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 2) -> s7
-2026-03-04 13:27:43,604 - FlowerController - INFO -   s3 <-> s8 : 1 path(s) found
-2026-03-04 13:27:43,605 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 3) -> s8
-2026-03-04 13:27:43,605 - FlowerController - INFO -   s3 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,605 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,605 - FlowerController - INFO -     Path 2 (LONGEST): s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,606 - FlowerController - INFO -   s4 <-> s5 : 2 path(s) found
-2026-03-04 13:27:43,606 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 1) -> s2(port 2) -> s5
-2026-03-04 13:27:43,606 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5
-2026-03-04 13:27:43,607 - FlowerController - INFO -   s4 <-> s6 : 2 path(s) found
-2026-03-04 13:27:43,608 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,608 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,608 - FlowerController - INFO -   s4 <-> s7 : 2 path(s) found
-2026-03-04 13:27:43,609 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,609 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,609 - FlowerController - INFO -   s4 <-> s8 : 2 path(s) found
-2026-03-04 13:27:43,610 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,610 - FlowerController - INFO -     Path 2 (LONGEST): s4(port 3) -> s10(port 2) -> s11(port 2) -> s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,610 - FlowerController - INFO -   s4 <-> s9 : 1 path(s) found
-2026-03-04 13:27:43,611 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 2) -> s9
-2026-03-04 13:27:43,611 - FlowerController - INFO -   s5 <-> s6 : 2 path(s) found
-2026-03-04 13:27:43,611 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,611 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 1) -> s2(port 3) -> s6
-2026-03-04 13:27:43,612 - FlowerController - INFO -   s5 <-> s7 : 2 path(s) found
-2026-03-04 13:27:43,612 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,612 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,612 - FlowerController - INFO -   s5 <-> s8 : 2 path(s) found
-2026-03-04 13:27:43,613 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,613 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,613 - FlowerController - INFO -   s5 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,613 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,614 - FlowerController - INFO -     Path 2 (LONGEST): s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,614 - FlowerController - INFO -   s6 <-> s7 : 2 path(s) found
-2026-03-04 13:27:43,614 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,614 - FlowerController - INFO -     Path 2 (LONGEST): s6(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 2) -> s7
-2026-03-04 13:27:43,614 - FlowerController - INFO -   s6 <-> s8 : 2 path(s) found
-2026-03-04 13:27:43,615 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,615 - FlowerController - INFO -     Path 2 (LONGEST): s6(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 1) -> s1(port 2) -> s3(port 3) -> s8
-2026-03-04 13:27:43,615 - FlowerController - INFO -   s6 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,616 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,616 - FlowerController - INFO -     Path 2 (LONGEST): s6(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,616 - FlowerController - INFO -   s7 <-> s8 : 1 path(s) found
-2026-03-04 13:27:43,616 - FlowerController - INFO -     Path 1 (SHORTEST): s7(port 1) -> s3(port 3) -> s8
-2026-03-04 13:27:43,617 - FlowerController - INFO -   s7 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,617 - FlowerController - INFO -     Path 1 (SHORTEST): s7(port 1) -> s3(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,617 - FlowerController - INFO -     Path 2 (LONGEST): s7(port 1) -> s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,617 - FlowerController - INFO -   s8 <-> s9 : 2 path(s) found
-2026-03-04 13:27:43,617 - FlowerController - INFO -     Path 1 (SHORTEST): s8(port 1) -> s3(port 1) -> s1(port 3) -> s4(port 2) -> s9
-2026-03-04 13:27:43,618 - FlowerController - INFO -     Path 2 (LONGEST): s8(port 1) -> s3(port 1) -> s1(port 1) -> s2(port 2) -> s5(port 2) -> s11(port 1) -> s10(port 1) -> s4(port 2) -> s9
-2026-03-04 13:27:43,618 - FlowerController - INFO - ----------------------------------------
-2026-03-04 13:27:44,489 - FlowerController - INFO - Switch connected: 1
-2026-03-04 13:27:44,494 - FlowerController - INFO - Switch connected: 6
-2026-03-04 13:27:44,494 - FlowerController - INFO - Switch connected: 3
-2026-03-04 13:27:44,495 - FlowerController - INFO - Switch connected: 16
-2026-03-04 13:27:44,500 - FlowerController - INFO - Switch connected: 2
-2026-03-04 13:27:44,500 - FlowerController - INFO - Switch connected: 5
-2026-03-04 13:27:44,501 - FlowerController - INFO - Switch connected: 7
-2026-03-04 13:27:44,501 - FlowerController - INFO - Switch connected: 9
-2026-03-04 13:27:44,502 - FlowerController - INFO - Switch connected: 17
-2026-03-04 13:27:44,502 - FlowerController - INFO - Switch connected: 4
-2026-03-04 13:27:44,503 - FlowerController - INFO - Switch connected: 8
-2026-03-04 13:27:51,911 - FlowerController - INFO -   Path found for 00:00:00:00:00:02 -> 00:00:00:00:00:01: [{'name': 's8', 'dpid': 8, 'in_port': 2, 'out_port': 1}, {'name': 's3', 'dpid': 3, 'in_port': 3, 'out_port': 1}, {'name': 's1', 'dpid': 1, 'in_port': 2, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 1, 'out_port': 2}, {'name': 's5', 'dpid': 5, 'in_port': 1, 'out_port': 3}]
-2026-03-04 13:27:51,914 - FlowerController - INFO -   Path found for 00:00:00:00:00:03 -> 00:00:00:00:00:01: [{'name': 's11', 'dpid': 17, 'in_port': 3, 'out_port': 2}, {'name': 's5', 'dpid': 5, 'in_port': 2, 'out_port': 3}]
-2026-03-04 13:27:51,932 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:03: [{'name': 's5', 'dpid': 5, 'in_port': 3, 'out_port': 2}, {'name': 's11', 'dpid': 17, 'in_port': 2, 'out_port': 3}]
-2026-03-04 13:27:51,947 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:02: [{'name': 's5', 'dpid': 5, 'in_port': 3, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 2, 'out_port': 1}, {'name': 's1', 'dpid': 1, 'in_port': 1, 'out_port': 2}, {'name': 's3', 'dpid': 3, 'in_port': 1, 'out_port': 3}, {'name': 's8', 'dpid': 8, 'in_port': 1, 'out_port': 2}]
+2026-03-06 10:18:14,848 - FlowerController - INFO - Initializing Network Manager...
+2026-03-06 10:18:14,849 - FlowerController - INFO - ----------------------------------------
+2026-03-06 10:18:14,849 - FlowerController - INFO - NETWORK MANAGERS INITIALIZED
+2026-03-06 10:18:14,849 - FlowerController - INFO - Number of Hosts: 9
+2026-03-06 10:18:14,850 - FlowerController - INFO - Number of Switches: 11
+2026-03-06 10:18:14,850 - FlowerController - INFO - ----------------------------------------
+2026-03-06 10:18:14,850 - FlowerController - INFO - MULTI-PATH DISCOVERY REPORT:
+2026-03-06 10:18:14,851 - FlowerController - INFO -   core1 <-> s1 : 5 path(s) found
+2026-03-06 10:18:14,851 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 1) -> s1
+2026-03-06 10:18:14,851 - FlowerController - INFO -     Path 2: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1
+2026-03-06 10:18:14,851 - FlowerController - INFO -     Path 3 (MEDIAN): core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1
+2026-03-06 10:18:14,851 - FlowerController - INFO -     Path 4: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1
+2026-03-06 10:18:14,851 - FlowerController - INFO -     Path 5 (LONGEST): core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1
+2026-03-06 10:18:14,853 - FlowerController - INFO -   core1 <-> s10 : 12 path(s) found
+2026-03-06 10:18:14,854 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 1) -> s1(port 2) -> s5(port 3) -> s10
+2026-03-06 10:18:14,854 - FlowerController - INFO -     Path 2: core1(port 2) -> s2(port 3) -> s6(port 3) -> s10
+2026-03-06 10:18:14,854 - FlowerController - INFO -     Path 3: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 3) -> s10
+2026-03-06 10:18:14,854 - FlowerController - INFO -     Path 4: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 3) -> s10
+2026-03-06 10:18:14,854 - FlowerController - INFO -     Path 5: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10
+2026-03-06 10:18:14,854 - FlowerController - INFO -     Path 6: core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10
+2026-03-06 10:18:14,854 - FlowerController - INFO -     Path 7 (MEDIAN): core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10
+2026-03-06 10:18:14,855 - FlowerController - INFO -     Path 8: core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10
+2026-03-06 10:18:14,855 - FlowerController - INFO -     Path 9: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 3) -> s10
+2026-03-06 10:18:14,855 - FlowerController - INFO -     Path 10: core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 3) -> s10
+2026-03-06 10:18:14,855 - FlowerController - INFO -     Path 11: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 3) -> s10
+2026-03-06 10:18:14,855 - FlowerController - INFO -     Path 12 (LONGEST): core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 3) -> s10
+2026-03-06 10:18:14,856 - FlowerController - INFO -   core1 <-> s2 : 5 path(s) found
+2026-03-06 10:18:14,856 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 2) -> s2
+2026-03-06 10:18:14,856 - FlowerController - INFO -     Path 2: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2
+2026-03-06 10:18:14,856 - FlowerController - INFO -     Path 3 (MEDIAN): core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2
+2026-03-06 10:18:14,857 - FlowerController - INFO -     Path 4: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,857 - FlowerController - INFO -     Path 5 (LONGEST): core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,858 - FlowerController - INFO -   core1 <-> s3 : 9 path(s) found
+2026-03-06 10:18:14,858 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,858 - FlowerController - INFO -     Path 2: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,859 - FlowerController - INFO -     Path 3: core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,859 - FlowerController - INFO -     Path 4: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,859 - FlowerController - INFO -     Path 5 (MEDIAN): core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,859 - FlowerController - INFO -     Path 6: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,859 - FlowerController - INFO -     Path 7: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,859 - FlowerController - INFO -     Path 8: core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,859 - FlowerController - INFO -     Path 9 (LONGEST): core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,861 - FlowerController - INFO -   core1 <-> s4 : 9 path(s) found
+2026-03-06 10:18:14,861 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 2) -> s2(port 2) -> s4
+2026-03-06 10:18:14,861 - FlowerController - INFO -     Path 2: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,861 - FlowerController - INFO -     Path 3: core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,861 - FlowerController - INFO -     Path 4: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,861 - FlowerController - INFO -     Path 5 (MEDIAN): core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,862 - FlowerController - INFO -     Path 6: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,862 - FlowerController - INFO -     Path 7: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,862 - FlowerController - INFO -     Path 8: core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,862 - FlowerController - INFO -     Path 9 (LONGEST): core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,863 - FlowerController - INFO -   core1 <-> s5 : 9 path(s) found
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 2: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 3: core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 4: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 5 (MEDIAN): core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 6: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 7: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,864 - FlowerController - INFO -     Path 8: core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,865 - FlowerController - INFO -     Path 9 (LONGEST): core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,866 - FlowerController - INFO -   core1 <-> s6 : 9 path(s) found
+2026-03-06 10:18:14,866 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 2) -> s2(port 3) -> s6
+2026-03-06 10:18:14,866 - FlowerController - INFO -     Path 2: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,866 - FlowerController - INFO -     Path 3: core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,867 - FlowerController - INFO -     Path 4: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,867 - FlowerController - INFO -     Path 5 (MEDIAN): core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,867 - FlowerController - INFO -     Path 6: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,867 - FlowerController - INFO -     Path 7: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,867 - FlowerController - INFO -     Path 8: core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,867 - FlowerController - INFO -     Path 9 (LONGEST): core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,870 - FlowerController - INFO -   core1 <-> s7 : 12 path(s) found
+2026-03-06 10:18:14,870 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,870 - FlowerController - INFO -     Path 2: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,870 - FlowerController - INFO -     Path 3: core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,870 - FlowerController - INFO -     Path 4: core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,870 - FlowerController - INFO -     Path 5: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,871 - FlowerController - INFO -     Path 6: core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,871 - FlowerController - INFO -     Path 7 (MEDIAN): core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,871 - FlowerController - INFO -     Path 8: core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,871 - FlowerController - INFO -     Path 9: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,871 - FlowerController - INFO -     Path 10: core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,871 - FlowerController - INFO -     Path 11: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,871 - FlowerController - INFO -     Path 12 (LONGEST): core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,874 - FlowerController - INFO -   core1 <-> s8 : 12 path(s) found
+2026-03-06 10:18:14,874 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,874 - FlowerController - INFO -     Path 2: core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,874 - FlowerController - INFO -     Path 3: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,874 - FlowerController - INFO -     Path 4: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,875 - FlowerController - INFO -     Path 5: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,875 - FlowerController - INFO -     Path 6: core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,875 - FlowerController - INFO -     Path 7 (MEDIAN): core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,875 - FlowerController - INFO -     Path 8: core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,875 - FlowerController - INFO -     Path 9: core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,875 - FlowerController - INFO -     Path 10: core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,875 - FlowerController - INFO -     Path 11: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,876 - FlowerController - INFO -     Path 12 (LONGEST): core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,878 - FlowerController - INFO -   core1 <-> s9 : 12 path(s) found
+2026-03-06 10:18:14,878 - FlowerController - INFO -     Path 1 (SHORTEST): core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,878 - FlowerController - INFO -     Path 2: core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,878 - FlowerController - INFO -     Path 3: core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,878 - FlowerController - INFO -     Path 4: core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,878 - FlowerController - INFO -     Path 5: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,879 - FlowerController - INFO -     Path 6: core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,879 - FlowerController - INFO -     Path 7 (MEDIAN): core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,879 - FlowerController - INFO -     Path 8: core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,879 - FlowerController - INFO -     Path 9: core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,879 - FlowerController - INFO -     Path 10: core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,879 - FlowerController - INFO -     Path 11: core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,879 - FlowerController - INFO -     Path 12 (LONGEST): core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,881 - FlowerController - INFO -   s1 <-> s10 : 8 path(s) found
+2026-03-06 10:18:14,881 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s5(port 3) -> s10
+2026-03-06 10:18:14,881 - FlowerController - INFO -     Path 2: s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10
+2026-03-06 10:18:14,881 - FlowerController - INFO -     Path 3: s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 3) -> s10
+2026-03-06 10:18:14,882 - FlowerController - INFO -     Path 4: s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 3) -> s10
+2026-03-06 10:18:14,882 - FlowerController - INFO -     Path 5 (MEDIAN): s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10
+2026-03-06 10:18:14,882 - FlowerController - INFO -     Path 6: s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10
+2026-03-06 10:18:14,882 - FlowerController - INFO -     Path 7: s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 3) -> s10
+2026-03-06 10:18:14,882 - FlowerController - INFO -     Path 8 (LONGEST): s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 3) -> s10
+2026-03-06 10:18:14,883 - FlowerController - INFO -   s1 <-> s2 : 5 path(s) found
+2026-03-06 10:18:14,883 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> core1(port 2) -> s2
+2026-03-06 10:18:14,883 - FlowerController - INFO -     Path 2: s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2
+2026-03-06 10:18:14,883 - FlowerController - INFO -     Path 3 (MEDIAN): s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2
+2026-03-06 10:18:14,883 - FlowerController - INFO -     Path 4: s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,884 - FlowerController - INFO -     Path 5 (LONGEST): s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,884 - FlowerController - INFO -   s1 <-> s3 : 7 path(s) found
+2026-03-06 10:18:14,885 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s3
+2026-03-06 10:18:14,885 - FlowerController - INFO -     Path 2: s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,885 - FlowerController - INFO -     Path 3: s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,885 - FlowerController - INFO -     Path 4 (MEDIAN): s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,885 - FlowerController - INFO -     Path 5: s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,885 - FlowerController - INFO -     Path 6: s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,885 - FlowerController - INFO -     Path 7 (LONGEST): s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,887 - FlowerController - INFO -   s1 <-> s4 : 5 path(s) found
+2026-03-06 10:18:14,887 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> core1(port 2) -> s2(port 2) -> s4
+2026-03-06 10:18:14,887 - FlowerController - INFO -     Path 2: s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,887 - FlowerController - INFO -     Path 3 (MEDIAN): s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,887 - FlowerController - INFO -     Path 4: s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,887 - FlowerController - INFO -     Path 5 (LONGEST): s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,888 - FlowerController - INFO -   s1 <-> s5 : 7 path(s) found
+2026-03-06 10:18:14,888 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s5
+2026-03-06 10:18:14,888 - FlowerController - INFO -     Path 2: s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,888 - FlowerController - INFO -     Path 3: s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,889 - FlowerController - INFO -     Path 4 (MEDIAN): s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,889 - FlowerController - INFO -     Path 5: s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,889 - FlowerController - INFO -     Path 6: s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,889 - FlowerController - INFO -     Path 7 (LONGEST): s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,890 - FlowerController - INFO -   s1 <-> s6 : 5 path(s) found
+2026-03-06 10:18:14,890 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 1) -> core1(port 2) -> s2(port 3) -> s6
+2026-03-06 10:18:14,890 - FlowerController - INFO -     Path 2: s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,890 - FlowerController - INFO -     Path 3 (MEDIAN): s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,890 - FlowerController - INFO -     Path 4: s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,891 - FlowerController - INFO -     Path 5 (LONGEST): s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,892 - FlowerController - INFO -   s1 <-> s7 : 8 path(s) found
+2026-03-06 10:18:14,892 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,893 - FlowerController - INFO -     Path 2: s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,893 - FlowerController - INFO -     Path 3: s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,893 - FlowerController - INFO -     Path 4: s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,893 - FlowerController - INFO -     Path 5 (MEDIAN): s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,893 - FlowerController - INFO -     Path 6: s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,893 - FlowerController - INFO -     Path 7: s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,893 - FlowerController - INFO -     Path 8 (LONGEST): s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,895 - FlowerController - INFO -   s1 <-> s8 : 8 path(s) found
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 2: s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 3: s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 4: s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 5 (MEDIAN): s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 6: s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 7: s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,895 - FlowerController - INFO -     Path 8 (LONGEST): s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,896 - FlowerController - INFO -   s1 <-> s9 : 8 path(s) found
+2026-03-06 10:18:14,896 - FlowerController - INFO -     Path 1 (SHORTEST): s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,896 - FlowerController - INFO -     Path 2: s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,896 - FlowerController - INFO -     Path 3: s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,897 - FlowerController - INFO -     Path 4: s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,897 - FlowerController - INFO -     Path 5 (MEDIAN): s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,897 - FlowerController - INFO -     Path 6: s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,897 - FlowerController - INFO -     Path 7: s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,897 - FlowerController - INFO -     Path 8 (LONGEST): s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,898 - FlowerController - INFO -   s10 <-> s2 : 8 path(s) found
+2026-03-06 10:18:14,898 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 2) -> s6(port 1) -> s2
+2026-03-06 10:18:14,898 - FlowerController - INFO -     Path 2: s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2
+2026-03-06 10:18:14,899 - FlowerController - INFO -     Path 3: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2
+2026-03-06 10:18:14,899 - FlowerController - INFO -     Path 4: s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,899 - FlowerController - INFO -     Path 5 (MEDIAN): s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,899 - FlowerController - INFO -     Path 6: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2
+2026-03-06 10:18:14,899 - FlowerController - INFO -     Path 7: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,899 - FlowerController - INFO -     Path 8 (LONGEST): s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2
+2026-03-06 10:18:14,901 - FlowerController - INFO -   s10 <-> s3 : 12 path(s) found
+2026-03-06 10:18:14,901 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s5(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,901 - FlowerController - INFO -     Path 2: s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,901 - FlowerController - INFO -     Path 3: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,901 - FlowerController - INFO -     Path 4: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,901 - FlowerController - INFO -     Path 5: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,902 - FlowerController - INFO -     Path 6: s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,902 - FlowerController - INFO -     Path 7 (MEDIAN): s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,902 - FlowerController - INFO -     Path 8: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,902 - FlowerController - INFO -     Path 9: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,902 - FlowerController - INFO -     Path 10: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,902 - FlowerController - INFO -     Path 11: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,902 - FlowerController - INFO -     Path 12 (LONGEST): s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,904 - FlowerController - INFO -   s10 <-> s4 : 12 path(s) found
+2026-03-06 10:18:14,904 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,904 - FlowerController - INFO -     Path 2: s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4
+2026-03-06 10:18:14,904 - FlowerController - INFO -     Path 3: s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,904 - FlowerController - INFO -     Path 4: s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,904 - FlowerController - INFO -     Path 5: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,904 - FlowerController - INFO -     Path 6: s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,905 - FlowerController - INFO -     Path 7 (MEDIAN): s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,905 - FlowerController - INFO -     Path 8: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4
+2026-03-06 10:18:14,905 - FlowerController - INFO -     Path 9: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,905 - FlowerController - INFO -     Path 10: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,905 - FlowerController - INFO -     Path 11: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,905 - FlowerController - INFO -     Path 12 (LONGEST): s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,906 - FlowerController - INFO -   s10 <-> s5 : 5 path(s) found
+2026-03-06 10:18:14,906 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s5
+2026-03-06 10:18:14,907 - FlowerController - INFO -     Path 2: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,907 - FlowerController - INFO -     Path 3 (MEDIAN): s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,907 - FlowerController - INFO -     Path 4: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,907 - FlowerController - INFO -     Path 5 (LONGEST): s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,908 - FlowerController - INFO -   s10 <-> s6 : 5 path(s) found
+2026-03-06 10:18:14,908 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 2) -> s6
+2026-03-06 10:18:14,908 - FlowerController - INFO -     Path 2: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,908 - FlowerController - INFO -     Path 3 (MEDIAN): s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6
+2026-03-06 10:18:14,909 - FlowerController - INFO -     Path 4: s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,909 - FlowerController - INFO -     Path 5 (LONGEST): s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,911 - FlowerController - INFO -   s10 <-> s7 : 16 path(s) found
+2026-03-06 10:18:14,911 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,911 - FlowerController - INFO -     Path 2: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 3: s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 4: s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 5: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 6: s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 7: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 8: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 9 (MEDIAN): s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,912 - FlowerController - INFO -     Path 10: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,913 - FlowerController - INFO -     Path 11: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,913 - FlowerController - INFO -     Path 12: s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,913 - FlowerController - INFO -     Path 13: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,913 - FlowerController - INFO -     Path 14: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,913 - FlowerController - INFO -     Path 15: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,913 - FlowerController - INFO -     Path 16 (LONGEST): s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,915 - FlowerController - INFO -   s10 <-> s8 : 16 path(s) found
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 2: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 3: s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 4: s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 5: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 6: s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 7: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,916 - FlowerController - INFO -     Path 8: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,917 - FlowerController - INFO -     Path 9 (MEDIAN): s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,917 - FlowerController - INFO -     Path 10: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,917 - FlowerController - INFO -     Path 11: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,917 - FlowerController - INFO -     Path 12: s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,917 - FlowerController - INFO -     Path 13: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,917 - FlowerController - INFO -     Path 14: s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,917 - FlowerController - INFO -     Path 15: s10(port 1) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,918 - FlowerController - INFO -     Path 16 (LONGEST): s10(port 2) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,919 - FlowerController - INFO -   s10 <-> s9 : 8 path(s) found
+2026-03-06 10:18:14,920 - FlowerController - INFO -     Path 1 (SHORTEST): s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,920 - FlowerController - INFO -     Path 2: s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,920 - FlowerController - INFO -     Path 3: s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,920 - FlowerController - INFO -     Path 4: s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,920 - FlowerController - INFO -     Path 5 (MEDIAN): s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,920 - FlowerController - INFO -     Path 6: s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,921 - FlowerController - INFO -     Path 7: s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,921 - FlowerController - INFO -     Path 8 (LONGEST): s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,922 - FlowerController - INFO -   s2 <-> s3 : 5 path(s) found
+2026-03-06 10:18:14,922 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> core1(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,922 - FlowerController - INFO -     Path 2: s2(port 2) -> s4(port 2) -> s7(port 1) -> s3
+2026-03-06 10:18:14,922 - FlowerController - INFO -     Path 3 (MEDIAN): s2(port 2) -> s4(port 3) -> s8(port 1) -> s3
+2026-03-06 10:18:14,922 - FlowerController - INFO -     Path 4: s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,922 - FlowerController - INFO -     Path 5 (LONGEST): s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3
+2026-03-06 10:18:14,923 - FlowerController - INFO -   s2 <-> s4 : 7 path(s) found
+2026-03-06 10:18:14,924 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 2) -> s4
+2026-03-06 10:18:14,924 - FlowerController - INFO -     Path 2: s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,924 - FlowerController - INFO -     Path 3: s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,924 - FlowerController - INFO -     Path 4 (MEDIAN): s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,924 - FlowerController - INFO -     Path 5: s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,924 - FlowerController - INFO -     Path 6: s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,924 - FlowerController - INFO -     Path 7 (LONGEST): s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,925 - FlowerController - INFO -   s2 <-> s5 : 5 path(s) found
+2026-03-06 10:18:14,925 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 1) -> core1(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,925 - FlowerController - INFO -     Path 2: s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,925 - FlowerController - INFO -     Path 3 (MEDIAN): s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,925 - FlowerController - INFO -     Path 4: s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,925 - FlowerController - INFO -     Path 5 (LONGEST): s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,926 - FlowerController - INFO -   s2 <-> s6 : 7 path(s) found
+2026-03-06 10:18:14,926 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 3) -> s6
+2026-03-06 10:18:14,926 - FlowerController - INFO -     Path 2: s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,926 - FlowerController - INFO -     Path 3: s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,926 - FlowerController - INFO -     Path 4 (MEDIAN): s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,926 - FlowerController - INFO -     Path 5: s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,926 - FlowerController - INFO -     Path 6: s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,926 - FlowerController - INFO -     Path 7 (LONGEST): s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,927 - FlowerController - INFO -   s2 <-> s7 : 8 path(s) found
+2026-03-06 10:18:14,927 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,927 - FlowerController - INFO -     Path 2: s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,928 - FlowerController - INFO -     Path 3: s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,928 - FlowerController - INFO -     Path 4: s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,928 - FlowerController - INFO -     Path 5 (MEDIAN): s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,928 - FlowerController - INFO -     Path 6: s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,928 - FlowerController - INFO -     Path 7: s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,928 - FlowerController - INFO -     Path 8 (LONGEST): s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,929 - FlowerController - INFO -   s2 <-> s8 : 8 path(s) found
+2026-03-06 10:18:14,929 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,929 - FlowerController - INFO -     Path 2: s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,929 - FlowerController - INFO -     Path 3: s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,929 - FlowerController - INFO -     Path 4: s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,929 - FlowerController - INFO -     Path 5 (MEDIAN): s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,930 - FlowerController - INFO -     Path 6: s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,930 - FlowerController - INFO -     Path 7: s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,930 - FlowerController - INFO -     Path 8 (LONGEST): s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,931 - FlowerController - INFO -   s2 <-> s9 : 8 path(s) found
+2026-03-06 10:18:14,931 - FlowerController - INFO -     Path 1 (SHORTEST): s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,931 - FlowerController - INFO -     Path 2: s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,932 - FlowerController - INFO -     Path 3: s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,932 - FlowerController - INFO -     Path 4: s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,932 - FlowerController - INFO -     Path 5 (MEDIAN): s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,932 - FlowerController - INFO -     Path 6: s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,932 - FlowerController - INFO -     Path 7: s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,932 - FlowerController - INFO -     Path 8 (LONGEST): s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,933 - FlowerController - INFO -   s3 <-> s4 : 5 path(s) found
+2026-03-06 10:18:14,933 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 2) -> s7(port 2) -> s4
+2026-03-06 10:18:14,933 - FlowerController - INFO -     Path 2: s3(port 3) -> s8(port 2) -> s4
+2026-03-06 10:18:14,934 - FlowerController - INFO -     Path 3 (MEDIAN): s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4
+2026-03-06 10:18:14,934 - FlowerController - INFO -     Path 4: s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,934 - FlowerController - INFO -     Path 5 (LONGEST): s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4
+2026-03-06 10:18:14,935 - FlowerController - INFO -   s3 <-> s5 : 9 path(s) found
+2026-03-06 10:18:14,935 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,935 - FlowerController - INFO -     Path 2: s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,936 - FlowerController - INFO -     Path 3: s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,936 - FlowerController - INFO -     Path 4: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,936 - FlowerController - INFO -     Path 5 (MEDIAN): s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,936 - FlowerController - INFO -     Path 6: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,936 - FlowerController - INFO -     Path 7: s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,936 - FlowerController - INFO -     Path 8: s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,937 - FlowerController - INFO -     Path 9 (LONGEST): s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,938 - FlowerController - INFO -   s3 <-> s6 : 9 path(s) found
+2026-03-06 10:18:14,938 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6
+2026-03-06 10:18:14,938 - FlowerController - INFO -     Path 2: s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,938 - FlowerController - INFO -     Path 3: s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,938 - FlowerController - INFO -     Path 4: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,939 - FlowerController - INFO -     Path 5 (MEDIAN): s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,939 - FlowerController - INFO -     Path 6: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,939 - FlowerController - INFO -     Path 7: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,939 - FlowerController - INFO -     Path 8: s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,939 - FlowerController - INFO -     Path 9 (LONGEST): s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,941 - FlowerController - INFO -   s3 <-> s7 : 5 path(s) found
+2026-03-06 10:18:14,941 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 2) -> s7
+2026-03-06 10:18:14,941 - FlowerController - INFO -     Path 2: s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,941 - FlowerController - INFO -     Path 3 (MEDIAN): s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,942 - FlowerController - INFO -     Path 4: s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,942 - FlowerController - INFO -     Path 5 (LONGEST): s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,943 - FlowerController - INFO -   s3 <-> s8 : 5 path(s) found
+2026-03-06 10:18:14,944 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 3) -> s8
+2026-03-06 10:18:14,944 - FlowerController - INFO -     Path 2: s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,944 - FlowerController - INFO -     Path 3 (MEDIAN): s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,944 - FlowerController - INFO -     Path 4: s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,944 - FlowerController - INFO -     Path 5 (LONGEST): s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,946 - FlowerController - INFO -   s3 <-> s9 : 12 path(s) found
+2026-03-06 10:18:14,946 - FlowerController - INFO -     Path 1 (SHORTEST): s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,946 - FlowerController - INFO -     Path 2: s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,946 - FlowerController - INFO -     Path 3: s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,946 - FlowerController - INFO -     Path 4: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,947 - FlowerController - INFO -     Path 5: s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,947 - FlowerController - INFO -     Path 6: s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,947 - FlowerController - INFO -     Path 7 (MEDIAN): s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,947 - FlowerController - INFO -     Path 8: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,947 - FlowerController - INFO -     Path 9: s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,947 - FlowerController - INFO -     Path 10: s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,947 - FlowerController - INFO -     Path 11: s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,948 - FlowerController - INFO -     Path 12 (LONGEST): s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,949 - FlowerController - INFO -   s4 <-> s5 : 9 path(s) found
+2026-03-06 10:18:14,949 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,950 - FlowerController - INFO -     Path 2: s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,950 - FlowerController - INFO -     Path 3: s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,950 - FlowerController - INFO -     Path 4: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,950 - FlowerController - INFO -     Path 5 (MEDIAN): s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5
+2026-03-06 10:18:14,950 - FlowerController - INFO -     Path 6: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,950 - FlowerController - INFO -     Path 7: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,951 - FlowerController - INFO -     Path 8: s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5
+2026-03-06 10:18:14,951 - FlowerController - INFO -     Path 9 (LONGEST): s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5
+2026-03-06 10:18:14,952 - FlowerController - INFO -   s4 <-> s6 : 9 path(s) found
+2026-03-06 10:18:14,952 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,952 - FlowerController - INFO -     Path 2: s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,953 - FlowerController - INFO -     Path 3: s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,953 - FlowerController - INFO -     Path 4: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6
+2026-03-06 10:18:14,953 - FlowerController - INFO -     Path 5 (MEDIAN): s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,953 - FlowerController - INFO -     Path 6: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,953 - FlowerController - INFO -     Path 7: s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6
+2026-03-06 10:18:14,953 - FlowerController - INFO -     Path 8: s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,954 - FlowerController - INFO -     Path 9 (LONGEST): s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,956 - FlowerController - INFO -   s4 <-> s7 : 5 path(s) found
+2026-03-06 10:18:14,956 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 2) -> s7
+2026-03-06 10:18:14,956 - FlowerController - INFO -     Path 2: s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,956 - FlowerController - INFO -     Path 3 (MEDIAN): s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,956 - FlowerController - INFO -     Path 4: s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,956 - FlowerController - INFO -     Path 5 (LONGEST): s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,958 - FlowerController - INFO -   s4 <-> s8 : 5 path(s) found
+2026-03-06 10:18:14,958 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 3) -> s8
+2026-03-06 10:18:14,959 - FlowerController - INFO -     Path 2: s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,959 - FlowerController - INFO -     Path 3 (MEDIAN): s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,959 - FlowerController - INFO -     Path 4: s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,959 - FlowerController - INFO -     Path 5 (LONGEST): s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,961 - FlowerController - INFO -   s4 <-> s9 : 12 path(s) found
+2026-03-06 10:18:14,961 - FlowerController - INFO -     Path 1 (SHORTEST): s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,961 - FlowerController - INFO -     Path 2: s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,961 - FlowerController - INFO -     Path 3: s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,961 - FlowerController - INFO -     Path 4: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 5: s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 6: s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 7 (MEDIAN): s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 8: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 9: s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 10: s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 11: s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,962 - FlowerController - INFO -     Path 12 (LONGEST): s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,964 - FlowerController - INFO -   s5 <-> s6 : 5 path(s) found
+2026-03-06 10:18:14,964 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 2) -> s9(port 2) -> s6
+2026-03-06 10:18:14,964 - FlowerController - INFO -     Path 2: s5(port 3) -> s10(port 2) -> s6
+2026-03-06 10:18:14,964 - FlowerController - INFO -     Path 3 (MEDIAN): s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6
+2026-03-06 10:18:14,964 - FlowerController - INFO -     Path 4: s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,964 - FlowerController - INFO -     Path 5 (LONGEST): s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6
+2026-03-06 10:18:14,965 - FlowerController - INFO -   s5 <-> s7 : 12 path(s) found
+2026-03-06 10:18:14,965 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,965 - FlowerController - INFO -     Path 2: s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,966 - FlowerController - INFO -     Path 3: s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,966 - FlowerController - INFO -     Path 4: s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,966 - FlowerController - INFO -     Path 5: s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,966 - FlowerController - INFO -     Path 6: s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,966 - FlowerController - INFO -     Path 7 (MEDIAN): s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,966 - FlowerController - INFO -     Path 8: s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,966 - FlowerController - INFO -     Path 9: s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,967 - FlowerController - INFO -     Path 10: s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,967 - FlowerController - INFO -     Path 11: s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,967 - FlowerController - INFO -     Path 12 (LONGEST): s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,969 - FlowerController - INFO -   s5 <-> s8 : 12 path(s) found
+2026-03-06 10:18:14,969 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,969 - FlowerController - INFO -     Path 2: s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,969 - FlowerController - INFO -     Path 3: s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,969 - FlowerController - INFO -     Path 4: s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,969 - FlowerController - INFO -     Path 5: s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,970 - FlowerController - INFO -     Path 6: s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,970 - FlowerController - INFO -     Path 7 (MEDIAN): s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,970 - FlowerController - INFO -     Path 8: s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,970 - FlowerController - INFO -     Path 9: s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,970 - FlowerController - INFO -     Path 10: s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,970 - FlowerController - INFO -     Path 11: s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,971 - FlowerController - INFO -     Path 12 (LONGEST): s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,972 - FlowerController - INFO -   s5 <-> s9 : 5 path(s) found
+2026-03-06 10:18:14,972 - FlowerController - INFO -     Path 1 (SHORTEST): s5(port 2) -> s9
+2026-03-06 10:18:14,972 - FlowerController - INFO -     Path 2: s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,972 - FlowerController - INFO -     Path 3 (MEDIAN): s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,973 - FlowerController - INFO -     Path 4: s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,973 - FlowerController - INFO -     Path 5 (LONGEST): s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,975 - FlowerController - INFO -   s6 <-> s7 : 12 path(s) found
+2026-03-06 10:18:14,975 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,975 - FlowerController - INFO -     Path 2: s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,975 - FlowerController - INFO -     Path 3: s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,975 - FlowerController - INFO -     Path 4: s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,975 - FlowerController - INFO -     Path 5: s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7
+2026-03-06 10:18:14,975 - FlowerController - INFO -     Path 6: s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,976 - FlowerController - INFO -     Path 7 (MEDIAN): s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,976 - FlowerController - INFO -     Path 8: s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,976 - FlowerController - INFO -     Path 9: s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,976 - FlowerController - INFO -     Path 10: s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8(port 2) -> s4(port 2) -> s7
+2026-03-06 10:18:14,976 - FlowerController - INFO -     Path 11: s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,976 - FlowerController - INFO -     Path 12 (LONGEST): s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 2) -> s7
+2026-03-06 10:18:14,978 - FlowerController - INFO -   s6 <-> s8 : 12 path(s) found
+2026-03-06 10:18:14,978 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,978 - FlowerController - INFO -     Path 2: s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,979 - FlowerController - INFO -     Path 3: s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,979 - FlowerController - INFO -     Path 4: s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,979 - FlowerController - INFO -     Path 5: s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,979 - FlowerController - INFO -     Path 6: s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,979 - FlowerController - INFO -     Path 7 (MEDIAN): s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,979 - FlowerController - INFO -     Path 8: s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,979 - FlowerController - INFO -     Path 9: s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,980 - FlowerController - INFO -     Path 10: s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 2) -> s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,980 - FlowerController - INFO -     Path 11: s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,980 - FlowerController - INFO -     Path 12 (LONGEST): s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,982 - FlowerController - INFO -   s6 <-> s9 : 5 path(s) found
+2026-03-06 10:18:14,982 - FlowerController - INFO -     Path 1 (SHORTEST): s6(port 2) -> s9
+2026-03-06 10:18:14,982 - FlowerController - INFO -     Path 2: s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,982 - FlowerController - INFO -     Path 3 (MEDIAN): s6(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,982 - FlowerController - INFO -     Path 4: s6(port 1) -> s2(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,982 - FlowerController - INFO -     Path 5 (LONGEST): s6(port 1) -> s2(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,983 - FlowerController - INFO -   s7 <-> s8 : 8 path(s) found
+2026-03-06 10:18:14,983 - FlowerController - INFO -     Path 1 (SHORTEST): s7(port 1) -> s3(port 3) -> s8
+2026-03-06 10:18:14,983 - FlowerController - INFO -     Path 2: s7(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,984 - FlowerController - INFO -     Path 3: s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,984 - FlowerController - INFO -     Path 4: s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,984 - FlowerController - INFO -     Path 5 (MEDIAN): s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,984 - FlowerController - INFO -     Path 6: s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 1) -> s2(port 2) -> s4(port 3) -> s8
+2026-03-06 10:18:14,984 - FlowerController - INFO -     Path 7: s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,984 - FlowerController - INFO -     Path 8 (LONGEST): s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 1) -> s1(port 3) -> s3(port 3) -> s8
+2026-03-06 10:18:14,987 - FlowerController - INFO -   s7 <-> s9 : 16 path(s) found
+2026-03-06 10:18:14,987 - FlowerController - INFO -     Path 1 (SHORTEST): s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,987 - FlowerController - INFO -     Path 2: s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,987 - FlowerController - INFO -     Path 3: s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,987 - FlowerController - INFO -     Path 4: s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,987 - FlowerController - INFO -     Path 5: s7(port 1) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,987 - FlowerController - INFO -     Path 6: s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 7: s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 8: s7(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 9 (MEDIAN): s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 10: s7(port 1) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 11: s7(port 1) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 12: s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 13: s7(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,988 - FlowerController - INFO -     Path 14: s7(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,989 - FlowerController - INFO -     Path 15: s7(port 1) -> s3(port 3) -> s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,989 - FlowerController - INFO -     Path 16 (LONGEST): s7(port 2) -> s4(port 3) -> s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,990 - FlowerController - INFO -   s8 <-> s9 : 16 path(s) found
+2026-03-06 10:18:14,990 - FlowerController - INFO -     Path 1 (SHORTEST): s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,990 - FlowerController - INFO -     Path 2: s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,990 - FlowerController - INFO -     Path 3: s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 4: s8(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 5: s8(port 1) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 6: s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 7: s8(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 8: s8(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 9 (MEDIAN): s8(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 10: s8(port 1) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 2) -> s9
+2026-03-06 10:18:14,991 - FlowerController - INFO -     Path 11: s8(port 1) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,992 - FlowerController - INFO -     Path 12: s8(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,992 - FlowerController - INFO -     Path 13: s8(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 2) -> s9
+2026-03-06 10:18:14,992 - FlowerController - INFO -     Path 14: s8(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,992 - FlowerController - INFO -     Path 15: s8(port 1) -> s3(port 2) -> s7(port 2) -> s4(port 1) -> s2(port 1) -> core1(port 1) -> s1(port 2) -> s5(port 3) -> s10(port 2) -> s6(port 2) -> s9
+2026-03-06 10:18:14,992 - FlowerController - INFO -     Path 16 (LONGEST): s8(port 2) -> s4(port 2) -> s7(port 1) -> s3(port 1) -> s1(port 1) -> core1(port 2) -> s2(port 3) -> s6(port 3) -> s10(port 1) -> s5(port 2) -> s9
+2026-03-06 10:18:14,992 - FlowerController - INFO - ----------------------------------------
+2026-03-06 10:18:15,807 - FlowerController - INFO - Switch connected: 1
+2026-03-06 10:18:15,808 - FlowerController - INFO - Switch connected: 16
+2026-03-06 10:18:15,810 - FlowerController - INFO - Switch connected: 256
+2026-03-06 10:18:15,811 - FlowerController - INFO - Switch connected: 2
+2026-03-06 10:18:15,812 - FlowerController - INFO - Switch connected: 3
+2026-03-06 10:18:15,812 - FlowerController - INFO - Switch connected: 4
+2026-03-06 10:18:15,813 - FlowerController - INFO - Switch connected: 9
+2026-03-06 10:18:15,813 - FlowerController - INFO - Switch connected: 8
+2026-03-06 10:18:15,818 - FlowerController - INFO - Switch connected: 6
+2026-03-06 10:18:15,818 - FlowerController - INFO - Switch connected: 5
+2026-03-06 10:18:15,819 - FlowerController - INFO - Switch connected: 7
+2026-03-06 10:18:22,404 - FlowerController - INFO -   Path found for 00:00:00:00:00:05 -> 00:00:00:00:00:01: [{'name': 's8', 'dpid': 8, 'in_port': 4, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 3, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,436 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:05: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 1, 'out_port': 3}, {'name': 's8', 'dpid': 8, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,489 - FlowerController - INFO -   Path found for 00:00:00:00:00:09 -> 00:00:00:00:00:01: [{'name': 's10', 'dpid': 16, 'in_port': 4, 'out_port': 2}, {'name': 's6', 'dpid': 6, 'in_port': 3, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 3, 'out_port': 4}]
+2026-03-06 10:18:22,499 - FlowerController - INFO -   Path found for 00:00:00:00:00:08 -> 00:00:00:00:00:01: [{'name': 's10', 'dpid': 16, 'in_port': 3, 'out_port': 2}, {'name': 's6', 'dpid': 6, 'in_port': 3, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 3, 'out_port': 4}]
+2026-03-06 10:18:22,520 - FlowerController - INFO -   Path found for 00:00:00:00:00:02 -> 00:00:00:00:00:01: [{'name': 's7', 'dpid': 7, 'in_port': 3, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 2, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,524 - FlowerController - INFO -   Path found for 00:00:00:00:00:04 -> 00:00:00:00:00:01: [{'name': 's8', 'dpid': 8, 'in_port': 3, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 3, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,535 - FlowerController - INFO -   Path found for 00:00:00:00:00:03 -> 00:00:00:00:00:01: [{'name': 's7', 'dpid': 7, 'in_port': 4, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 2, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,536 - FlowerController - INFO -   Path found for 00:00:00:00:00:07 -> 00:00:00:00:00:01: [{'name': 's9', 'dpid': 9, 'in_port': 4, 'out_port': 2}, {'name': 's6', 'dpid': 6, 'in_port': 2, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 3, 'out_port': 4}]
+2026-03-06 10:18:22,548 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:09: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 3}, {'name': 's6', 'dpid': 6, 'in_port': 1, 'out_port': 3}, {'name': 's10', 'dpid': 16, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,549 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:08: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 3}, {'name': 's6', 'dpid': 6, 'in_port': 1, 'out_port': 3}, {'name': 's10', 'dpid': 16, 'in_port': 2, 'out_port': 3}]
+2026-03-06 10:18:22,563 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:04: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 1, 'out_port': 3}, {'name': 's8', 'dpid': 8, 'in_port': 2, 'out_port': 3}]
+2026-03-06 10:18:22,577 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:02: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 1, 'out_port': 2}, {'name': 's7', 'dpid': 7, 'in_port': 2, 'out_port': 3}]
+2026-03-06 10:18:22,578 - FlowerController - INFO -   Path found for 00:00:00:00:00:06 -> 00:00:00:00:00:01: [{'name': 's9', 'dpid': 9, 'in_port': 3, 'out_port': 2}, {'name': 's6', 'dpid': 6, 'in_port': 2, 'out_port': 1}, {'name': 's2', 'dpid': 2, 'in_port': 3, 'out_port': 4}]
+2026-03-06 10:18:22,596 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:07: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 3}, {'name': 's6', 'dpid': 6, 'in_port': 1, 'out_port': 2}, {'name': 's9', 'dpid': 9, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,612 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:03: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 2}, {'name': 's4', 'dpid': 4, 'in_port': 1, 'out_port': 2}, {'name': 's7', 'dpid': 7, 'in_port': 2, 'out_port': 4}]
+2026-03-06 10:18:22,618 - FlowerController - INFO -   Path found for 00:00:00:00:00:01 -> 00:00:00:00:00:06: [{'name': 's2', 'dpid': 2, 'in_port': 4, 'out_port': 3}, {'name': 's6', 'dpid': 6, 'in_port': 1, 'out_port': 2}, {'name': 's9', 'dpid': 9, 'in_port': 2, 'out_port': 3}]

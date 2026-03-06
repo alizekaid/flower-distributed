@@ -55,37 +55,62 @@ class FlowerTopology:
         info("*** Adding remote controller (Ryu)\n")
         self.net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6653)
         
-        info("*** Adding 11 switches with fixed DPID...\n")
+        info("*** Adding 10 switches plus core switch...\n")
         switches = {}
-        for i in range(1, 12):
+        for i in range(1, 11):
             swname = f's{i}'
             dpid_str = str(i).zfill(16) 
             switches[swname] = self.net.addSwitch(swname, dpid=dpid_str)
+        
+        # Add core switch
+        switches['core1'] = self.net.addSwitch('core1', dpid='0000000000000100')
         
         self.switch = switches['s1'] # Set main hub reference
         
         info("*** Creating links between switches...\n")
         links = [
-            ('s1', 's2'), ('s1', 's3'), ('s1', 's4'),
-            ('s2', 's5'), ('s2', 's6'),
+            ('core1', 's1'), ('core1', 's2'),
+            ('s1', 's5'), ('s1', 's3'),
+            ('s2', 's4'), ('s2', 's6'),
             ('s3', 's7'), ('s3', 's8'),
-            ('s4', 's9'), ('s4', 's10'),
-            ('s10', 's11'), ('s5', 's11')
+            ('s4', 's7'), ('s4', 's8'),
+            ('s5', 's9'), ('s5', 's10'),
+            ('s6', 's9'), ('s6', 's10')
         ]
         
         for src, dst in links:
             self.net.addLink(switches[src], switches[dst], bw=config.BANDWIDTH, delay=config.DELAY)
             
-        info("*** Adding hosts (h1, h2, h3)...\n")
+        info("*** Adding hosts (h1, c1-c8)...\n")
         self.server = self.net.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01')
-        h2 = self.net.addHost('h2', ip='10.0.0.2/24', mac='00:00:00:00:00:02')
-        h3 = self.net.addHost('h3', ip='10.0.0.3/24', mac='00:00:00:00:00:03')
-        self.clients = [h2, h3]
+        
+        # Clients c1-c8 with re-indexed IPs
+        c1 = self.net.addHost('c1', ip='10.0.0.2/24', mac='00:00:00:00:00:02')
+        c2 = self.net.addHost('c2', ip='10.0.0.3/24', mac='00:00:00:00:00:03')
+        c3 = self.net.addHost('c3', ip='10.0.0.4/24', mac='00:00:00:00:00:04')
+        c4 = self.net.addHost('c4', ip='10.0.0.5/24', mac='00:00:00:00:00:05')
+        c5 = self.net.addHost('c5', ip='10.0.0.6/24', mac='00:00:00:00:00:06')
+        c6 = self.net.addHost('c6', ip='10.0.0.7/24', mac='00:00:00:00:00:07')
+        c7 = self.net.addHost('c7', ip='10.0.0.8/24', mac='00:00:00:00:00:08')
+        c8 = self.net.addHost('c8', ip='10.0.0.9/24', mac='00:00:00:00:00:09')
+        
+        self.clients = [c1, c2, c3, c4, c5, c6, c7, c8]
         
         info("*** Connecting hosts to switches...\n")
-        self.net.addLink(self.server, switches['s5'], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(h2, switches['s8'], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(h3, switches['s11'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(self.server, switches['s2'], bw=config.BANDWIDTH, delay=config.DELAY)
+        
+        # c1, c2 to s7
+        self.net.addLink(c1, switches['s7'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c2, switches['s7'], bw=config.BANDWIDTH, delay=config.DELAY)
+        # c3, c4 to s8
+        self.net.addLink(c3, switches['s8'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c4, switches['s8'], bw=config.BANDWIDTH, delay=config.DELAY)
+        # c5, c6 to s9
+        self.net.addLink(c5, switches['s9'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c6, switches['s9'], bw=config.BANDWIDTH, delay=config.DELAY)
+        # c7, c8 to s10
+        self.net.addLink(c7, switches['s10'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c8, switches['s10'], bw=config.BANDWIDTH, delay=config.DELAY)
         
         info("*** IPv6 and Multicast noise suppression...\n")
         for node in self.net.values():

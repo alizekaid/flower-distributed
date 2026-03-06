@@ -41,34 +41,40 @@
             "name": "s10"
         },
         {
-            "dpid": "0000000000000011",
-            "name": "s11"
+            "dpid": "0000000000000100",
+            "name": "core1"
         }
     ],
     "links": [
         {
-            "src": "s1",
+            "src": "core1",
+            "dst": "s1",
+            "src_port": "core1-eth1",
+            "dst_port": "s1-eth1"
+        },
+        {
+            "src": "core1",
             "dst": "s2",
-            "src_port": "s1-eth1",
+            "src_port": "core1-eth2",
             "dst_port": "s2-eth1"
         },
         {
             "src": "s1",
-            "dst": "s3",
+            "dst": "s5",
             "src_port": "s1-eth2",
-            "dst_port": "s3-eth1"
+            "dst_port": "s5-eth1"
         },
         {
             "src": "s1",
-            "dst": "s4",
+            "dst": "s3",
             "src_port": "s1-eth3",
-            "dst_port": "s4-eth1"
+            "dst_port": "s3-eth1"
         },
         {
             "src": "s2",
-            "dst": "s5",
+            "dst": "s4",
             "src_port": "s2-eth2",
-            "dst_port": "s5-eth1"
+            "dst_port": "s4-eth1"
         },
         {
             "src": "s2",
@@ -90,45 +96,93 @@
         },
         {
             "src": "s4",
-            "dst": "s9",
+            "dst": "s7",
             "src_port": "s4-eth2",
-            "dst_port": "s9-eth1"
+            "dst_port": "s7-eth2"
         },
         {
             "src": "s4",
-            "dst": "s10",
-            "src_port": "s4-eth3",
-            "dst_port": "s10-eth1"
-        },
-        {
-            "src": "s10",
-            "dst": "s11",
-            "src_port": "s10-eth2",
-            "dst_port": "s11-eth1"
-        },
-        {
-            "src": "s5",
-            "dst": "s11",
-            "src_port": "s5-eth2",
-            "dst_port": "s11-eth2"
-        },
-        {
-            "src": "h1",
-            "dst": "s5",
-            "src_port": "h1-eth0",
-            "dst_port": "s5-eth3"
-        },
-        {
-            "src": "h2",
             "dst": "s8",
-            "src_port": "h2-eth0",
+            "src_port": "s4-eth3",
             "dst_port": "s8-eth2"
         },
         {
-            "src": "h3",
-            "dst": "s11",
-            "src_port": "h3-eth0",
-            "dst_port": "s11-eth3"
+            "src": "s5",
+            "dst": "s9",
+            "src_port": "s5-eth2",
+            "dst_port": "s9-eth1"
+        },
+        {
+            "src": "s5",
+            "dst": "s10",
+            "src_port": "s5-eth3",
+            "dst_port": "s10-eth1"
+        },
+        {
+            "src": "s6",
+            "dst": "s9",
+            "src_port": "s6-eth2",
+            "dst_port": "s9-eth2"
+        },
+        {
+            "src": "s6",
+            "dst": "s10",
+            "src_port": "s6-eth3",
+            "dst_port": "s10-eth2"
+        },
+        {
+            "src": "h1",
+            "dst": "s2",
+            "src_port": "h1-eth0",
+            "dst_port": "s2-eth4"
+        },
+        {
+            "src": "c1",
+            "dst": "s7",
+            "src_port": "c1-eth0",
+            "dst_port": "s7-eth3"
+        },
+        {
+            "src": "c2",
+            "dst": "s7",
+            "src_port": "c2-eth0",
+            "dst_port": "s7-eth4"
+        },
+        {
+            "src": "c3",
+            "dst": "s8",
+            "src_port": "c3-eth0",
+            "dst_port": "s8-eth3"
+        },
+        {
+            "src": "c4",
+            "dst": "s8",
+            "src_port": "c4-eth0",
+            "dst_port": "s8-eth4"
+        },
+        {
+            "src": "c5",
+            "dst": "s9",
+            "src_port": "c5-eth0",
+            "dst_port": "s9-eth3"
+        },
+        {
+            "src": "c6",
+            "dst": "s9",
+            "src_port": "c6-eth0",
+            "dst_port": "s9-eth4"
+        },
+        {
+            "src": "c7",
+            "dst": "s10",
+            "src_port": "c7-eth0",
+            "dst_port": "s10-eth3"
+        },
+        {
+            "src": "c8",
+            "dst": "s10",
+            "src_port": "c8-eth0",
+            "dst_port": "s10-eth4"
         }
     ],
     "hosts": [
@@ -136,22 +190,64 @@
             "name": "h1",
             "mac": "00:00:00:00:00:01",
             "ip": "10.0.0.1",
-            "switch": "s5",
-            "port": 3
+            "switch": "s2",
+            "port": 4
         },
         {
-            "name": "h2",
+            "name": "c1",
             "mac": "00:00:00:00:00:02",
             "ip": "10.0.0.2",
-            "switch": "s8",
-            "port": 2
+            "switch": "s7",
+            "port": 3
         },
         {
-            "name": "h3",
+            "name": "c2",
             "mac": "00:00:00:00:00:03",
             "ip": "10.0.0.3",
-            "switch": "s11",
+            "switch": "s7",
+            "port": 4
+        },
+        {
+            "name": "c3",
+            "mac": "00:00:00:00:00:04",
+            "ip": "10.0.0.4",
+            "switch": "s8",
             "port": 3
+        },
+        {
+            "name": "c4",
+            "mac": "00:00:00:00:00:05",
+            "ip": "10.0.0.5",
+            "switch": "s8",
+            "port": 4
+        },
+        {
+            "name": "c5",
+            "mac": "00:00:00:00:00:06",
+            "ip": "10.0.0.6",
+            "switch": "s9",
+            "port": 3
+        },
+        {
+            "name": "c6",
+            "mac": "00:00:00:00:00:07",
+            "ip": "10.0.0.7",
+            "switch": "s9",
+            "port": 4
+        },
+        {
+            "name": "c7",
+            "mac": "00:00:00:00:00:08",
+            "ip": "10.0.0.8",
+            "switch": "s10",
+            "port": 3
+        },
+        {
+            "name": "c8",
+            "mac": "00:00:00:00:00:09",
+            "ip": "10.0.0.9",
+            "switch": "s10",
+            "port": 4
         }
     ]
 }
