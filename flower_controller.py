@@ -6,7 +6,9 @@ from ryu.ofproto import ofproto_v1_3
 from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
+from ryu.lib import hub
 from network_managers import NetworkManager
+from stats_manager import get_stats_manager
 
 class FlowerController(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
@@ -17,6 +19,7 @@ class FlowerController(app_manager.RyuApp):
         self.datapaths = {} # dpid -> datapath object
         self.topology_file = "topology.json"
         self.proactive_installed = False # Flag to ensure single run
+        self.stats = {} # (dpid, port) -> (rx_bytes, tx_bytes, timestamp)
         
         # Initialize the new Network Manager
         # Add file logging for verification
@@ -27,7 +30,14 @@ class FlowerController(app_manager.RyuApp):
 
         self.logger.info("Initializing Network Manager...")
         self.network_manager = NetworkManager(self.topology_file)
+        
+        # Initialize the External Statistics Manager
+        self.stats_manager = get_stats_manager(self.topology_file)
+        
         self._print_manager_info()
+
+        # Start the monitoring thread
+        self.monitor_thread = hub.spawn(self._monitor)
 
     def _print_manager_info(self):
         """Log the discovery of all paths between all switch pairs."""
@@ -145,6 +155,82 @@ class FlowerController(app_manager.RyuApp):
             mod = parser.OFPFlowMod(datapath=datapath, priority=priority,
                                     match=match, instructions=inst)
         datapath.send_msg(mod)
+
+    def _monitor(self):
+        """Periodically request port statistics from all switches."""
+        while True:
+            for dp in self.datapaths.values():
+                self._request_stats(dp)
+            hub.sleep(3) # Poll every 3 seconds
+
+    def _request_stats(self, datapath):
+        self.logger.debug('send stats request: %016x', datapath.id)
+        ofproto = datapath.ofproto
+        parser = datapath.ofproto_parser
+
+        req = parser.OFPPortStatsRequest(datapath, 0, ofproto.OFPP_ANY)
+        datapath.send_msg(req)
+
+    @set_ev_cls(ofp_event.EventOFPPortStatsReply, MAIN_DISPATCHER)
+    def _port_stats_reply_handler(self, ev):
+        self.logger.info("Received port stats reply from %s", ev.msg.datapath.id)
+        body = ev.msg.body
+        dpid = ev.msg.datapath.id
+        timestamp = ev.msg.timestamp if hasattr(ev.msg, 'timestamp') else __import__('time').time()
+        
+        # Get switch name from NetworkManager
+        sw_obj = self.network_manager.switch_manager.SwitchDict.get(dpid)
+        if not sw_obj: return
+        sw_name = sw_obj.name
+
+        for stat in body:
+            port_no = stat.port_no
+            if port_no > 65535: continue # Skip internal/logical ports
+            
+            key = (dpid, port_no)
+            new_rx = stat.rx_bytes
+            new_tx = stat.tx_bytes
+            
+            if key in self.stats:
+                old_rx, old_tx, old_ts = self.stats[key]
+                duration = timestamp - old_ts
+                if duration > 0:
+                    # Calculate throughput in Mbps: (delta_bytes * 8) / (duration * 10^6)
+                    rx_bw = (new_rx - old_rx) * 8 / (duration * 1000000.0)
+                    tx_bw = (new_tx - old_tx) * 8 / (duration * 1000000.0)
+                    
+                    # Total usage on this port
+                    usage = rx_bw + tx_bw
+                    
+                    if usage > 0.001:
+                        self.logger.info("  STATS: Switch %s Port %d -> Usage: %.2f Mbps (delta_rx: %d, delta_tx: %d)", 
+                                         sw_name, port_no, usage, new_rx - old_rx, new_tx - old_tx)
+
+                    # Map this port to a link and update StatsManager
+                    # 1. Check if it's a host port
+                    host_name = sw_obj.port_to_host.get(port_no)
+                    if host_name:
+                        if usage > 0.001:
+                            self.logger.info("    Mapped Switch %s Port %d to Host %s", sw_name, port_no, host_name)
+                        self.stats_manager.update_usage(sw_name, host_name, usage)
+                    else:
+                        # 2. Check if it's a switch-to-switch link
+                        # We need to find which neighbor is on this port
+                        neighbor = None
+                        for u, v, data in self.network_manager.graph.edges(sw_name, data=True):
+                            if data['ports'][sw_name] == port_no or \
+                               self.network_manager._parse_port(data['ports'][sw_name]) == port_no:
+                                neighbor = v
+                                break
+                        if neighbor:
+                            if usage > 0.001:
+                                self.logger.info("    Mapped Switch %s Port %d to Switch %s", sw_name, port_no, neighbor)
+                            self.stats_manager.update_usage(sw_name, neighbor, usage)
+
+            self.stats[key] = (new_rx, new_tx, timestamp)
+        
+        # Persist stats for external readers (like test_stats.py)
+        self.stats_manager.save_usage()
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_handler(self, ev):

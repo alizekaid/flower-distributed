@@ -79,7 +79,7 @@ class FlowerTopology:
         ]
         
         for src, dst in links:
-            self.net.addLink(switches[src], switches[dst], bw=config.BANDWIDTH, delay=config.DELAY)
+            self.net.addLink(switches[src], switches[dst], bw=config.SWITCH_BW, delay=config.DELAY)
             
         info("*** Adding hosts (h1, c1-c8)...\n")
         self.server = self.net.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01')
@@ -97,20 +97,21 @@ class FlowerTopology:
         self.clients = [c1, c2, c3, c4, c5, c6, c7, c8]
         
         info("*** Connecting hosts to switches...\n")
-        self.net.addLink(self.server, switches['s2'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(self.server, switches['s2'], bw=config.SERVER_BW, delay=config.DELAY)
         
         # c1, c2 to s7
-        self.net.addLink(c1, switches['s7'], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(c2, switches['s7'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c1, switches['s7'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c2, switches['s7'], bw=config.CLIENT_BW, delay=config.DELAY)
         # c3, c4 to s8
-        self.net.addLink(c3, switches['s8'], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(c4, switches['s8'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c3, switches['s8'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c4, switches['s8'], bw=config.CLIENT_BW, delay=config.DELAY)
         # c5, c6 to s9
-        self.net.addLink(c5, switches['s9'], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(c6, switches['s9'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c5, switches['s9'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c6, switches['s9'], bw=config.CLIENT_BW, delay=config.DELAY)
         # c7, c8 to s10
-        self.net.addLink(c7, switches['s10'], bw=config.BANDWIDTH, delay=config.DELAY)
-        self.net.addLink(c8, switches['s10'], bw=config.BANDWIDTH, delay=config.DELAY)
+        self.net.addLink(c7, switches['s10'], bw=config.CLIENT_BW, delay=config.DELAY)
+        # Use allowMultiple for c8 to avoid redundancy if needed, but here simple replacement is safer
+        self.net.addLink(c8, switches['s10'], bw=config.CLIENT_BW, delay=config.DELAY)
         
         info("*** IPv6 and Multicast noise suppression...\n")
         for node in self.net.values():
@@ -129,6 +130,9 @@ class FlowerTopology:
         info("*** Starting network...\n")
         self.net.start()
         self.net.staticArp()
+        
+        # Initialize Traffic Manager
+        self.traffic_manager = TrafficManager(self.net)
         
         # Export topology to JSON for Ryu
         self.export_topology_json()
@@ -158,7 +162,9 @@ class FlowerTopology:
                 "src": node1.name,
                 "dst": node2.name,
                 "src_port": port1,
-                "dst_port": port2
+                "dst_port": port2,
+                "bw": link.intf1.params.get('bw'),
+                "delay": link.intf1.params.get('delay')
             })
             
         # Add hosts

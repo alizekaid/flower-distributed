@@ -54,5 +54,5 @@ insecure = true  # Remove this line to enable TLS
 
 # Mininet deployment federation (for distributed nodes)
 [tool.flwr.federations.mininet-deployment]
-address = "10.0.0.1:9093"
+address = "127.0.0.1:9093"
 insecure = true

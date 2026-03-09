@@ -35,14 +35,16 @@ class HostManager:
             self.add_host(host_obj)
 
 class Link:
-    def __init__(self, src, dst, src_port, dst_port):
+    def __init__(self, src, dst, src_port, dst_port, bw=None, delay=None):
         self.src = src
         self.dst = dst
         self.src_port = src_port
         self.dst_port = dst_port
+        self.bw = bw
+        self.delay = delay
 
     def __repr__(self):
-        return f"Link({self.src}:{self.src_port} <-> {self.dst}:{self.dst_port})"
+        return f"Link({self.src}:{self.src_port} <-> {self.dst}:{self.dst_port}, bw={self.bw}, delay={self.delay})"
 
 class LinkManager:
     def __init__(self):
@@ -60,7 +62,9 @@ class LinkManager:
                 src=l['src'],
                 dst=l['dst'],
                 src_port=l['src_port'],
-                dst_port=l['dst_port']
+                dst_port=l['dst_port'],
+                bw=l.get('bw'),
+                delay=l.get('delay')
             )
             self.add_link(link_obj)
 
@@ -92,6 +96,11 @@ class SwitchManager:
                 if h['switch'] == s['name']:
                     sw_obj.add_host_port(h['port'], h['name'])
             self.add_switch(sw_obj)
+            # Also add by integer DPID for Ryu index lookup
+            try:
+                self.SwitchDict[int(s['dpid'], 16)] = sw_obj
+            except (ValueError, TypeError):
+                pass
 
 class PathManager:
     def __init__(self, graph):
@@ -153,7 +162,9 @@ class NetworkManager:
         
         for l in data.get('links', []):
             self.graph.add_edge(l['src'], l['dst'], 
-                               ports={l['src']: l['src_port'], l['dst']: l['dst_port']})
+                               ports={l['src']: l['src_port'], l['dst']: l['dst_port']},
+                               bw=l.get('bw'),
+                               delay=l.get('delay'))
 
         switch_names = [s['name'] for s in data.get('switches', [])]
         self.all_paths = AllPaths(self.graph, self.link_manager.links, switch_names)

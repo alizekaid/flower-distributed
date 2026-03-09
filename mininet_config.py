@@ -16,7 +16,9 @@ CLIENT_NAMES = [
 ]
 
 # Flower Configuration
-SUPERLINK_PORT = 9092
+FLEET_API_PORT = 9092   # Port for SuperNodes (Clients)
+EXEC_API_PORT = 9093    # Port for flwr run (Management)
+SUPERLINK_PORT = FLEET_API_PORT # Legacy alias for clients
 NUM_CLIENTS = 8
 
 # Paths
@@ -28,7 +30,9 @@ FLOWER_SUPERNODE_BIN = f"{VENV_PATH}/bin/flower-supernode"
 FLWR_RUN_BIN = f"{VENV_PATH}/bin/flwr"
 
 # Network Settings
-BANDWIDTH = 100  # Mbps
+SERVER_BW = 100  # Mbps for h1 connection
+CLIENT_BW = 10   # Mbps for c1-c8 connections
+SWITCH_BW = 50   # Mbps for inter-switch connections
 DELAY = "5ms"    # Network delay
 
 # Logging

@@ -42,18 +42,20 @@ class TrafficManager:
         self.active_sessions = []
 
     def scenario_congested(self, bandwidth="50M"):
-        """High bandwidth traffic between client1 and client8 (cross-core)."""
-        self.start_iperf_session('client1', 'client8', bandwidth)
+        """High bandwidth traffic localized to switch s7 (c1 <-> c2)."""
+        self.start_iperf_session('c1', 'c2', bandwidth)
 
     def scenario_bottleneck(self, bandwidth="20M"):
         """Multiple clients sending traffic to the server."""
         for i in range(1, 5):
-            self.start_iperf_session(f'client{i}', 'server', bandwidth)
+            self.start_iperf_session(f'c{i}', 'server', bandwidth)
 
     def scenario_random(self):
         """Low bandwidth random noise."""
         import random
-        clients = [h.name for h in self.net.hosts if 'client' in h.name]
+        # Find all hosts starting with 'c' (c1-c8)
+        clients = [h.name for h in self.net.hosts if h.name.startswith('c')]
+        if len(clients) < 2: return
         for _ in range(3):
             src, dst = random.sample(clients, 2)
             self.start_iperf_session(src, dst, "5M")
