@@ -1,0 +1,315 @@
+2026-03-16 00:43:20,020 - BWAwareController - INFO - Initializing Bandwidth-Aware Network Manager...
+2026-03-16 00:43:21,249 - BWAwareController - INFO - Switch connected: 1
+2026-03-16 00:43:21,251 - BWAwareController - INFO - Switch connected: 4
+2026-03-16 00:43:21,251 - BWAwareController - INFO - Switch connected: 2
+2026-03-16 00:43:21,252 - BWAwareController - INFO - Switch connected: 3
+2026-03-16 00:43:27,479 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:43:27,481 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:43:27,481 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:27,481 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:27,481 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:27,481 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 10.00 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:43:27,493 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:43:27,495 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:43:27,495 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:27,496 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:27,496 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:27,496 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:43:27,543 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=5
+2026-03-16 00:43:27,544 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:43:27,544 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:27,544 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:27,544 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:27,544 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c2<->s1, Hops: 2)
+2026-03-16 00:43:27,682 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:05 -> 00:00:00:00:00:01 on dpid=3 port=3
+2026-03-16 00:43:27,682 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:05 -> 00:00:00:00:00:01...
+2026-03-16 00:43:27,683 - BWAwareController - INFO -     Path 1: ['s3', 's1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:27,683 - BWAwareController - INFO -     Path 2: ['s3', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:27,683 - BWAwareController - INFO -     Path 3: ['s3', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:27,683 - BWAwareController - INFO -   >> SELECTED: ['s3', 's4'] (Bottleneck: 10.00 Mbps on c4<->s3, Hops: 2)
+2026-03-16 00:43:42,888 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:43:42,890 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:43:42,890 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:42,890 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:42,890 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:42,890 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 10.00 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:43:42,912 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=5
+2026-03-16 00:43:42,912 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:43:42,912 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:42,913 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:42,913 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:42,913 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c2<->s1, Hops: 2)
+2026-03-16 00:43:42,914 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:43:42,915 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:43:42,915 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:42,915 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:42,915 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:42,915 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:43:43,023 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:05 -> 00:00:00:00:00:01 on dpid=3 port=3
+2026-03-16 00:43:43,024 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:05 -> 00:00:00:00:00:01...
+2026-03-16 00:43:43,025 - BWAwareController - INFO -     Path 1: ['s3', 's1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:43,025 - BWAwareController - INFO -     Path 2: ['s3', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:43,025 - BWAwareController - INFO -     Path 3: ['s3', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:43,025 - BWAwareController - INFO -   >> SELECTED: ['s3', 's4'] (Bottleneck: 10.00 Mbps on c4<->s3, Hops: 2)
+2026-03-16 00:43:58,077 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:43:58,078 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:43:58,078 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:58,078 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:58,078 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:43:58,078 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 10.00 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:43:58,104 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:43:58,105 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:43:58,105 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:58,105 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:58,105 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:43:58,105 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:43:58,107 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=5
+2026-03-16 00:43:58,108 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:43:58,108 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:58,108 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:58,108 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:43:58,108 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c2<->s1, Hops: 2)
+2026-03-16 00:43:58,210 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:05 -> 00:00:00:00:00:01 on dpid=3 port=3
+2026-03-16 00:43:58,211 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:05 -> 00:00:00:00:00:01...
+2026-03-16 00:43:58,211 - BWAwareController - INFO -     Path 1: ['s3', 's1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:58,211 - BWAwareController - INFO -     Path 2: ['s3', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:58,211 - BWAwareController - INFO -     Path 3: ['s3', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:43:58,211 - BWAwareController - INFO -   >> SELECTED: ['s3', 's4'] (Bottleneck: 10.00 Mbps on c4<->s3, Hops: 2)
+2026-03-16 00:44:13,348 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=5
+2026-03-16 00:44:13,376 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:44:13,377 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:13,377 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:13,377 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:13,377 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c2<->s1, Hops: 2)
+2026-03-16 00:44:13,395 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:05 -> 00:00:00:00:00:01 on dpid=3 port=3
+2026-03-16 00:44:13,399 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:05 -> 00:00:00:00:00:01...
+2026-03-16 00:44:13,399 - BWAwareController - INFO -     Path 1: ['s3', 's1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:13,401 - BWAwareController - INFO -     Path 2: ['s3', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:13,402 - BWAwareController - INFO -     Path 3: ['s3', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:13,402 - BWAwareController - INFO -   >> SELECTED: ['s3', 's4'] (Bottleneck: 10.00 Mbps on c4<->s3, Hops: 2)
+2026-03-16 00:44:16,968 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:44:16,970 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:44:16,970 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:16,970 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:16,971 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:16,971 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 10.00 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:44:16,974 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:44:16,976 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:44:16,976 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:16,976 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:16,977 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:16,977 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 10.00 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:44:17,004 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:44:17,004 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:44:17,005 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:17,005 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:17,005 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:17,005 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:44:17,007 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:44:17,008 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:44:17,008 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:17,008 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:17,008 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:17,008 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:44:31,511 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:05 -> 00:00:00:00:00:01 on dpid=3 port=3
+2026-03-16 00:44:31,543 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:05 -> 00:00:00:00:00:01...
+2026-03-16 00:44:31,544 - BWAwareController - INFO -     Path 1: ['s3', 's1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:31,544 - BWAwareController - INFO -     Path 2: ['s3', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:31,544 - BWAwareController - INFO -     Path 3: ['s3', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:31,545 - BWAwareController - INFO -   >> SELECTED: ['s3', 's4'] (Bottleneck: 10.00 Mbps on c4<->s3, Hops: 2)
+2026-03-16 00:44:33,900 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=5
+2026-03-16 00:44:33,905 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:44:33,906 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:33,907 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:33,907 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:33,907 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c2<->s1, Hops: 2)
+2026-03-16 00:44:34,415 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:44:34,416 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:44:34,417 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:34,418 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:34,418 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 10.00 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:34,418 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 10.00 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:44:34,435 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:44:34,436 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:44:34,436 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:34,436 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:34,436 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:34,436 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:44:48,972 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=5
+2026-03-16 00:44:48,973 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:44:48,973 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:48,973 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:48,974 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c2<->s1)
+2026-03-16 00:44:48,974 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c2<->s1, Hops: 2)
+2026-03-16 00:44:48,978 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:03 at s4 port 1
+2026-03-16 00:44:48,981 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=4 port=1
+2026-03-16 00:44:48,981 - BWAwareController - INFO -   Analyzing 1 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:44:48,982 - BWAwareController - INFO -     Path 1: ['s4'] | BW: 99.99 Mbps (Bottleneck: s4<->h1)
+2026-03-16 00:44:48,984 - BWAwareController - INFO -   >> SELECTED: ['s4'] (Bottleneck: 99.99 Mbps on s4<->h1, Hops: 1)
+2026-03-16 00:44:49,731 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:44:49,731 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:44:49,731 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 9.99 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:49,732 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 9.99 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:49,732 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 9.99 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:44:49,732 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 9.99 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:44:49,735 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:44:49,736 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:44:49,736 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:49,736 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:49,737 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:44:49,737 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:44:50,007 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:05 -> 00:00:00:00:00:01 on dpid=3 port=3
+2026-03-16 00:44:50,008 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:05 -> 00:00:00:00:00:01...
+2026-03-16 00:44:50,009 - BWAwareController - INFO -     Path 1: ['s3', 's1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:50,009 - BWAwareController - INFO -     Path 2: ['s3', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:50,009 - BWAwareController - INFO -     Path 3: ['s3', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:50,010 - BWAwareController - INFO -   >> SELECTED: ['s3', 's4'] (Bottleneck: 10.00 Mbps on c4<->s3, Hops: 2)
+2026-03-16 00:44:50,013 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:05 -> 00:00:00:00:00:01 on dpid=3 port=3
+2026-03-16 00:44:50,015 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:05 -> 00:00:00:00:00:01...
+2026-03-16 00:44:50,015 - BWAwareController - INFO -     Path 1: ['s3', 's1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:50,016 - BWAwareController - INFO -     Path 2: ['s3', 's1', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:50,016 - BWAwareController - INFO -     Path 3: ['s3', 's4'] | BW: 10.00 Mbps (Bottleneck: c4<->s3)
+2026-03-16 00:44:50,016 - BWAwareController - INFO -   >> SELECTED: ['s3', 's4'] (Bottleneck: 10.00 Mbps on c4<->s3, Hops: 2)
+2026-03-16 00:45:04,921 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=4 port=4
+2026-03-16 00:45:04,921 - BWAwareController - INFO -   Analyzing 1 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:04,922 - BWAwareController - INFO -     Path 1: ['s4'] | BW: 99.99 Mbps (Bottleneck: h1<->s4)
+2026-03-16 00:45:04,922 - BWAwareController - INFO -   >> SELECTED: ['s4'] (Bottleneck: 99.99 Mbps on h1<->s4, Hops: 1)
+2026-03-16 00:45:04,930 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:01 at s1 port 3
+2026-03-16 00:45:04,931 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=1 port=3
+2026-03-16 00:45:04,932 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:04,932 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 15.00 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:04,932 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 15.00 Mbps (Bottleneck: s1<->s3)
+2026-03-16 00:45:04,933 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 14.99 Mbps (Bottleneck: s1<->s4)
+2026-03-16 00:45:04,933 - BWAwareController - INFO -   >> SELECTED: ['s1', 's2', 's4'] (Bottleneck: 15.00 Mbps on s1<->s2, Hops: 3)
+2026-03-16 00:45:05,114 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:01 at s4 port 4
+2026-03-16 00:45:05,114 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:04 on dpid=4 port=4
+2026-03-16 00:45:05,115 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:04...
+2026-03-16 00:45:05,116 - BWAwareController - INFO -     Path 1: ['s4', 's1', 's2'] | BW: 9.99 Mbps (Bottleneck: s2<->c3)
+2026-03-16 00:45:05,116 - BWAwareController - INFO -     Path 2: ['s4', 's2'] | BW: 9.99 Mbps (Bottleneck: s2<->c3)
+2026-03-16 00:45:05,116 - BWAwareController - INFO -     Path 3: ['s4', 's3', 's1', 's2'] | BW: 9.99 Mbps (Bottleneck: s2<->c3)
+2026-03-16 00:45:05,116 - BWAwareController - INFO -   >> SELECTED: ['s4', 's2'] (Bottleneck: 9.99 Mbps on s2<->c3, Hops: 2)
+2026-03-16 00:45:05,121 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:45:05,122 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:45:05,123 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 9.99 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:45:05,123 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 9.99 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:45:05,124 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 9.99 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:45:05,124 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 9.99 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:45:05,412 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:05 on dpid=4 port=4
+2026-03-16 00:45:05,413 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:05...
+2026-03-16 00:45:05,413 - BWAwareController - INFO -     Path 1: ['s4', 's1', 's3'] | BW: 9.98 Mbps (Bottleneck: s3<->c4)
+2026-03-16 00:45:05,413 - BWAwareController - INFO -     Path 2: ['s4', 's2', 's1', 's3'] | BW: 9.98 Mbps (Bottleneck: s3<->c4)
+2026-03-16 00:45:05,413 - BWAwareController - INFO -     Path 3: ['s4', 's3'] | BW: 9.98 Mbps (Bottleneck: s3<->c4)
+2026-03-16 00:45:05,414 - BWAwareController - INFO -   >> SELECTED: ['s4', 's3'] (Bottleneck: 9.98 Mbps on s3<->c4, Hops: 2)
+2026-03-16 00:45:05,552 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:45:05,553 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:45:05,553 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 9.99 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:45:05,554 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 9.99 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:45:05,554 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 9.99 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:45:05,554 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 9.99 Mbps on c1<->s1, Hops: 2)
+2026-03-16 00:45:05,560 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:02 on dpid=4 port=4
+2026-03-16 00:45:05,561 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:02...
+2026-03-16 00:45:05,561 - BWAwareController - INFO -     Path 1: ['s4', 's1'] | BW: 9.99 Mbps (Bottleneck: s1<->c1)
+2026-03-16 00:45:05,562 - BWAwareController - INFO -     Path 2: ['s4', 's2', 's1'] | BW: 9.99 Mbps (Bottleneck: s1<->c1)
+2026-03-16 00:45:05,562 - BWAwareController - INFO -     Path 3: ['s4', 's3', 's1'] | BW: 9.99 Mbps (Bottleneck: s1<->c1)
+2026-03-16 00:45:05,562 - BWAwareController - INFO -   >> SELECTED: ['s4', 's1'] (Bottleneck: 9.99 Mbps on s1<->c1, Hops: 2)
+2026-03-16 00:45:20,096 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:01 at s2 port 1
+2026-03-16 00:45:20,096 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=2 port=1
+2026-03-16 00:45:20,096 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:20,096 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,097 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,097 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s4)
+2026-03-16 00:45:20,097 - BWAwareController - INFO -   >> SELECTED: ['s2', 's1', 's4'] (Bottleneck: 14.38 Mbps on s2<->s1, Hops: 3)
+2026-03-16 00:45:20,098 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=2 port=1
+2026-03-16 00:45:20,099 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:20,099 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,099 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,099 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s4)
+2026-03-16 00:45:20,100 - BWAwareController - INFO -   >> SELECTED: ['s2', 's1', 's4'] (Bottleneck: 14.38 Mbps on s2<->s1, Hops: 3)
+2026-03-16 00:45:20,103 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=2 port=1
+2026-03-16 00:45:20,103 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:20,103 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,103 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,104 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s4)
+2026-03-16 00:45:20,104 - BWAwareController - INFO -   >> SELECTED: ['s2', 's1', 's4'] (Bottleneck: 14.38 Mbps on s2<->s1, Hops: 3)
+2026-03-16 00:45:20,106 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=2 port=1
+2026-03-16 00:45:20,107 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:20,108 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,108 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s1)
+2026-03-16 00:45:20,108 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 14.38 Mbps (Bottleneck: s2<->s4)
+2026-03-16 00:45:20,108 - BWAwareController - INFO -   >> SELECTED: ['s2', 's1', 's4'] (Bottleneck: 14.38 Mbps on s2<->s1, Hops: 3)
+2026-03-16 00:45:20,111 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:03 at s1 port 1
+2026-03-16 00:45:20,111 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=1
+2026-03-16 00:45:20,111 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,112 - BWAwareController - INFO -     Path 1: ['s1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,112 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,112 - BWAwareController - INFO -     Path 3: ['s1', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,112 - BWAwareController - INFO -   >> SELECTED: ['s1', 's2'] (Bottleneck: 14.38 Mbps on s1<->s2, Hops: 2)
+2026-03-16 00:45:20,113 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=1
+2026-03-16 00:45:20,114 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,114 - BWAwareController - INFO -     Path 1: ['s1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,114 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,114 - BWAwareController - INFO -     Path 3: ['s1', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,114 - BWAwareController - INFO -   >> SELECTED: ['s1', 's2'] (Bottleneck: 14.38 Mbps on s1<->s2, Hops: 2)
+2026-03-16 00:45:20,116 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=1
+2026-03-16 00:45:20,116 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,116 - BWAwareController - INFO -     Path 1: ['s1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,117 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,117 - BWAwareController - INFO -     Path 3: ['s1', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,117 - BWAwareController - INFO -   >> SELECTED: ['s1', 's2'] (Bottleneck: 14.38 Mbps on s1<->s2, Hops: 2)
+2026-03-16 00:45:20,122 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=1 port=1
+2026-03-16 00:45:20,123 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,123 - BWAwareController - INFO -     Path 1: ['s1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,123 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,123 - BWAwareController - INFO -     Path 3: ['s1', 's4', 's2'] | BW: 14.38 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,123 - BWAwareController - INFO -   >> SELECTED: ['s1', 's2'] (Bottleneck: 14.38 Mbps on s1<->s2, Hops: 2)
+2026-03-16 00:45:20,127 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:03 at s4 port 1
+2026-03-16 00:45:20,128 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=4 port=1
+2026-03-16 00:45:20,128 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,128 - BWAwareController - INFO -     Path 1: ['s4', 's1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,129 - BWAwareController - INFO -     Path 2: ['s4', 's2'] | BW: 13.63 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,129 - BWAwareController - INFO -     Path 3: ['s4', 's3', 's1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,129 - BWAwareController - INFO -   >> SELECTED: ['s4', 's1', 's2'] (Bottleneck: 14.38 Mbps on s1<->s2, Hops: 3)
+2026-03-16 00:45:20,132 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=4 port=1
+2026-03-16 00:45:20,133 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,133 - BWAwareController - INFO -     Path 1: ['s4', 's1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,133 - BWAwareController - INFO -     Path 2: ['s4', 's2'] | BW: 13.63 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,133 - BWAwareController - INFO -     Path 3: ['s4', 's3', 's1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,133 - BWAwareController - INFO -   >> SELECTED: ['s4', 's1', 's2'] (Bottleneck: 14.38 Mbps on s1<->s2, Hops: 3)
+2026-03-16 00:45:20,136 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:03 -> 00:00:00:00:00:01 on dpid=4 port=1
+2026-03-16 00:45:20,136 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:03 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,136 - BWAwareController - INFO -     Path 1: ['s4', 's1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,137 - BWAwareController - INFO -     Path 2: ['s4', 's2'] | BW: 13.63 Mbps (Bottleneck: s4<->s2)
+2026-03-16 00:45:20,137 - BWAwareController - INFO -     Path 3: ['s4', 's3', 's1', 's2'] | BW: 14.38 Mbps (Bottleneck: s1<->s2)
+2026-03-16 00:45:20,137 - BWAwareController - INFO -   >> SELECTED: ['s4', 's1', 's2'] (Bottleneck: 14.38 Mbps on s1<->s2, Hops: 3)
+2026-03-16 00:45:20,139 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:01 at s4 port 2
+2026-03-16 00:45:20,139 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=4 port=2
+2026-03-16 00:45:20,140 - BWAwareController - INFO -   Analyzing 1 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:20,140 - BWAwareController - INFO -     Path 1: ['s4'] | BW: inf Mbps (Bottleneck: none)
+2026-03-16 00:45:20,140 - BWAwareController - INFO -   >> SELECTED: ['s4'] (Bottleneck: inf Mbps on none, Hops: 1)
+2026-03-16 00:45:20,141 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=4 port=2
+2026-03-16 00:45:20,141 - BWAwareController - INFO -   Analyzing 1 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:20,141 - BWAwareController - INFO -     Path 1: ['s4'] | BW: inf Mbps (Bottleneck: none)
+2026-03-16 00:45:20,141 - BWAwareController - INFO -   >> SELECTED: ['s4'] (Bottleneck: inf Mbps on none, Hops: 1)
+2026-03-16 00:45:20,142 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:03 on dpid=4 port=2
+2026-03-16 00:45:20,142 - BWAwareController - INFO -   Analyzing 1 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:03...
+2026-03-16 00:45:20,142 - BWAwareController - INFO -     Path 1: ['s4'] | BW: inf Mbps (Bottleneck: none)
+2026-03-16 00:45:20,143 - BWAwareController - INFO -   >> SELECTED: ['s4'] (Bottleneck: inf Mbps on none, Hops: 1)
+2026-03-16 00:45:20,644 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:04 -> 00:00:00:00:00:01 on dpid=2 port=3
+2026-03-16 00:45:20,645 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:04 -> 00:00:00:00:00:01...
+2026-03-16 00:45:20,645 - BWAwareController - INFO -     Path 1: ['s2', 's1', 's3', 's4'] | BW: 9.24 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:45:20,645 - BWAwareController - INFO -     Path 2: ['s2', 's1', 's4'] | BW: 9.24 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:45:20,645 - BWAwareController - INFO -     Path 3: ['s2', 's4'] | BW: 9.24 Mbps (Bottleneck: c3<->s2)
+2026-03-16 00:45:20,645 - BWAwareController - INFO -   >> SELECTED: ['s2', 's4'] (Bottleneck: 9.24 Mbps on c3<->s2, Hops: 2)
+2026-03-16 00:45:21,341 - BWAwareController - INFO -   Learning host: 00:00:00:00:00:01 at s4 port 4
+2026-03-16 00:45:21,341 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:01 -> 00:00:00:00:00:05 on dpid=4 port=4
+2026-03-16 00:45:21,342 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:01 -> 00:00:00:00:00:05...
+2026-03-16 00:45:21,342 - BWAwareController - INFO -     Path 1: ['s4', 's1', 's3'] | BW: 9.95 Mbps (Bottleneck: s3<->c4)
+2026-03-16 00:45:21,342 - BWAwareController - INFO -     Path 2: ['s4', 's2', 's1', 's3'] | BW: 9.95 Mbps (Bottleneck: s3<->c4)
+2026-03-16 00:45:21,342 - BWAwareController - INFO -     Path 3: ['s4', 's3'] | BW: 9.95 Mbps (Bottleneck: s3<->c4)
+2026-03-16 00:45:21,342 - BWAwareController - INFO -   >> SELECTED: ['s4', 's3'] (Bottleneck: 9.95 Mbps on s3<->c4, Hops: 2)
+2026-03-16 00:45:21,356 - BWAwareController - INFO -   PacketIn: 00:00:00:00:00:02 -> 00:00:00:00:00:01 on dpid=1 port=4
+2026-03-16 00:45:21,357 - BWAwareController - INFO -   Analyzing 3 potential paths for 00:00:00:00:00:02 -> 00:00:00:00:00:01...
+2026-03-16 00:45:21,357 - BWAwareController - INFO -     Path 1: ['s1', 's2', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:45:21,357 - BWAwareController - INFO -     Path 2: ['s1', 's3', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:45:21,357 - BWAwareController - INFO -     Path 3: ['s1', 's4'] | BW: 10.00 Mbps (Bottleneck: c1<->s1)
+2026-03-16 00:45:21,358 - BWAwareController - INFO -   >> SELECTED: ['s1', 's4'] (Bottleneck: 10.00 Mbps on c1<->s1, Hops: 2)

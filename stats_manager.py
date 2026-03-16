@@ -44,10 +44,6 @@ class StatsManager:
             abs_path = os.path.abspath(self.usage_file)
             with open(abs_path, 'w') as f:
                 json.dump(usage_data, f)
-            # Only print if there is actual non-zero usage to avoid spam
-            has_usage = any(v > 0 for v in usage_data.values())
-            if has_usage:
-                print(f"DEBUG: Saved non-zero usage stats to {abs_path}")
             return True
         except Exception as e:
             print(f"ERROR: Failed to save usage stats: {e}")

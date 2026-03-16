@@ -41,14 +41,30 @@ class TrafficManager:
             host.cmd('pkill -9 iperf')
         self.active_sessions = []
 
-    def scenario_congested(self, bandwidth="50M"):
-        """High bandwidth traffic localized to switch s7 (c1 <-> c2)."""
-        self.start_iperf_session('c1', 'c2', bandwidth)
+    def scenario_congested(self, bandwidth="13M"):
+        """
+        Congest the s1->s4 direct link by sending heavy traffic from c1 to h1.
+        Forces c3 and c4 to reroute through alternate paths (via s2 or s3).
+        """
+        self.start_iperf_session('c1', 'h1', bandwidth)
 
-    def scenario_bottleneck(self, bandwidth="20M"):
-        """Multiple clients sending traffic to the server."""
+    def scenario_bottleneck(self, bandwidth="13M"):
+        """All 4 clients sending traffic to the server (h1)."""
         for i in range(1, 5):
-            self.start_iperf_session(f'c{i}', 'server', bandwidth)
+            self.start_iperf_session(f'c{i}', 'h1', bandwidth)
+
+    def scenario_backbone(self, bandwidth="13M"):
+        """c1 (s1) -> c4 (s3): congests s1<->s3 backbone link."""
+        self.start_iperf_session('c1', 'c4', bandwidth)
+
+    def scenario_cross(self, bandwidth="8M"):
+        """
+        Send traffic from c4 (s3) -> c3 (s2), forcing it through s3->s1->s4->s2
+        or s3->s4->s2 depending on available bandwidth.
+        Combine with 'congested' to saturate s3<->s4, pushing traffic onto
+        the longer s3->s1->s4->s2 path.
+        """
+        self.start_iperf_session('c4', 'c3', bandwidth)
 
     def scenario_random(self):
         """Low bandwidth random noise."""
@@ -67,11 +83,12 @@ def add_traffic_commands(cli_class, manager):
         """
         Control virtual traffic scenarios.
         Usage: traffic [scenario_name] [bandwidth]
-        Scenarios: congested, bottleneck, random, stop
+        Scenarios: congested, bottleneck, backbone, cross, random, stop
+          cross     - c4->c3 via s3->s1->s4->s2 (default 8M)
         """
         args = line.split()
         if not args:
-            print("Usage: traffic [congested|bottleneck|random|stop] [bandwidth]")
+            print("Usage: traffic [congested|bottleneck|backbone|cross|random|stop] [bandwidth]")
             return
 
         command = args[0]
@@ -83,6 +100,10 @@ def add_traffic_commands(cli_class, manager):
             manager.scenario_congested(bandwidth)
         elif command == 'bottleneck':
             manager.scenario_bottleneck(bandwidth)
+        elif command == 'backbone':
+            manager.scenario_backbone(bandwidth)
+        elif command == 'cross':
+            manager.scenario_cross(bandwidth)
         elif command == 'random':
             manager.scenario_random()
         else:
