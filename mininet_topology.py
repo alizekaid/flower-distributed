@@ -283,6 +283,7 @@ class FlowerTopology:
             f"export HF_DATASETS_CACHE={config.HF_CACHE_DIR} && "
             f"export HF_DATASETS_OFFLINE=1 && "
             f"export CIFAR10_DATASET_ROOT={config.DATASET_ROOT} && "
+            f"export FLOCK_MODEL={config.FLOCK_MODEL} && "
             f"{config.FLOWER_SUPERLINK_BIN} "
             f"--insecure "
             f"> {config.SERVER_LOG} 2>&1 &"
@@ -320,6 +321,7 @@ class FlowerTopology:
                 f"export HF_DATASETS_CACHE={config.HF_CACHE_DIR} && "
                 f"export HF_DATASETS_OFFLINE=1 && "
                 f"export CIFAR10_DATASET_ROOT={config.DATASET_ROOT} && "
+                f"export FLOCK_MODEL={config.FLOCK_MODEL} && "
                 f"{config.FLOWER_SUPERNODE_BIN} "
                 f"--insecure "
                 f"--superlink {config.SERVER_IP}:{config.SUPERLINK_PORT} "
@@ -394,7 +396,7 @@ class FlowerTopology:
             info(f"SuperLink running on {config.SERVER_IP}:{config.SUPERLINK_PORT}\n")
             info(f"{config.NUM_CLIENTS} SuperNodes connected\n")
             info("\nYou can now:\n")
-            info(f"1. Run 'server {config.VENV_PATH}/bin/flwr run {config.FLOWER_APP_PATH}' to start training\n")
+            info(f"1. Run '{config.SERVER_NAME} {config.VENV_PATH}/bin/flwr run {config.FLOWER_APP_PATH}' to start training\n")
             info("2. Use Mininet CLI commands (pingall, net, dump, etc.)\n")
             info("3. Check logs in /tmp/flower_mininet_logs/\n")
             info("="*60 + "\n\n")

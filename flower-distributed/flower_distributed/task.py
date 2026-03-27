@@ -6,6 +6,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Subset, random_split
 from torchvision.datasets import CIFAR10
 from torchvision.transforms import Compose, Normalize, ToTensor
+import torchvision.models as models
 
 
 class Net(nn.Module):
@@ -27,6 +28,23 @@ class Net(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         return self.fc3(x)
+
+
+def get_model(model_name: str):
+    """Dynamically get the model architecture based on the provided name."""
+    if model_name == "mobilenetv2":
+        net = models.mobilenet_v2(weights=None)
+        # Adapt classifier for CIFAR-10 (10 classes instead of 1000)
+        net.classifier[1] = nn.Linear(net.last_channel, 10)
+    elif model_name == "densenet121":
+        net = models.densenet121(weights=None)
+        # Adapt classifier for CIFAR-10
+        net.classifier = nn.Linear(net.classifier.in_features, 10)
+    elif model_name == "simple_cnn":
+        net = Net()
+    else:
+        raise ValueError(f"Unknown or unspecified model name: '{model_name}'. Expected 'simple_cnn', 'mobilenetv2', or 'densenet121'.")
+    return net
 
 
 _global_dataset = None  # Cache CIFAR-10 dataset across calls in this process
@@ -79,8 +97,9 @@ def load_data(partition_id: int, num_partitions: int):
         generator=torch.Generator().manual_seed(42 + partition_id),
     )
 
-    trainloader = DataLoader(train_subset, batch_size=32, shuffle=True)
-    testloader = DataLoader(val_subset, batch_size=32)
+    # Batch size 64 is a great balance for 3GB VRAM.
+    trainloader = DataLoader(train_subset, batch_size=64, shuffle=True)
+    testloader = DataLoader(val_subset, batch_size=64)
     return trainloader, testloader
 
 
@@ -101,6 +120,14 @@ def train(net, trainloader, epochs, lr, device):
             optimizer.step()
             running_loss += loss.item()
     avg_trainloss = running_loss / len(trainloader)
+
+    # AGGRESSIVE MEMORY CLEANUP: Clear VRAM and RAM after training
+    import gc
+    del net
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     return avg_trainloss
 
 
@@ -119,4 +146,12 @@ def test(net, testloader, device):
             correct += (torch.max(outputs.data, 1)[1] == labels).sum().item()
     accuracy = correct / len(testloader.dataset)
     loss = loss / len(testloader)
+
+    # AGGRESSIVE MEMORY CLEANUP: Clear VRAM and RAM after evaluation
+    import gc
+    del net
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     return loss, accuracy

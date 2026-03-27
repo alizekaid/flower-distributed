@@ -9,9 +9,16 @@ sudo mn -c
 # Set PYTHONPATH to include project root
 export PYTHONPATH=$PYTHONPATH:$(pwd)
 
+# Check for requested model
+if [ -z "$1" ]; then
+    echo "ERROR: You must specify a model (e.g., ./run_infrastructure.sh simple_cnn | mobilenetv2 | densenet121)"
+    exit 1
+fi
+export FLOCK_MODEL=$1
+
 # Start Mininet in the background
-echo "Starting Mininet Topology..."
-sudo PYTHONPATH=$PYTHONPATH python3 mininet_topology.py &
+echo "Starting Mininet Topology with model $FLOCK_MODEL..."
+sudo -E PYTHONPATH=$PYTHONPATH python3 mininet_topology.py &
 MININET_PID=$!
 
 # Wait for Mininet to create the topology file

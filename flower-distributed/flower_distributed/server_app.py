@@ -5,7 +5,9 @@ from flwr.app import ArrayRecord, ConfigRecord, Context
 from flwr.serverapp import Grid, ServerApp
 from flwr.serverapp.strategy import FedAvg
 
-from flower_distributed.task import Net
+import os
+from flower_distributed.task import get_model
+from flower_distributed.metrics_plotter import MetricsPlotter
 
 # Create ServerApp
 app = ServerApp()
@@ -21,11 +23,27 @@ def main(grid: Grid, context: Context) -> None:
     lr: float = context.run_config["lr"]
 
     # Load global model
-    global_model = Net()
+    model_name = os.environ.get("FLOCK_MODEL")
+    if not model_name:
+        raise ValueError("FLOCK_MODEL environment variable must be set!")
+    
+    print(f"\n🚀 FL SERVER: Loading global model [{model_name}]...")
+    
+    global_model = get_model(model_name)
+    actual_class_name = type(global_model).__name__
+    print(f"\n🚀 FL SERVER: Successfully instantiated PyTorch Model: [ {actual_class_name} ]...")
+    
     arrays = ArrayRecord(global_model.state_dict())
 
+    # Initialize the external metrics plotter
+    plotter = MetricsPlotter(output_dir="/tmp/flower_mininet_logs/")
+
     # Initialize FedAvg strategy
-    strategy = FedAvg(fraction_train=fraction_train)
+    strategy = FedAvg(
+        fraction_train=1.0,
+        fraction_evaluate=1.0, 
+        evaluate_metrics_aggr_fn=plotter.aggregate_evaluate_metrics
+    )
 
     # Start strategy, run FedAvg round by round manually to track timing
     import time
@@ -39,22 +57,15 @@ def main(grid: Grid, context: Context) -> None:
     
     total_start_time = time.time()
     
-    for r in range(1, num_rounds + 1):
-        print(f"--- Round {r} starting ---")
-        round_start_time = time.time()
-        
-        # Run a single round
-        result = strategy.start(
-            grid=grid,
-            initial_arrays=current_arrays,
-            train_config=ConfigRecord({"lr": lr}),
-            num_rounds=1, # One round at a time
-        )
-        
-        round_duration = time.time() - round_start_time
-        current_arrays = result.arrays # Update parameters for next round
-        
-        print(f"✅ Round {r} completed in {round_duration:.2f} seconds\n")
+    # Run the full federated learning session in one go.
+    # Running round-by-round in a manual loop can cause the SuperLink to 
+    # disconnect and reconnect nodes too frequently, causing timeouts.
+    result = strategy.start(
+        grid=grid,
+        initial_arrays=current_arrays,
+        train_config=ConfigRecord({"lr": lr}),
+        num_rounds=num_rounds, 
+    )
         
     total_duration = time.time() - total_start_time
     print(f"{'='*60}")

@@ -10,6 +10,7 @@ from ryu.lib import hub
 from network_managers import NetworkManager
 from stats_manager import get_stats_manager
 import time
+import copy
 
 class BWAwareController(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
@@ -20,6 +21,7 @@ class BWAwareController(app_manager.RyuApp):
         self.datapaths = {} # dpid -> datapath object
         self.topology_file = "topology.json"
         self.stats = {} # (dpid, port) -> (rx_bytes, tx_bytes, timestamp)
+        self.active_paths = {} # (src, dst) -> path object
         
         # Logging setup
         import logging
@@ -57,15 +59,14 @@ class BWAwareController(app_manager.RyuApp):
                                     instructions=inst,
                                     buffer_id=buffer_id if buffer_id else ofproto.OFP_NO_BUFFER)
         else:
-            # idle_timeout: expire if no traffic for 10s
-            # hard_timeout: expire unconditionally after 15s so active flows also get re-evaluated
+            # Table-miss and other permanent rules must NOT expire
             mod = parser.OFPFlowMod(datapath=datapath, priority=priority, match=match,
-                                    idle_timeout=10, hard_timeout=15,
+                                    idle_timeout=60, hard_timeout=0,
                                     instructions=inst,
                                     buffer_id=buffer_id if buffer_id else ofproto.OFP_NO_BUFFER)
         datapath.send_msg(mod)
 
-    def _get_widest_path(self, src_mac, dst_mac):
+    def _get_widest_path(self, src_mac, dst_mac, silent=False):
         """
         Calculates the path with the maximum bottleneck bandwidth.
         Strategy: Max-Min (Maximize the minimum available bandwidth).
@@ -73,12 +74,10 @@ class BWAwareController(app_manager.RyuApp):
         """
         src_host = self.network_manager.host_manager.get_host(src_mac)
         dst_host = self.network_manager.host_manager.get_host(dst_mac)
-        if not src_host or not dst_host: return None
+        if not src_host or not dst_host: return None, 0
 
         all_paths = self.network_manager.get_all_paths_between_switches(src_host.switch_id, dst_host.switch_id)
-        if not all_paths: return None
-
-        self.stats_manager.load_usage()
+        if not all_paths: return None, 0
 
         best_path = None
         max_bottleneck = -1.0
@@ -86,7 +85,8 @@ class BWAwareController(app_manager.RyuApp):
         selected_bottleneck_link = "none"
 
         # Selection Logic: Maximize bottleneck, then minimize hops
-        self.logger.info("  Analyzing %d potential paths for %s -> %s...", len(all_paths), src_mac, dst_mac)
+        if not silent:
+            self.logger.info("  Analyzing %d potential paths for %s -> %s...", len(all_paths), src_mac, dst_mac)
         for idx, path in enumerate(all_paths):
             bottleneck = float('inf')
             bottleneck_link = "none"
@@ -108,8 +108,9 @@ class BWAwareController(app_manager.RyuApp):
                 bottleneck = t_avail
                 bottleneck_link = f"{dst_host.switch_id}<->{dst_host.name}"
 
-            self.logger.info("    Path %d: %s | BW: %.2f Mbps (Bottleneck: %s)", 
-                              idx + 1, [h['name'] for h in path], bottleneck, bottleneck_link)
+            if not silent:
+                self.logger.info("    Path %d: %s | BW: %.2f Mbps (Bottleneck: %s)", 
+                                  idx + 1, [h['name'] for h in path], bottleneck, bottleneck_link)
 
             if bottleneck > max_bottleneck:
                 max_bottleneck = bottleneck
@@ -123,12 +124,16 @@ class BWAwareController(app_manager.RyuApp):
                     selected_bottleneck_link = bottleneck_link
 
         if best_path:
+            # IMPORTANT: Return a copy to avoid in-place modification bugs
+            best_path = copy.deepcopy(best_path)
             best_path[0]['in_port'] = self.network_manager._parse_port(src_host.switch_port)
             best_path[-1]['out_port'] = self.network_manager._parse_port(dst_host.switch_port)
-            self.logger.info("  >> SELECTED: %s (Bottleneck: %.2f Mbps on %s, Hops: %d)", 
-                             [h['name'] for h in best_path], max_bottleneck, selected_bottleneck_link, best_hop_count)
+            
+            if not silent:
+                self.logger.info("  >> SELECTED: %s (Bottleneck: %.2f Mbps on %s, Hops: %d)", 
+                                 [h['name'] for h in best_path], max_bottleneck, selected_bottleneck_link, best_hop_count)
         
-        return best_path
+        return best_path, max_bottleneck
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_handler(self, ev):
@@ -164,7 +169,7 @@ class BWAwareController(app_manager.RyuApp):
 
         # Path discovery (Dynamic/Bandwidth-Aware)
         self.logger.info("  PacketIn: %s -> %s on dpid=%d port=%d", src, dst, dpid, in_port)
-        path = self._get_widest_path(src, dst)
+        path, bottleneck = self._get_widest_path(src, dst)
         if not path:
             self.logger.warning("  NO PATH found for %s -> %s! Check topology.json knows both hosts.", src, dst)
             # Flood as fallback so packet isn't silently dropped
@@ -175,21 +180,12 @@ class BWAwareController(app_manager.RyuApp):
                 in_port=in_port, actions=actions, data=msg.data)
             datapath.send_msg(out)
             return
+        
+        # Track active path for proactive re-evaluation
+        self.active_paths[(src, dst)] = path
 
         # Install flow entries across the path (Bidirectional)
-        for hop in path:
-            dp = self.datapaths.get(hop['dpid'])
-            if dp:
-                h_parser = dp.ofproto_parser
-                # Forward Flow
-                f_match = h_parser.OFPMatch(eth_src=src, eth_dst=dst)
-                f_actions = [h_parser.OFPActionOutput(hop['out_port'])]
-                self.add_flow(dp, 20, f_match, f_actions)
-                
-                # Reverse Flow
-                r_match = h_parser.OFPMatch(eth_src=dst, eth_dst=src)
-                r_actions = [h_parser.OFPActionOutput(hop['in_port'])]
-                self.add_flow(dp, 20, r_match, r_actions)
+        self._install_path_flows(path, src, dst)
 
         # Send current packet
         out_port = next((h['out_port'] for h in path if h['dpid'] == dpid), None)
@@ -207,7 +203,98 @@ class BWAwareController(app_manager.RyuApp):
                 parser = dp.ofproto_parser
                 req = parser.OFPPortStatsRequest(dp, 0, ofproto.OFPP_ANY)
                 dp.send_msg(req)
+            
+            # PERFORMANCE FIX: Save to disk once per polling cycle (3s)
+            # instead of every time a switch replies. This reduces Disk I/O.
+            self.stats_manager.save_usage()
+            
+            # PROACTIVE RE-EVALUATION: Check if better paths exist for active flows
+            try:
+                self._re_evaluate_paths()
+            except Exception as e:
+                self.logger.error("  ERROR in re-evaluation: %s", e)
+            
             hub.sleep(3)
+
+    def _get_path_bottleneck(self, path, src_mac, dst_mac):
+        """Calculate the current bottleneck bandwidth of a given path."""
+        src_host = self.network_manager.host_manager.get_host(src_mac)
+        dst_host = self.network_manager.host_manager.get_host(dst_mac)
+        if not src_host or not dst_host: return 0
+        
+        bottleneck = float('inf')
+        
+        # Inter-switch links
+        for i in range(len(path) - 1):
+            cur_sw, next_sw = path[i]['name'], path[i+1]['name']
+            avail = self.stats_manager.get_available_bandwidth(cur_sw, next_sw)
+            if avail is not None: bottleneck = min(bottleneck, avail)
+            
+        # Host-to-switch and switch-to-host links
+        h_avail = self.stats_manager.get_available_bandwidth(src_host.name, src_host.switch_id)
+        if h_avail is not None: bottleneck = min(bottleneck, h_avail)
+        
+        t_avail = self.stats_manager.get_available_bandwidth(dst_host.switch_id, dst_host.name)
+        if t_avail is not None: bottleneck = min(bottleneck, t_avail)
+        
+        return bottleneck if bottleneck != float('inf') else 0
+
+    def _re_evaluate_paths(self):
+        """Check if any active flow can be moved to a significantly better path."""
+        if not self.active_paths:
+            self.logger.info("  Re-evaluation heartbeat: 0 active flows")
+            return
+
+        self.logger.info("  Re-evaluating %d active paths...", len(self.active_paths))
+        to_check = list(self.active_paths.items()) # Snapshot for iteration
+        
+        for (src, dst), current_path in to_check:
+            # 1. Get current bottleneck
+            current_bw = self._get_path_bottleneck(current_path, src, dst)
+            
+            # 2. Find the best possible path right now (Sshhh, don't log every check)
+            widest_path, new_bw = self._get_widest_path(src, dst, silent=True)
+            if not widest_path: continue
+            
+            # 3. Anti-Oscillation Logic:
+            # We only reroute if:
+            # a) The current path is actually congested (Available BW < PAIN_THRESHOLD)
+            # b) AND the new path offers a significant absolute improvement (> 5 Mbps)
+            # c) OR a significant relative improvement (> 20%)
+            
+            PAIN_THRESHOLD = 15.0  # Only worry if current path has < 15 Mbps left
+            improvement = new_bw - current_bw
+            
+            should_reroute = False
+            if current_bw < PAIN_THRESHOLD:
+                if improvement > 5.0 or (current_bw > 0 and (improvement / current_bw) > 0.20):
+                    should_reroute = True
+            
+            if should_reroute:
+                self.logger.info("  >> PROACTIVE RE-ROUTE TRIGGERED for %s -> %s", src, dst)
+                self.logger.info("     Current: %s (%.2f Mbps)", [h['name'] for h in current_path], current_bw)
+                self.logger.info("     New Best: %s (%.2f Mbps)", [h['name'] for h in widest_path], new_bw)
+                self.logger.info("     Improvement: %.2f Mbps", improvement)
+                
+                # Install new flows (overwrites existing ones)
+                self.active_paths[(src, dst)] = widest_path
+                self._install_path_flows(widest_path, src, dst)
+
+    def _install_path_flows(self, path, src, dst):
+        """Helper to install bidirectional flows along a path."""
+        for hop in path:
+            dp = self.datapaths.get(hop['dpid'])
+            if dp:
+                h_parser = dp.ofproto_parser
+                # Forward Flow
+                f_match = h_parser.OFPMatch(eth_src=src, eth_dst=dst)
+                f_actions = [h_parser.OFPActionOutput(hop['out_port'])]
+                self.add_flow(dp, 20, f_match, f_actions)
+                
+                # Reverse Flow
+                r_match = h_parser.OFPMatch(eth_src=dst, eth_dst=src)
+                r_actions = [h_parser.OFPActionOutput(hop['in_port'])]
+                self.add_flow(dp, 20, r_match, r_actions)
 
     @set_ev_cls(ofp_event.EventOFPPortStatsReply, MAIN_DISPATCHER)
     def _port_stats_reply_handler(self, ev):
@@ -227,7 +314,9 @@ class BWAwareController(app_manager.RyuApp):
                 old_rx, old_tx, old_ts = self.stats[key]
                 duration = timestamp - old_ts
                 if duration > 0:
-                    usage = (new_rx - old_rx + new_tx - old_tx) * 8 / (duration * 1000000.0)
+                    rx_usage = (new_rx - old_rx) * 8 / (duration * 1000000.0)
+                    tx_usage = (new_tx - old_tx) * 8 / (duration * 1000000.0)
+                    usage = max(rx_usage, tx_usage)
                     # Mapping logic
                     host_name = sw_obj.port_to_host.get(port_no)
                     if host_name:
@@ -238,4 +327,8 @@ class BWAwareController(app_manager.RyuApp):
                                 self.stats_manager.update_usage(sw_obj.name, v, usage)
                                 break
             self.stats[key] = (new_rx, new_tx, timestamp)
-        self.stats_manager.save_usage()
+        
+        # PERSISTENCE: Save periodically (The StatsManager instance in this process 
+        # is already updated in RAM, so path selection is always fast).
+        # self.stats_manager.save_usage() # Handled in _monitor for efficiency
+

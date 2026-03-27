@@ -3,6 +3,13 @@ Configuration file for Mininet-Flower integration.
 Contains network topology parameters, paths, and FL settings.
 """
 
+import os
+
+# Load FLOCK_MODEL from environment
+FLOCK_MODEL = os.environ.get("FLOCK_MODEL")
+if not FLOCK_MODEL:
+    raise ValueError("FLOCK_MODEL environment variable must be set before starting Mininet!")
+
 # Network Configuration
 SERVER_IP = "10.0.0.1"
 CLIENT_IPS = [
@@ -27,9 +34,9 @@ FLOWER_SUPERNODE_BIN = f"{VENV_PATH}/bin/flower-supernode"
 FLWR_RUN_BIN = f"{VENV_PATH}/bin/flwr"
 
 # Network Settings
-SERVER_BW = 100  # Mbps for h1 connection
-CLIENT_BW = 10   # Mbps for c1-c8 connections
-SWITCH_BW = 15   # Mbps for inter-switch connections
+SERVER_BW = 100 # Mbps for h1 connection
+CLIENT_BW = 100   # Set to 100 for testing to avoid first-hop bottlenecks
+SWITCH_BW = 50   # Mbps for inter-switch connections
 DELAY = "5ms"    # Network delay
 
 # Logging
