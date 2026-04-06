@@ -93,12 +93,12 @@ Since the system runs in the background, you won't see training progress in the 
 
 *   **Watch the Server (Master)**:
     ```bash
-    tail -f /tmp/flower_mininet_logs/server.log
+    tail -f logs/server.log
     ```
 
 *   **Watch a Client (Worker)**:
     ```bash
-    tail -f /tmp/flower_mininet_logs/client_1.log
+    tail -f logs/client_1.log
     ```
 
 ## Project Map

@@ -1,0 +1,10 @@
+[92mINFO [0m:      Starting Flower SuperNode
+[93mWARNING [0m:   Option `--insecure` was set. Starting insecure HTTP channel to 10.0.0.1:9092.
+[92mINFO [0m:      Flower Deployment Runtime: Starting ClientAppIo API on 0.0.0.0:9094
+[92mINFO [0m:      SuperNode ID: 17057167015147921228
+[92mINFO [0m:      Starting Flower SuperExec
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 12587764556926455331]
+[92mINFO [0m:      Receiving: train message (ID: 6c1a2cac5ee6499dde02af27c56705710aeef51b8a396e5906e26efff6ddf58a)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token e4b3...b99d

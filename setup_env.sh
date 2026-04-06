@@ -18,7 +18,7 @@ echo "Installing Ryu (with no build isolation)..."
 pip install ryu --no-build-isolation
 
 echo "Installing Flower Distributed..."
-pip install -e .
+pip install -e src/
 
 echo "Installing Torch and Torchvision..."
 pip install torch torchvision

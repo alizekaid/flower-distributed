@@ -5,13 +5,13 @@
 server bash -c "cd /home/alizekaid/Desktop/flower-distributed/flower-distributed && export PATH=/home/alizekaid/Desktop/flower-distributed/flwr-env/bin:\$PATH && flwr run . mininet-deployment --run-config num-server-rounds=3"
 
 # Check server logs
-server cat /tmp/flower_mininet_logs/server.log
+server cat logs/server.log
 
 # Check client logs
-server cat /tmp/flower_mininet_logs/client_1.log
-server cat /tmp/flower_mininet_logs/client_2.log
-server cat /tmp/flower_mininet_logs/client_3.log
-server cat /tmp/flower_mininet_logs/client_4.log
+server cat logs/client_1.log
+server cat logs/client_2.log
+server cat logs/client_3.log
+server cat logs/client_4.log
 
 # Test connectivity
 pingall

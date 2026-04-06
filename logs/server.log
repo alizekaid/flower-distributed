@@ -1,0 +1,125 @@
+[92mINFO [0m:      Starting Flower SuperLink
+[93mWARNING [0m:   Option `--insecure` was set. Starting insecure HTTP server with unencrypted communication (TLS disabled). Proceed only if you understand the risks.
+[93mWARNING [0m:   SuperNode authentication is disabled. The SuperLink will accept connections from any SuperNode.
+[92mINFO [0m:      Flower Deployment Runtime: Starting Control API on 0.0.0.0:9093
+[92mINFO [0m:      Flower Deployment Runtime: Starting ServerAppIo API on 0.0.0.0:9091
+[92mINFO [0m:      Flower Deployment Runtime: Starting Fleet API (gRPC-rere) on 0.0.0.0:9092
+[92mINFO [0m:      Starting Flower SuperExec
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.ActivateNode] Activated node_id=14046072209040010656
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+[92mINFO [0m:      ControlServicer.StartRun
+[92mINFO [0m:      Created run 12587764556926455331
+[92mINFO [0m:      Start `flwr-serverapp` process
+[92mINFO [0m:      Starting run 12587764556926455331
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+
+🚀 FL SERVER: Loading global model [mobilenetv2]...
+
+🚀 FL SERVER: Successfully instantiated PyTorch Model: [ MobileNetV2 ]...
+
+============================================================
+Starting Federated Learning: 8 rounds
+============================================================
+
+[92mINFO [0m:      Starting FedAvg strategy:
+[92mINFO [0m:      	├── Number of rounds: 8
+[92mINFO [0m:      	├── ArrayRecord (8.70 MB)
+[92mINFO [0m:      	├── ConfigRecord (train): {'lr': 0.01}
+[92mINFO [0m:      	├── ConfigRecord (evaluate): (empty!)
+[92mINFO [0m:      	├──> Sampling:
+[92mINFO [0m:      	│	├──Fraction: train (1.00) | evaluate ( 1.00)
+[92mINFO [0m:      	│	├──Minimum nodes: train (2) | evaluate (2)
+[92mINFO [0m:      	│	└──Minimum available nodes: 2
+[92mINFO [0m:      	└──> Keys in records:
+[92mINFO [0m:      		├── Weighted by: 'num-examples'
+[92mINFO [0m:      		├── ArrayRecord key: 'arrays'
+[92mINFO [0m:      		└── ConfigRecord key: 'config'
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [ROUND 1/8]
+[92mINFO [0m:      configure_train: Sampled 8 nodes (out of 8)
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17057167015147921228
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15247614143864260089
+[92mINFO [0m:      [Fleet.PullMessages] node_id=6336792456172728925
+[92mINFO [0m:      [Fleet.PullMessages] node_id=15478047049332388836
+[92mINFO [0m:      [Fleet.PullMessages] node_id=4206989631304318306
+[92mINFO [0m:      [Fleet.PullMessages] node_id=17575597398543818159
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.PullMessages] node_id=18397474982377754736
+[92mINFO [0m:      [Fleet.PullMessages] node_id=14046072209040010656
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.GetRun] Requesting `Run` for run_id=12587764556926455331
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e
+[92mINFO [0m:      [Fleet.GetFab] Requesting FAB for fab_hash=e71e6de084bbb6593cfd72258d2d958bc12aabcefc47a84bcd0cdcee97cf0c5e

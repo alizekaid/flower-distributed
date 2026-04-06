@@ -18,12 +18,13 @@ export FLOCK_MODEL=$1
 
 # Start Mininet in the background
 echo "Starting Mininet Topology with model $FLOCK_MODEL..."
-sudo -E PYTHONPATH=$PYTHONPATH python3 mininet_topology.py &
+sudo -E PYTHONPATH=$PYTHONPATH python3 network/topology/mininet_topology.py &
 MININET_PID=$!
 
 # Wait for Mininet to create the topology file
 echo "Waiting for Mininet to initialize and export topology..."
-while [ ! -f topology.json ]; do #|| [ ! -s topology.json ]; do
+# Search in the new topology directory
+while [ ! -f network/topology/topology.json ]; do
     sleep 1
 done
 echo "Topology file found!"
@@ -34,8 +35,9 @@ sleep 2
 # Start Ryu Controller
 echo "Starting Ryu Controller..."
 # Use absolute path to ryu-manager in the virtual environment
-#PYTHONPATH=$PYTHONPATH /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager flower_controller.py &
-#PYTHONPATH=$PYTHONPATH /home/alizekaid/Desktop/flower-distributed/flwr-env/bin/ryu-manager traffic_aware_controller.py &
+# PYTHONPATH=$PYTHONPATH ./flwr-env/bin/ryu-manager network/controllers/flower_controller.py &
+# PYTHONPATH=$PYTHONPATH ./flwr-env/bin/ryu-manager network/controllers/traffic_aware_controller.py &
+# PYTHONPATH=$PYTHONPATH ./flwr-env/bin/ryu-manager network/controllers/bw_aware_controller.py &
 RYU_PID=$!
 
 # Bring Mininet to foreground so CLI works
