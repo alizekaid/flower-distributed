@@ -262,7 +262,7 @@ class BWAwareController(app_manager.RyuApp):
             # b) AND the new path offers a significant absolute improvement (> 5 Mbps)
             # c) OR a significant relative improvement (> 20%)
             
-            PAIN_THRESHOLD = 15.0  # Only worry if current path has < 15 Mbps left
+            PAIN_THRESHOLD = 5.0  # Only worry if current path has < 5 Mbps left
             improvement = new_bw - current_bw
             
             should_reroute = False
