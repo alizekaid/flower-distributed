@@ -1,10 +1,605 @@
 [92mINFO [0m:      Starting Flower SuperNode
 [93mWARNING [0m:   Option `--insecure` was set. Starting insecure HTTP channel to 10.0.0.1:9092.
 [92mINFO [0m:      Flower Deployment Runtime: Starting ClientAppIo API on 0.0.0.0:9094
-[92mINFO [0m:      SuperNode ID: 17575597398543818159
+[92mINFO [0m:      SuperNode ID: 4114464946553851978
 [92mINFO [0m:      Starting Flower SuperExec
 [92mINFO [0m:      
-[92mINFO [0m:      [RUN 12587764556926455331]
-[92mINFO [0m:      Receiving: train message (ID: 2e52cd2af2490ba657740bee13d1d39d8adccaafa525089e0882569d84d5cb3a)
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 083fad88ce93a03f358226ce22ab68739f64ceb4803e6affa468e05b26e441b7)
 [92mINFO [0m:      Start `flwr-clientapp` process
-[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 5589...a1ed
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token d7ae...5bd9
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token d7ae...5bd9
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: c985cabd1ea55070803898481b767c3ca0c27cda9da40365a7edeb0c920b1001)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 941bb9259704ff13ee159cacb8f881e2e00fe1795cc83ffcfa2c0ed41b913221)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 30cc...ffa1
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 30cc...ffa1
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 7d3b2276d0972d9ed57539345bac53c4e416c9a9947177fe7339e707e9aa6b6d)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: bc7e17685cea60077dd432c5e497dc28ff8d342d8f871ab9aa163498a9f6f0a6)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 191d...6fc4
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 191d...6fc4
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 877eaf648f699af5db53fed93aade3147d2d61b411c60bf9fae2536e86bb4651)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: eacec10e05a19239b8d98ba3cef045fce6e580d5e97103bb8f0390635761a425)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token b26d...68e6
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token b26d...68e6
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: a42d5f725d3f768b04c254b12f9a1068eca851a94ad854e3d12e6d544f84ca81)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 81fd2880d629e18e05f8b373ac6d3490f31b6ad2dd9587899687e357476e511b)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 073e...59a4
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 073e...59a4
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: c1ee2e1ecd33eef9cc44a28381acee3f236b0f167d52b16f35a3fe1bf37ba99a)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 7dd6a8786b2e68da61e333203ad4c2e7b1025a5bd7fda6189ecd3280eaaec737)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 2b44...b779
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 2b44...b779
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: cf5597231d7fa072b6f51c0bb04930efd45996ab9134bc7281c15bc67e1bb87d)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 5ad121f959556d080cb281e09de56b1d78b4df24a391699a88cac8a057f3ccda)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 1a93...00ce
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 1a93...00ce
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: f332240b52c5c611d819e45ff3a01cc262841816de4001c6907676c00f712898)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 9ba878efbe0093ecee1193385a4c2bddb26b384d74acd53223209aa1aef5d45c)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 6741...5ddf
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 6741...5ddf
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: ae144f104b350e331eaf2e8c083bea9dcdf20e7e942d66bee85eaa8c2d2b8d32)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 0a75fcc75d647ee6668a4ea02938f2f717f041df4e9a81200d27f3a2925aa4b2)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token fba6...0421
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token fba6...0421
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: a8a9625255f46d664dfd42d5de1f20953310fef43242be0f704c6f6281b6ca9d)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 2dc92c494ddaa98baf6840117816e22e93325a53b10335ee96dfc47fba86f29f)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token c062...8184
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token c062...8184
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: ddec172bd804d1855f16017ed2fc031a335f339ad3812b824976f99d0844bea5)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 80cd4b99a87ba64cc3aa49d71307ea56ffed723dc1a363424d6f9e32fffae811)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 0110...31f6
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 0110...31f6
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: da6ed10abe866a6b19361e1a7bbfc6303cf0aa7d061b0384be956680c11a2736)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: f79f61aaa979e9e3d335993afdf44504fd8d78728b5c13977498f71dbda061a1)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 4296...4de0
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 4296...4de0
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: f098c24396c6578c0eaceffed87c0f44a24675bf9f7c28996d47f0ca5f2e1714)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 7c2416b57a9be6b0a76387d0b17726fed9e26218f0ba43a1b568c4a59ec2a36a)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 11a5...007a
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 11a5...007a
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 140efca888175d320755bf8f6dfefdded6f78eb5c5e3dbdc713a69e241922489)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 68a053acbbc4d05948c4eb19302daf2ed3479940c61f9965e2a2729b19b5d87c)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 0ada...23dd
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 0ada...23dd
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 97942bb23066882e9ed833aeb6935d48b93b5d52f82da7f6a2e35a79bd0e237c)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 28e6a7142e0859a902f567ff126822ceb6fb6796bbd11464ad44cc4db79a5e24)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 0d60...cecd
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 0d60...cecd
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 4c513cd98d7771216e90e6fb0ab67bb689e54c63ffe8b1dd1a82836580da7034)
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 7667aafc70302ddeabfd9ebaa2fd1151ae15424584340263af1d81ebbacf6768)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 96e8...8fb4
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 96e8...8fb4
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: a9cdf0f8449da9b372fab9422dcf0957408a0d463c9987a75b085c25319437fb)
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 692ca26a4363a62119d245b446f374a3b4695c56f3b4a9b8711c3a20a7e154df)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token fed4...35b6
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token fed4...35b6
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: b8e5084ffdff7e65173bed42f984ed77addc710795c7846ac5fdfb25b2dd58b0)
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 35371057f36ec6943de7797c46f19c0535e60eb35228dc289883c3ef6b9f5f66)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token bb1a...3415
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token bb1a...3415
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: b3af481105588c8b180de16e035ba598a2706dcd9650555a31462c18305cb331)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 0db28d13a698c070542ff71ee34b724bed8a45e0fcb36d3402227c8b1e93e13b)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token c1c7...d29c
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token c1c7...d29c
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 04574cd5c59b0c9e355c6116b7e127809ce5f972bb52dfbb95fdac37ed94e1ad)
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 28a369fcc09e4b3b7a8210b44ca28714be79fcd40c95ce7705bb13fc6a62f165)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token a3b8...e4b2
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token a3b8...e4b2
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 6a2965d85231b315fee7f5ce8a1361265d0c59b7eb86710186a4ab3687ede107)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: d3d813ea4448c98f19a3420fd6b9bed2eb7357620ae64509d31b15e47f0a514a)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 2512...c354
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 2512...c354
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: ba57546c8eca5b5b42f0d0ce3255970ccfb7042301cd002d9a0c02b7d008d0bc)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 5c37dd8093eb88a465537db7660dd56502976ab3106945e735d24c8e651d6c77)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token cf9e...5dae
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token cf9e...5dae
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: f2fd546d327a8fef9b49ea88a6980f29fe2fa63a136bbaf999748f9b2a8aa2dd)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 3404b870adb552182a63d42cbab1d539ec010d728c2bfaad27dc97c5f0758846)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token b399...5aee
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token b399...5aee
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: d8e4b7fcc20c0e5db6b31ba6bdb0464e6ce82769740f3ddae09b134947fbc5cb)
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 0da9722f986397009c24fd3837f4e8602b2d7d507e066dcd62d81e6cba30e61a)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token c0a3...27fb
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token c0a3...27fb
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: efb50986b4a41cf2fc6caed887ec7540903511501236edf29a26d4ef200f1e89)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 4ba7c09906ea881017bae917fbabfadf642ec1c2a7783160e79ddc0654820081)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 2ce1...9aec
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 2ce1...9aec
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 1a25e58cc7364780de657076bdd66fc29c722b3c80c6ccb688e00c764b10d808)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: c0df88dbe62943c759c3737b0bd973df0c3518747082b9be5ecf2aea55bcc99d)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 6669...9a1a
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 6669...9a1a
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 7dbb014f11b4559024b7199c02c8162e9cdb1fe6d918744cc8a822b59c0c488c)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: eef3452d1db5d70ce4659c9cabcc977d00ba28480a0771e8af6c24af50f33a04)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token e3dd...b7a8
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token e3dd...b7a8
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 6b917eacac1393d2044c289d3ec7e308752cb08923f3d22002af7bf88e6c0bc7)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 7eec9ffda990478a201948870ad16c18ed4bfb48a8988b44f5e20211af75b920)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 3cbe...c05b
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 3cbe...c05b
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 6e1ad45f368213e5e57dcdd0f669e41bd6ac44db3e3f51d38979d0907d59efdb)
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 3934b8a3637775e9ee7375cc6ed245695fc63f7395aa58146c73bf84203c8f91)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 64cf...e10f
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 64cf...e10f
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 606a40f4c7f5494be101eec29db47616832687719d9a99d405a716dfe99a3304)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: de2cdfa192264fe4f511f3a11fc696c9f5374e7cf291acb81756b18d697a535f)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token eaa5...c756
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token eaa5...c756
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: e3c3a9313fdf13d1a8c16a7bd8e242e54bd1d069f018bf11ffd67d1486a2088e)
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 20791c542d8007f33068881a428228ebbcae312ecb8304f088239ce8df17538b)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 206c...4e5c
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 206c...4e5c
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 437190361ad56f37b48972b6782c6f799e78ad9bcfce277dcb871e85478e70d6)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 9c4113ca33ee1012f06889835d490ab7609b94d85eda2a556d01b1a858c139ce)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 3187...6ea3
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 3187...6ea3
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 864ab1420e072b647c29192d58f01d5f663c62de6f1f6d200a64077a995d40f0)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 9ed612f4c7104a64206ba9c826ca0a8618dae232973118f5701429ceaeb9e47c)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token f4a8...a8fa
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token f4a8...a8fa
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 8b419f7f6a8c8e908b3f14b71c48c7970bbcbc5697353beebed6c7bfb00dc80e)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 5ff481d429d12b2d012d89783f9a81d49c46109fd46c8b8b73cfd30fde55bc63)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token eebe...a24f
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token eebe...a24f
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 2e3209774633dfe1790ad11580df6cfcfbe0a7c849cdd0aee7ef288153ac3cc1)
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 454e1200bcd7beee83a30286aac4f194765a3f29663699690bf24baffb49a39c)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 474c...7380
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 474c...7380
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 823a6067cbfc46ca08b390976fea3a07c012ec5168e2c39372d4e416c213991c)
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 69b8167d895c6a445f5e35fe106d4055213452d5cf82206bbf1812bd381658bb)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token b972...147e
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token b972...147e
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: aec2f9720381e46780ca1bf19173f1c9e1f55ae221bbe128ca82f458a6e2cdb6)
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 77aee81161413db056148b5a64e080b162d6cff3e027e124c6916b55cbd16da4)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 0d68...5fd5
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 0d68...5fd5
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 04096fc0e78d34e61ecb729002d072644f10c69b5f8d114a525b530117ef8edb)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 3468563f7e17f6d13f55047cd78266fbd160d185a58ea33b8ada8f02b49e8ed8)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 54ba...eb68
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 54ba...eb68
+[92mINFO [0m:      
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: 1693b8338a4fca8428d61a47e48209827965364ac1ae416460a2f36dae879339)
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: train message (ID: 3bc7090b65c686d22e988633c6ebfe482de4149fe1107b7dde9e1c23d3c6eb6f)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 3220...516e
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 3220...516e
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: train message (ID: 22bb877b12188adf7316779721ac1188ba3173d9842fc975c78a54c189329dc0)
+[92mINFO [0m:      
+🚀 [Client] Training on device: CUDA
+[92mINFO [0m:      Sent successfully
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Receiving: evaluate message (ID: 77e8702e9562eedf7fd1863cc52072829dc42204de40ecbfe031188f22a3e71d)
+[92mINFO [0m:      Start `flwr-clientapp` process
+[92mINFO [0m:      [flwr-clientapp] Pull `ClientAppInputs` for token 57eb...67a9
+[92mINFO [0m:      Received successfully
+/home/cihat/Downloads/flower-distributed_article1/flower-distributed/flwr-env/lib/python3.11/site-packages/torchvision/datasets/cifar.py:83: VisibleDeprecationWarning: dtype(): align should be passed as Python or NumPy boolean but got `align=0`. Did you mean to pass a tuple to create a subarray type? (Deprecated NumPy 2.4)
+  entry = pickle.load(f, encoding="latin1")
+[92mINFO [0m:      [flwr-clientapp] Push `ClientAppOutputs` for token 57eb...67a9
+[92mINFO [0m:      
+[92mINFO [0m:      
+[92mINFO [0m:      [RUN 833597806201327022]
+[92mINFO [0m:      Sending: evaluate message (ID: b8f767680adc5e497818f4f9b9cf97e3507139bebcc7e9e36c2698817a7bb617)
+📊 [Client] Evaluating on device: CUDA
+[92mINFO [0m:      Sent successfully

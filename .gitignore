@@ -5,4 +5,5 @@ __pycache__/
 *.pyc
 data/
 PRESENTATION_GUIDE.md
-plot_metrics_from_logs.py
+scripts/plot_metrics_from_logs.py
+logs

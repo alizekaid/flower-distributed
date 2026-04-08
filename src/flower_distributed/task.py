@@ -75,6 +75,14 @@ def load_data(partition_id: int, num_partitions: int):
 
     dataset = _global_dataset
     num_samples = len(dataset)
+    
+    # Introduce deterministic shuffling for consistent partitioning across runs
+    # This ensures IID distribution while remaining exactly the same between consecutive runs.
+    indices = list(range(num_samples))
+    import random
+    random.seed(42)
+    random.shuffle(indices)
+
     shard_size = num_samples // num_partitions
 
     if shard_size == 0:
@@ -86,7 +94,9 @@ def load_data(partition_id: int, num_partitions: int):
     start = partition_id * shard_size
     end = start + shard_size if partition_id < num_partitions - 1 else num_samples
 
-    client_subset = Subset(dataset, list(range(start, end)))
+    # Select the shuffled indices for this partition
+    partition_indices = indices[start:end]
+    client_subset = Subset(dataset, partition_indices)
 
     # Split client data: 80% train, 20% validation
     train_size = int(0.8 * len(client_subset))
