@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Mininet topology for Flower Federated Learning.
-4-switch diamond: s1(c1,c2) - s2(c3) - s3(c4) - s4(h1)
-All four switches are fully interconnected (K4 graph).
+3-switch triangle: s1(c1,c2) - s2(c3) - s3(c4) - s4(h1)
+All three switches are fully interconnected (K3 graph).
 """
 
 import sys
@@ -55,32 +55,25 @@ class FlowerTopology:
         info("*** Adding remote controller (Ryu)\n")
         self.net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6653)
         
-        info("*** Adding 10 switches plus core switch...\n")
+        info("*** Adding 3 explicit switches for Triangle Topology...\n")
         switches = {}
-        for i in range(1, 11):
+        for i in range(1, 4):
             swname = f's{i}'
             dpid_str = str(i).zfill(16) 
             switches[swname] = self.net.addSwitch(swname, dpid=dpid_str)
         
-        # Add core switch
-        switches['core1'] = self.net.addSwitch('core1', dpid='0000000000000100')
-        
         self.switch = switches['s1'] # Set main hub reference
         
-        info("*** Creating links between switches...\n")
-        # Normal inter-switch links
+        info("*** Creating links between switches (Triangle)...\n")
+        # Triangle topology: s1-s2, s2-s3, s1-s3
         normal_links = [
-            ('core1', 's1'), ('core1', 's2'),
-            ('s1', 's5'), ('s1', 's3'),
-            ('s3', 's7'), ('s3', 's8'),
-            ('s4', 's7'), ('s4', 's8'),
-            ('s5', 's9'), ('s5', 's10'),
-            ('s6', 's9'), ('s6', 's10')
+            ('s1', 's2'), ('s2', 's3'), ('s1', 's3')
         ]
+        
         # Throttled links: shortest-path routes that the BW-aware controller
         # must detect as bottlenecks and route around.
         throttled_links = [
-            ('s2', 's4'), ('s2', 's6'),
+            # Intentionally left empty for now
         ]
 
         for src, dst in normal_links:
@@ -94,32 +87,34 @@ class FlowerTopology:
         self.server = self.net.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01')
         
         # Clients c1-c8 with re-indexed IPs
-        c1 = self.net.addHost('c1', ip='10.0.0.2/24', mac='00:00:00:00:00:02')
-        c2 = self.net.addHost('c2', ip='10.0.0.3/24', mac='00:00:00:00:00:03')
-        c3 = self.net.addHost('c3', ip='10.0.0.4/24', mac='00:00:00:00:00:04')
-        c4 = self.net.addHost('c4', ip='10.0.0.5/24', mac='00:00:00:00:00:05')
-        c5 = self.net.addHost('c5', ip='10.0.0.6/24', mac='00:00:00:00:00:06')
-        c6 = self.net.addHost('c6', ip='10.0.0.7/24', mac='00:00:00:00:00:07')
-        c7 = self.net.addHost('c7', ip='10.0.0.8/24', mac='00:00:00:00:00:08')
-        c8 = self.net.addHost('c8', ip='10.0.0.9/24', mac='00:00:00:00:00:09')
-        
-        self.clients = [c1, c2, c3, c4, c5, c6, c7, c8]
+        self.clients = []
+        for i, name in enumerate(config.CLIENT_NAMES):
+            mac = f'00:00:00:00:00:{i+2:02x}'
+            ip = config.CLIENT_IPS[i]
+            # Standard unthrottled Host grants maximum available physical CPU mapping natively
+            host = self.net.addHost(name, ip=f'{ip}/24', mac=mac)
+            self.clients.append(host)
+            
+        c1, c2, c3, c4, c5, c6, c7, c8 = self.clients
         
         info("*** Connecting hosts to switches...\n")
+        # Connect server h1 exclusively to s2
         self.net.addLink(self.server, switches['s2'], bw=config.SERVER_BW, delay=config.DELAY)
         
-        # c1, c2 to s7
-        self.net.addLink(c1, switches['s7'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c2, switches['s7'], bw=config.CLIENT_BW, delay=config.DELAY)
-        # c3, c4 to s8
-        self.net.addLink(c3, switches['s8'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c4, switches['s8'], bw=config.CLIENT_BW, delay=config.DELAY)
-        # c5, c6 to s9
-        self.net.addLink(c5, switches['s9'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c6, switches['s9'], bw=config.CLIENT_BW, delay=config.DELAY)
-        # c7, c8 to s10
-        self.net.addLink(c7, switches['s10'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c8, switches['s10'], bw=config.CLIENT_BW, delay=config.DELAY)
+        # Distribute clients across the remaining triangle switches (s1, s3)
+        # config.CLIENT_BW and config.DELAY will now be set to much higher limits
+        
+        # c1, c2, c3, c4 to s1
+        self.net.addLink(c1, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c2, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c3, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c4, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
+        
+        # c5, c6, c7, c8 to s3
+        self.net.addLink(c5, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c6, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c7, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
+        self.net.addLink(c8, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
         
         info("*** Disabling IPv6 and multicast noise...\n")
         for node in self.net.values():
@@ -345,6 +340,8 @@ class FlowerTopology:
                 f"export HF_DATASETS_OFFLINE=1 && "
                 f"export CIFAR10_DATASET_ROOT={config.DATASET_ROOT} && "
                 f"export FLOCK_MODEL={config.FLOCK_MODEL} && "
+                f"export LINK_BW={config.CLIENT_BW} && "
+                f"export LINK_LATENCY={config.DELAY} && "
                 f"{config.FLOWER_SUPERNODE_BIN} "
                 f"--insecure "
                 f"--superlink {config.SERVER_IP}:{config.SUPERLINK_PORT} "

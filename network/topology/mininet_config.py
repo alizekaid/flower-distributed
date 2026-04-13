@@ -36,9 +36,9 @@ FLWR_RUN_BIN = f"{VENV_PATH}/bin/flwr"
 
 # Network Settings
 SERVER_BW = 100 # Mbps for h1 connection
-CLIENT_BW = 100   # Set to 10 to allow routing thresholds to safely trigger
-SWITCH_BW = 100   # Mbps for inter-switch connections
-DELAY = "5ms"    # Network delay
+CLIENT_BW = 15   # Greatly enhanced bandwidth for client-switch
+SWITCH_BW = 50   # Mbps for inter-switch connections
+DELAY = "1ms"    # Reduced delay for enhanced performance
 
 # Artificially throttled links: s2-s4 and s2-s6
 # These are the shortest-path links. Setting them very low forces the

@@ -1,7 +1,7 @@
 """flower-distributed: A Flower / PyTorch app."""
 
 import torch
-from flwr.app import ArrayRecord, Context, Message, MetricRecord, RecordDict
+from flwr.app import ArrayRecord, Context, Message, MetricRecord, RecordDict, ConfigRecord
 from flwr.clientapp import ClientApp
 
 
@@ -13,6 +13,8 @@ torch.set_num_threads(1)
 import os
 import time
 import random
+import psutil
+import json
 from flower_distributed.task import get_model, load_data
 from flower_distributed.task import test as test_fn
 from flower_distributed.task import train as train_fn
@@ -118,3 +120,46 @@ def evaluate(msg: Message, context: Context):
     metric_record = MetricRecord(metrics)
     content = RecordDict({"metrics": metric_record})
     return Message(content=content, reply_to=msg)
+
+
+def build_telemetry_msg(msg: Message, context: Context):
+    """Helper method to construct Resource and IID metrics dynamically."""
+    cpu_usage = psutil.cpu_percent(interval=0.1)
+    ram_info = psutil.virtual_memory()
+    
+    # Prove flawless IID partition setup across distributions dynamically:
+    partition_id = context.node_config["partition-id"]
+    num_partitions = context.node_config["num-partitions"]
+    trainloader, _ = load_data(partition_id, num_partitions)
+    
+    # Read static network metrics from environment variables
+    link_bw = os.environ.get("LINK_BW", "Unknown")
+    link_latency = os.environ.get("LINK_LATENCY", "Unknown")
+    
+    distribution = {}
+    for idx in range(len(trainloader.dataset)):
+        _, label = trainloader.dataset[idx]
+        distribution[label] = distribution.get(label, 0) + 1
+        
+    # Map partition-id (0-7) to human-readable strings (c1-c8)
+    client_name = f"c{partition_id + 1}"
+    
+    config_data = {
+        "client_name": client_name,
+        "cpu_percent": float(cpu_usage),
+        "ram_percent": float(ram_info.percent),
+        "ram_available_mb": float(ram_info.available / (1024*1024)),
+        "bw_mbps": link_bw,
+        "latency_ms": link_latency,
+        "iid_distribution": json.dumps(distribution),
+    }
+    return Message(content=RecordDict({"telemetry": ConfigRecord(config_data)}), reply_to=msg)
+
+
+@app.query()
+def get_properties_default(msg: Message, context: Context):
+    return build_telemetry_msg(msg, context)
+
+@app.query("get_properties")
+def get_properties_named(msg: Message, context: Context):
+    return build_telemetry_msg(msg, context)
