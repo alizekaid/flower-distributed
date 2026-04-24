@@ -25,7 +25,13 @@ class MetricsPlotter:
             "round": [],
             "loss": [],
             "accuracy": [],
-            "round_time": []
+            "round_time": [],
+            "per_client_loss": {}, # client_name -> [loss1, loss2, ...]
+            "per_client_accuracy": {}, # client_name -> [acc1, acc2, ...]
+            "per_client_bw": {},       # client_name -> [bw1, bw2, ...]
+            "per_client_lat": {},      # client_name -> [lat1, lat2, ...]
+            "per_client_cpu": {},      # client_name -> [cpu1, cpu2, ...]
+            "per_client_ram": {}       # client_name -> [ram1, ram2, ...]
         }
         
         # Round timing: reset at init and after every round
@@ -47,7 +53,7 @@ class MetricsPlotter:
         if not records:
             return MetricRecord()
             
-        # 1. Run standard Flower aggregation
+        # 1. Run standard Flower aggregation for the global average
         aggregated_metrics = aggregate_metricrecords(records, weighting_metric_name)
         
         # 2. Extract values (clients return 'eval_loss' and 'eval_acc')
@@ -58,57 +64,163 @@ class MetricsPlotter:
         round_num = len(self.history["round"]) + 1
         round_duration = time.time() - self._round_start_time
         
-        # 4. Save to history
+        # 4. Save to global history
         self.history["round"].append(round_num)
         self.history["loss"].append(loss)
         self.history["accuracy"].append(acc)
         self.history["round_time"].append(round_duration)
+
+        # 5. Extract and Save Per-Client Metrics
+        current_round_loss = {}
+        current_round_acc = {}
         
-        # 5. Print per-round summary
+        for record in records:
+            # DEBUG Round 1: Record keys: ['metrics']
+            # This confirms that Flower is nesting our metrics under a 'metrics' key.
+            
+            target_record = record
+            if "metrics" in record:
+                # Some flwr versions wrap the MetricRecord inside another Record
+                target_record = record["metrics"]
+            
+            # Try to get client_id
+            try:
+                # Direct indexing is safer for Record types in some flwr versions
+                cid = int(target_record["client_id"])
+                client_name = f"c{cid}"
+                c_loss = float(target_record["eval_loss"])
+                c_acc = float(target_record["eval_acc"])
+                
+                # Save the latest value for this client in this round
+                current_round_loss[client_name] = c_loss
+                current_round_acc[client_name] = c_acc
+                
+            except (KeyError, ValueError, TypeError) as e:
+                # print(f"DEBUG: Failed to extract from record: {e}")
+                continue
+
+        # Now update the persistent history with exactly one value per client
+        # First, ensure all clients seen so far are initialized for this round
+        all_clients = set(self.history["per_client_loss"].keys()) | set(current_round_loss.keys())
+        
+        for name in all_clients:
+            if name not in self.history["per_client_loss"]:
+                # New client discovered: pad previous rounds with 0
+                self.history["per_client_loss"][name] = [0.0] * (round_num - 1)
+                self.history["per_client_accuracy"][name] = [0.0] * (round_num - 1)
+            
+            # Append the value from this round (or 0.0 if the client missed this round)
+            self.history["per_client_loss"][name].append(current_round_loss.get(name, 0.0))
+            self.history["per_client_accuracy"][name].append(current_round_acc.get(name, 0.0))
+        
+        # 6. Print per-round summary
         print(f"\n{'='*55}")
         print(f"  ⏱  Round {round_num:>2d} completed in {round_duration:.2f}s")
         print(f"       Loss: {loss:.4f}   Accuracy: {acc:.4f}")
         print(f"{'='*55}\n")
         
-        # 6. Write timing to dedicated log file
+        # 7. Write timing to dedicated log file
         with open(self._timing_log_path, 'a') as f:
             f.write(f"{round_num},{round_duration:.4f},{loss:.6f},{acc:.6f}\n")
         
-        # 7. Reset timer for next round
+        # 8. Reset timer for next round
         self._round_start_time = time.time()
         
-        # 8. Plot
+        # 9. Plot everything
         self.plot()
         
         return aggregated_metrics
         
-    def plot(self):
-        """Generates and saves a modern double-chart PNG of Loss and Accuracy."""
-        # Build cumulative time x-axis: time at which each round finished
-        cumulative_times = []
-        total = 0.0
-        for t in self.history["round_time"]:
-            total += t
-            cumulative_times.append(round(total, 2))
-
-        plt.figure(figsize=(12, 5))
+    def record_telemetry(self, round_num, export_stats):
+        """
+        Records system telemetry (BW, Lat, CPU, RAM) for all clients in this round.
+        Called from the strategy.
+        """
+        all_clients = set(self.history["per_client_bw"].keys()) | set(export_stats.keys())
         
-        # Plot 1: Validation Loss
-        plt.subplot(1, 2, 1)
-        plt.plot(cumulative_times, self.history["loss"], marker='o', linewidth=2, color='red')
-        plt.title('Validation Loss over Time')
-        plt.xlabel('Time (s)')
+        for name in all_clients:
+            stats = export_stats.get(name, {})
+            
+            # Extract raw values from telemetry
+            # We use 0.0 as fallback if the client is 'sleeping' this round
+            try:
+                bw = float(str(stats.get("bw_mbps", 0)).replace('Mbps','').replace('mbps','').strip())
+                lat = float(str(stats.get("latency_ms", 0)).replace('ms','').strip())
+                cpu = float(stats.get("cpu_percent", 0))
+                ram = float(stats.get("ram_available_mb", 0))
+            except:
+                bw, lat, cpu, ram = 0.0, 0.0, 0.0, 0.0
+
+            # Initialize history for new clients
+            if name not in self.history["per_client_bw"]:
+                for key in ["per_client_bw", "per_client_lat", "per_client_cpu", "per_client_ram"]:
+                    self.history[key][name] = [0.0] * (round_num - 1)
+            
+            # Append values
+            self.history["per_client_bw"][name].append(bw)
+            self.history["per_client_lat"][name].append(lat)
+            self.history["per_client_cpu"][name].append(cpu)
+            self.history["per_client_ram"][name].append(ram)
+
+    def plot(self):
+        """Generates and saves a modern 4x2-chart PNG of Global, Per-Client, and System metrics."""
+        rounds = self.history["round"]
+        if not rounds: return
+
+        # Large detailed dashboard
+        plt.figure(figsize=(15, 24))
+        markers = ['o', 's', 'D', '^', 'v', '<', '>', 'p', '*', 'h']
+        
+        # Determine the clients to plot (those that have at least some data)
+        client_names = sorted(self.history["per_client_loss"].keys())
+        
+        # Helper to avoid code duplication for per-client subplots
+        def plot_client_lines(subplot_pos, title, ylabel, history_key):
+            plt.subplot(4, 2, subplot_pos)
+            for i, name in enumerate(client_names):
+                data = self.history[history_key].get(name, [0.0] * len(rounds))
+                # Ensure data length matches rounds (pad if needed)
+                if len(data) < len(rounds):
+                    data += [0.0] * (len(rounds) - len(data))
+                
+                plt.plot(rounds, data[:len(rounds)], 
+                         label=name, marker=markers[i % len(markers)], alpha=0.8)
+            
+            plt.title(title, fontsize=12, fontweight='bold')
+            plt.xlabel('Round')
+            plt.ylabel(ylabel)
+            plt.grid(True, linestyle='--', alpha=0.7)
+            plt.legend(ncol=2, fontsize='small')
+
+        # Row 1: Global Validation (Weighted Avg)
+        plt.subplot(4, 2, 1)
+        plt.plot(rounds, self.history["loss"], marker='o', linewidth=3, color='black', label='Weighted Avg')
+        plt.title('Global Validation Loss', fontsize=12, fontweight='bold')
+        plt.xlabel('Round')
         plt.ylabel('Loss')
         plt.grid(True, linestyle='--', alpha=0.7)
-        
-        # Plot 2: Validation Accuracy
-        plt.subplot(1, 2, 2)
-        plt.plot(cumulative_times, self.history["accuracy"], marker='o', linewidth=2, color='blue')
-        plt.title('Validation Accuracy over Time')
-        plt.xlabel('Time (s)')
+        plt.legend()
+
+        plt.subplot(4, 2, 2)
+        plt.plot(rounds, self.history["accuracy"], marker='o', linewidth=3, color='black', label='Weighted Avg')
+        plt.title('Global Validation Accuracy', fontsize=12, fontweight='bold')
+        plt.xlabel('Round')
         plt.ylabel('Accuracy')
         plt.grid(True, linestyle='--', alpha=0.7)
-        
+        plt.legend()
+
+        # Row 2: Per-Client FL Metrics
+        plot_client_lines(3, 'Per-Client Evaluation Loss', 'Loss', 'per_client_loss')
+        plot_client_lines(4, 'Per-Client Evaluation Accuracy', 'Accuracy', 'per_client_accuracy')
+
+        # Row 3: Network Resources
+        plot_client_lines(5, 'Client Link Bandwidth', 'Mbps', 'per_client_bw')
+        plot_client_lines(6, 'Client Link Latency', 'ms', 'per_client_lat')
+
+        # Row 4: Hardware Resources
+        plot_client_lines(7, 'Client CPU Usage', 'Percent (%)', 'per_client_cpu')
+        plot_client_lines(8, 'Client RAM Availability', 'MB', 'per_client_ram')
+
         plt.tight_layout()
         
         # Save transparently over the old file
@@ -116,4 +228,4 @@ class MetricsPlotter:
         plt.savefig(output_path, dpi=150)
         plt.close()
         
-        print(f"📊 [MetricsPlotter] Graph updated and saved to {output_path}")
+        print(f"📊 [MetricsPlotter] Detailed 2x2 Summary saved to {output_path}")

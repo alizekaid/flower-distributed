@@ -89,12 +89,19 @@ class TrafficManager:
             host.cmd('pkill -9 iperf')
         self.active_sessions = []
 
-    def scenario_congested(self, bandwidth="13M"):
+    def scenario_congested(self, bandwidth="45M"):
         """
-        Congest the s1->s4 direct link by sending heavy traffic from c1 to h1.
-        Forces path selection to bypass the s1-s4 bottleneck for s1-resident traffic.
+        Congest the s1->s2 direct link by sending heavy traffic from c1 to h1.
+        Forces path selection to bypass the s1-s2 bottleneck.
         """
         self.start_iperf_session('c1', 'h1', bandwidth)
+
+    def scenario_congest_s3(self, bandwidth="45M"):
+        """
+        Congest the s3->s2 direct link by sending heavy traffic from c6 to h1.
+        Forces path selection to bypass the s3-s2 bottleneck (rerouting via s1).
+        """
+        self.start_iperf_session('c6', 'h1', bandwidth)
 
     def scenario_bottleneck(self, bandwidth="13M"):
         """All 4 clients sending traffic to the server (h1)."""
@@ -160,6 +167,8 @@ def add_traffic_commands(cli_class, manager):
             manager.stop_all_traffic()
         elif command == 'congested':
             manager.scenario_congested(bandwidth)
+        elif command == 'congest_s3':
+            manager.scenario_congest_s3(bandwidth)
         elif command == 'bottleneck':
             manager.scenario_bottleneck(bandwidth)
         elif command == 'backbone':

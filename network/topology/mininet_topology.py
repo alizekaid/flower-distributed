@@ -38,6 +38,20 @@ class FlowerTopology:
         self.switch = None
         self.traffic_manager = None
         
+        # Dynamic Bandwidth Scenarios
+        # Format: { client_index: [[target_bw_mbps, trigger_after_round], ...] }
+        # Triggered when 'client_stats_round_X.json' appears in the logs.
+        self.dynamic_bw_scenarios = {
+            7: [[2, 1], [5, 3], [7, 4]],   # c8: Crashes to 2Mbps(R1), then improves to 5Mbps(R3) and 7Mbps(R4)
+            6: [[3, 1], [8, 3], [12, 4]],  # c7: Crashes to 3Mbps(R1), improved recovery
+            5: [[100, 2]],                # c6: Scales up to 100Mbps after R2
+            4: [[10, 2], [30, 4]],         # c5: Throttled to 10Mbps(R2), recovers to 30Mbps(R4)
+            3: [[15, 3]],                 # c4: Drops to 15Mbps after R3
+            2: [[80, 3]],                 # c3: Scales up to 80Mbps after R3
+            1: [[5, 4]],                  # c2: Severe drop to 5Mbps after R4
+            0: [[60, 4]],                 # c1: Improvements to 60Mbps after R4
+        }
+        
     def create_topology(self):
         """Create the Mininet network topology."""
         info("*** Creating Mininet network\n")
@@ -86,12 +100,26 @@ class FlowerTopology:
         info("*** Adding hosts (h1, c1-c8)...\n")
         self.server = self.net.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01')
         
-        # Clients c1-c8 with re-indexed IPs
+        # Clients c1-c8 with re-indexed IPs and heterogeneous resources
         self.clients = []
+        # Heterogeneous resource and network profile mapping
+        # (CPU_Quota_%, Memory_MB, Core_ID, BW_Mbps, Latency_ms)
+        self.resource_profiles = [
+            (50, 4096,  0, 40,  20),  # c1: Standard-ish hardware
+            (55, 4096,  2, 45,  18),  # c2:
+            (60, 4096,  4, 50,  16),  # c3:
+            (65, 4096,  6, 55,  14),  # c4:
+            (70, 4096,  8, 60,  12),  # c5:
+            (75, 4096,  10, 65, 10),  # c6:
+            (80, 4096,  12, 70, 8),   # c7:
+            (85, 4096,  14, 75, 6),   # c8: Closely ranked powerhouse
+        ]
+        
         for i, name in enumerate(config.CLIENT_NAMES):
             mac = f'00:00:00:00:00:{i+2:02x}'
             ip = config.CLIENT_IPS[i]
-            # Standard unthrottled Host grants maximum available physical CPU mapping natively
+            
+            # Use standard Host
             host = self.net.addHost(name, ip=f'{ip}/24', mac=mac)
             self.clients.append(host)
             
@@ -101,20 +129,13 @@ class FlowerTopology:
         # Connect server h1 exclusively to s2
         self.net.addLink(self.server, switches['s2'], bw=config.SERVER_BW, delay=config.DELAY)
         
-        # Distribute clients across the remaining triangle switches (s1, s3)
-        # config.CLIENT_BW and config.DELAY will now be set to much higher limits
-        
-        # c1, c2, c3, c4 to s1
-        self.net.addLink(c1, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c2, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c3, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c4, switches['s1'], bw=config.CLIENT_BW, delay=config.DELAY)
-        
-        # c5, c6, c7, c8 to s3
-        self.net.addLink(c5, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c6, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c7, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
-        self.net.addLink(c8, switches['s3'], bw=config.CLIENT_BW, delay=config.DELAY)
+        # Distribute clients across switches (s1, s3) with physical link throttling
+        for i, client in enumerate(self.clients):
+            _, _, _, bw, lat = self.resource_profiles[i]
+            target_switch = switches['s1'] if i < 4 else switches['s3']
+            
+            self.net.addLink(client, target_switch, bw=bw, delay=f"{lat}ms")
+            info(f"    Link {config.CLIENT_NAMES[i]} <-> {target_switch}: {bw} Mbps, {lat} ms\n")
         
         info("*** Disabling IPv6 and multicast noise...\n")
         for node in self.net.values():
@@ -251,7 +272,7 @@ class FlowerTopology:
     
     def setup_log_directory(self):
         """Create log directory on server node."""
-        info("*** Setting up log directory\n")
+        info("*** Setting up log directory and clearing old telemetry\n")
         self.server.cmd(f"mkdir -p {config.LOG_DIR}")
         for client in self.clients:
             client.cmd(f"mkdir -p {config.LOG_DIR}")
@@ -334,14 +355,28 @@ class FlowerTopology:
             partition_id = i
             log_file = f"{config.CLIENT_LOG_PREFIX}_{i+1}.log"
             
+            # Use centralized resource and network profile mapping
+            cpu_quota, ram_mb, core_id, bw, lat = self.resource_profiles[i]
+            
+            # Wrap the client in a systemd-run scope for real Cgroup v2 resource isolation
+            systemd_prefix = (
+                f"systemd-run --scope --quiet "
+                f"-p CPUQuota={cpu_quota}% "
+                f"-p AllowedCPUs={core_id} "
+                f"-p MemoryMax={ram_mb}M "
+            )
+
             cmd = (
                 f"export PATH={venv_bin}:$PATH && "
                 f"export HF_DATASETS_CACHE={config.HF_CACHE_DIR} && "
                 f"export HF_DATASETS_OFFLINE=1 && "
                 f"export CIFAR10_DATASET_ROOT={config.DATASET_ROOT} && "
                 f"export FLOCK_MODEL={config.FLOCK_MODEL} && "
-                f"export LINK_BW={config.CLIENT_BW} && "
-                f"export LINK_LATENCY={config.DELAY} && "
+                f"export LINK_BW={bw} && "
+                f"export LINK_LATENCY={lat}ms && "
+                f"export RAM_LIMIT_MB={ram_mb} && "
+                f"export CPU_CORE_ID={core_id} && "
+                f"{systemd_prefix} "
                 f"{config.FLOWER_SUPERNODE_BIN} "
                 f"--insecure "
                 f"--superlink {config.SERVER_IP}:{config.SUPERLINK_PORT} "
@@ -372,6 +407,58 @@ class FlowerTopology:
         # Run in foreground to see output
         result = self.server.cmd(cmd)
         info(result)
+        
+    def schedule_scenario_engine(self):
+        """Schedule dynamic bandwidth scenarios in a background thread."""
+        import threading
+        
+        def scenario_runner():
+            info("\n[Scenario Engine] Started. Monitoring for End-of-Round triggers...\n")
+            applied = set()
+            
+            # Watch for the creation of client_stats_round_X.json
+            log_dir = config.LOG_DIR
+            
+            while True:
+                for client_idx, transitions in self.dynamic_bw_scenarios.items():
+                    for target_bw, trigger_round in transitions:
+                        if (client_idx, trigger_round) not in applied:
+                            trigger_file = os.path.join(log_dir, f"client_stats_round_{trigger_round}.json")
+                            if os.path.exists(trigger_file):
+                                # Give the logger a tiny moment to flush, then apply change immediately
+                                time.sleep(0.5)
+                                client_node = self.clients[client_idx]
+                                client_name = config.CLIENT_NAMES[client_idx]
+                                
+                                info(f"\n[Scenario Engine] Triggering scenario for {client_name}: BW -> {target_bw}Mbps (Round {trigger_round} ended)\nmininet> ")
+                                
+                                try:
+                                    # Config the interface dynamically (TCIntf)
+                                    client_node.defaultIntf().config(bw=target_bw)
+                                    
+                                    # Manually update the param dictionary so export_topology_json sees it
+                                    client_node.defaultIntf().params['bw'] = target_bw
+                                    
+                                    # Update the switch side of the link's params as well just in case
+                                    if client_node.defaultIntf().link:
+                                        client_node.defaultIntf().link.intf1.params['bw'] = target_bw
+                                        client_node.defaultIntf().link.intf2.params['bw'] = target_bw
+                                    
+                                    # Write new BW to tmp file so client_app.py picks it up without iperf
+                                    with open(f"/tmp/client_{client_name}_bw.txt", "w") as f:
+                                        f.write(str(target_bw))
+                                        
+                                    applied.add((client_idx, trigger_round))
+                                    
+                                    # Update the static topology file so stats scripts see the new capacity
+                                    self.export_topology_json()
+                                except Exception as e:
+                                    info(f"\n[Scenario Engine] Error during execution: {e}\nmininet> ")
+                
+                time.sleep(2)
+                
+        t = threading.Thread(target=scenario_runner, daemon=True)
+        t.start()
     
     def run(self):
         """Main execution flow."""
@@ -409,6 +496,9 @@ class FlowerTopology:
                 return
             
             self.start_supernodes()
+            
+            # Start dynamic scenario engine in the background
+            self.schedule_scenario_engine()
             
             info("\n" + "="*60 + "\n")
             info("Flower Federated Learning Environment Ready!\n")

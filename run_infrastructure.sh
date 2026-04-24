@@ -5,6 +5,9 @@ set -m
 
 # Clean up previous runs
 sudo mn -c
+mkdir -p logs
+sudo rm -f logs/client_stats_round_*.json
+sudo rm -f /tmp/client_*_bw.txt
 
 # Set PYTHONPATH to include project root
 export PYTHONPATH=$PYTHONPATH:$(pwd)

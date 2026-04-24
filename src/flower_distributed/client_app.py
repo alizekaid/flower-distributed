@@ -14,6 +14,7 @@ import os
 import time
 import random
 import psutil
+import subprocess
 import json
 from flower_distributed.task import get_model, load_data
 from flower_distributed.task import test as test_fn
@@ -113,6 +114,7 @@ def evaluate(msg: Message, context: Context):
         torch.cuda.empty_cache()
 
     metrics = {
+        "client_id": partition_id + 1,
         "eval_loss": eval_loss,
         "eval_acc": eval_acc,
         "num-examples": len(valloader.dataset),
@@ -124,33 +126,98 @@ def evaluate(msg: Message, context: Context):
 
 def build_telemetry_msg(msg: Message, context: Context):
     """Helper method to construct Resource and IID metrics dynamically."""
-    cpu_usage = psutil.cpu_percent(interval=0.1)
-    ram_info = psutil.virtual_memory()
-    
+    # 1. Memory: Use static capacity (from env var) minus real per-process usage
+    # RAM_LIMIT_MB = the capacity "budget" assigned to this client by the topology
+    # rss (Resident Set Size) = actual physical RAM consumed by this process + children
+    ram_limit_mb = float(os.environ.get("RAM_LIMIT_MB", 0))
+    if ram_limit_mb > 0:
+        # Measure THIS process's real physical memory footprint
+        this_proc = psutil.Process(os.getpid())
+        used_mb = this_proc.memory_info().rss / (1024 * 1024)
+        # Include child processes (model, data loaders spawned by Flower)
+        for child in this_proc.children(recursive=True):
+            try:
+                used_mb += child.memory_info().rss / (1024 * 1024)
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+        ram_available_mb = max(0.0, ram_limit_mb - used_mb)
+        ram_percent = min(100.0, (used_mb / ram_limit_mb) * 100)
+    else:
+        # Fallback for real deployment: use system-wide available RAM
+        print(f"⚠️  [Telemetry] RAM_LIMIT_MB not set for {client_name}. Falling back to system-wide metrics.")
+        vm = psutil.virtual_memory()
+        ram_available_mb = vm.available / (1024 * 1024)
+        ram_percent = vm.percent
+
+    # 2. CPU: Read from the explicitly pinned CPU core via psutil
+    # Each client is pinned to a specific core (c8 on 14, c7 on 12, etc.)
+    # We read exactly that core's load, which accurately reflects this client's partitioned load.
+    core_id_str = os.environ.get("CPU_CORE_ID")
+    if core_id_str is not None:
+        try:
+            core_id = int(core_id_str)
+            # percpu=True returns a list of CPU %, one for each core.
+            # We index into it using our specific core ID.
+            all_cores = psutil.cpu_percent(interval=0.1, percpu=True)
+            if core_id < len(all_cores):
+                cpu_usage = all_cores[core_id]
+            else:
+                cpu_usage = psutil.cpu_percent(interval=0.1)
+        except Exception:
+            print(f"⚠️  [Telemetry] Failed to read Core {core_id} load. Falling back to system average.")
+            cpu_usage = psutil.cpu_percent(interval=0.1)
+    else:
+        # Fallback: system-wide psutil
+        print(f"⚠️  [Telemetry] CPU_CORE_ID not set. Falling back to system average.")
+        cpu_usage = psutil.cpu_percent(interval=0.1)
+
     # Prove flawless IID partition setup across distributions dynamically:
     partition_id = context.node_config["partition-id"]
     num_partitions = context.node_config["num-partitions"]
     trainloader, _ = load_data(partition_id, num_partitions)
     
-    # Read static network metrics from environment variables
-    link_bw = os.environ.get("LINK_BW", "Unknown")
-    link_latency = os.environ.get("LINK_LATENCY", "Unknown")
+    # Dynamic Network Probes
+    # 1. Latency: Live ping to the server
+    try:
+        server_ip = os.environ.get("SERVER_ADDRESS", "10.0.0.1").split(':')[0]
+        # Run a single ping and parse the result
+        ping_res = subprocess.check_output(f"ping -c 1 -W 1 {server_ip} | grep 'time='", shell=True).decode()
+        # Extract time=XX.X ms
+        lat_val = ping_res.split('time=')[1].split(' ')[0]
+        latency_ms = f"{lat_val}ms"
+    except Exception:
+        # Fallback to static env if ping fails (e.g. server down)
+        print(f"⚠️  [Telemetry] Live ping probe failed. Falling back to static LINK_LATENCY.")
+        latency_ms = os.environ.get("LINK_LATENCY", "10ms")
+
+    # Map partition-id (0-7) to human-readable strings (c1-c8)
+    client_name = f"c{partition_id + 1}"
+
+    # 2. Bandwidth: For now, we still use the 'assigned' BW as the capacity limit,
+    # but in a truly dynamic system we would run an iperf test.
+    # We dynamically read from Scenario Engine to simulate iperf without overhead
+    dynamic_bw_file = f"/tmp/client_{client_name}_bw.txt"
+    if os.path.exists(dynamic_bw_file):
+        try:
+            with open(dynamic_bw_file, "r") as f:
+                bw_mbps = f.read().strip()
+        except:
+            bw_mbps = os.environ.get("LINK_BW", "15")
+    else:
+        bw_mbps = os.environ.get("LINK_BW", "15")
     
     distribution = {}
     for idx in range(len(trainloader.dataset)):
         _, label = trainloader.dataset[idx]
-        distribution[label] = distribution.get(label, 0) + 1
-        
-    # Map partition-id (0-7) to human-readable strings (c1-c8)
-    client_name = f"c{partition_id + 1}"
+        distribution[str(label)] = distribution.get(str(label), 0) + 1
     
     config_data = {
         "client_name": client_name,
         "cpu_percent": float(cpu_usage),
-        "ram_percent": float(ram_info.percent),
-        "ram_available_mb": float(ram_info.available / (1024*1024)),
-        "bw_mbps": link_bw,
-        "latency_ms": link_latency,
+        "ram_percent": float(ram_percent),
+        "ram_available_mb": float(ram_available_mb),
+        "bw_mbps": bw_mbps,
+        "latency_ms": latency_ms,
         "iid_distribution": json.dumps(distribution),
     }
     return Message(content=RecordDict({"telemetry": ConfigRecord(config_data)}), reply_to=msg)
