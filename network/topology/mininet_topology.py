@@ -38,18 +38,18 @@ class FlowerTopology:
         self.switch = None
         self.traffic_manager = None
         
-        # Dynamic Bandwidth Scenarios
-        # Format: { client_index: [[target_bw_mbps, trigger_after_round], ...] }
+        # Dynamic Bandwidth & Latency Scenarios
+        # Format: { client_index: [[target_bw_mbps, target_lat_ms, trigger_after_round], ...] }
         # Triggered when 'client_stats_round_X.json' appears in the logs.
         self.dynamic_bw_scenarios = {
-            7: [[2, 1], [5, 3], [7, 4]],   # c8: Crashes to 2Mbps(R1), then improves to 5Mbps(R3) and 7Mbps(R4)
-            6: [[3, 1], [8, 3], [12, 4]],  # c7: Crashes to 3Mbps(R1), improved recovery
-            5: [[100, 2]],                # c6: Scales up to 100Mbps after R2
-            4: [[10, 2], [30, 4]],         # c5: Throttled to 10Mbps(R2), recovers to 30Mbps(R4)
-            3: [[15, 3]],                 # c4: Drops to 15Mbps after R3
-            2: [[80, 3]],                 # c3: Scales up to 80Mbps after R3
-            1: [[5, 4]],                  # c2: Severe drop to 5Mbps after R4
-            0: [[60, 4]],                 # c1: Improvements to 60Mbps after R4
+            7: [[2, 50, 1], [5, 30, 3], [7, 20, 4]],   # c8: Crash(R1: 2Mbps, 50ms), Recovery(R3: 5Mbps, 30ms), etc.
+            6: [[3, 60, 1], [8, 25, 3], [12, 15, 4]],  # c7: Similar pattern
+            5: [[100, 5, 2]],                         # c6: Powerhouse scale-up (100Mbps, 5ms) after R2
+            4: [[10, 40, 2], [30, 15, 4]],             # c5: Drop(R2), Recovery(R4)
+            3: [[15, 35, 3]],                         # c4: Drop after R3
+            2: [[80, 8, 3]],                          # c3: Scaling up after R3
+            1: [[5, 80, 4]],                          # c2: Severe degradation after R4
+            0: [[60, 10, 4]],                         # c1: Improvements after R4
         }
         
     def create_topology(self):
@@ -104,15 +104,17 @@ class FlowerTopology:
         self.clients = []
         # Heterogeneous resource and network profile mapping
         # (CPU_Quota_%, Memory_MB, Core_ID, BW_Mbps, Latency_ms)
+        # Heterogeneous resource and network profile mapping
+        # (CPU_Quota_%, Memory_MB, Core_ID, BW_Mbps, Latency_ms)
         self.resource_profiles = [
-            (50, 4096,  0, 40,  20),  # c1: Standard-ish hardware
-            (55, 4096,  2, 45,  18),  # c2:
-            (60, 4096,  4, 50,  16),  # c3:
-            (65, 4096,  6, 55,  14),  # c4:
-            (70, 4096,  8, 60,  12),  # c5:
-            (75, 4096,  10, 65, 10),  # c6:
-            (80, 4096,  12, 70, 8),   # c7:
-            (85, 4096,  14, 75, 6),   # c8: Closely ranked powerhouse
+            (70, 5120,  0, 10, 100),  # c1: Rank 4
+            (100, 8192, 2, 20,  80),  # c2: Rank 1 (Switch)
+            (60, 4096,  4, 30,  60),  # c3: Rank 5
+            (50, 3072,  6, 40,  40),  # c4: Rank 6
+            (90, 7168,  8, 50,  20),  # c5: Rank 2 (Switch)
+            (40, 2048, 10, 60,  10),  # c6: Rank 7
+            (80, 6144, 12, 70,   5),  # c7: Rank 3 (Switch)
+            (30, 1024, 14, 80,   2),  # c8: Rank 8
         ]
         
         for i, name in enumerate(config.CLIENT_NAMES):
@@ -376,6 +378,7 @@ class FlowerTopology:
                 f"export LINK_LATENCY={lat}ms && "
                 f"export RAM_LIMIT_MB={ram_mb} && "
                 f"export CPU_CORE_ID={core_id} && "
+                f"export CPU_QUOTA={cpu_quota} && "
                 f"{systemd_prefix} "
                 f"{config.FLOWER_SUPERNODE_BIN} "
                 f"--insecure "
@@ -421,7 +424,7 @@ class FlowerTopology:
             
             while True:
                 for client_idx, transitions in self.dynamic_bw_scenarios.items():
-                    for target_bw, trigger_round in transitions:
+                    for target_bw, target_lat, trigger_round in transitions:
                         if (client_idx, trigger_round) not in applied:
                             trigger_file = os.path.join(log_dir, f"client_stats_round_{trigger_round}.json")
                             if os.path.exists(trigger_file):
@@ -430,11 +433,11 @@ class FlowerTopology:
                                 client_node = self.clients[client_idx]
                                 client_name = config.CLIENT_NAMES[client_idx]
                                 
-                                info(f"\n[Scenario Engine] Triggering scenario for {client_name}: BW -> {target_bw}Mbps (Round {trigger_round} ended)\nmininet> ")
+                                info(f"\n[Scenario Engine] Triggering scenario for {client_name}: BW -> {target_bw}Mbps, LAT -> {target_lat}ms (Round {trigger_round} ended)\nmininet> ")
                                 
                                 try:
                                     # Config the interface dynamically (TCIntf)
-                                    client_node.defaultIntf().config(bw=target_bw)
+                                    client_node.defaultIntf().config(bw=target_bw, delay=f"{target_lat}ms")
                                     
                                     # Manually update the param dictionary so export_topology_json sees it
                                     client_node.defaultIntf().params['bw'] = target_bw

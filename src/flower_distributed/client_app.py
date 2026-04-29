@@ -214,6 +214,7 @@ def build_telemetry_msg(msg: Message, context: Context):
     config_data = {
         "client_name": client_name,
         "cpu_percent": float(cpu_usage),
+        "cpu_quota": float(os.environ.get("CPU_QUOTA", 100)),
         "ram_percent": float(ram_percent),
         "ram_available_mb": float(ram_available_mb),
         "bw_mbps": bw_mbps,

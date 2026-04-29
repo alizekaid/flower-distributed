@@ -86,10 +86,18 @@ class CustomFedAvg(FedAvg):
                     raw_lats.append(lat)
                 except: continue
 
+        # 1.5. Aggregate absolute CPU capacities for normalization
+        raw_cpu_absolutes = []
+        for s in client_stats.values():
+            if "cpu_percent" in s:
+                q = float(s.get("cpu_quota", 100))
+                l = float(s["cpu_percent"])
+                raw_cpu_absolutes.append(q * (1.0 - (l / 100.0)))
+        
         # Compute min/max for normalization
         stats_meta = {
             "ram": (min(raw_rams), max(raw_rams)) if raw_rams else (0, 1),
-            "cpu": (min(raw_cpus), max(raw_cpus)) if raw_cpus else (0, 100),
+            "cpu": (min(raw_cpu_absolutes), max(raw_cpu_absolutes)) if raw_cpu_absolutes else (0, 100),
             "bw": (min(raw_bws), max(raw_bws)) if raw_bws else (0, 1),
             "lat": (min(raw_lats), max(raw_lats)) if raw_lats else (0, 1),
         }
@@ -100,8 +108,14 @@ class CustomFedAvg(FedAvg):
             
             # RAM score (Higher is better)
             stats["norm_ram"] = min_max_normalize(float(stats.get("ram_available_mb", 0)), *stats_meta["ram"])
-            # CPU score (Lower is better)
-            stats["norm_cpu"] = min_max_normalize(float(stats.get("cpu_percent", 100)), *stats_meta["cpu"], invert=True)
+            # CPU score (Capacity-Aware: Factor in Total Quota)
+            quota = float(stats.get("cpu_quota", 100))
+            load = float(stats.get("cpu_percent", 0))
+            # Absolute Available Power = Quota * (1.0 - Load/100)
+            # E.g. 100% quota at 10% load = 90.0 absolute.
+            # E.g. 30% quota at 0% load = 30.0 absolute.
+            stats["cpu_absolute"] = quota * (1.0 - (load / 100.0))
+            stats["norm_cpu"] = min_max_normalize(stats["cpu_absolute"], *stats_meta["cpu"])
             
             # Network scores
             try:
@@ -114,14 +128,47 @@ class CustomFedAvg(FedAvg):
                 stats["norm_bw"] = 0.0
                 stats["norm_lat"] = 0.0
 
-            # COMPOSITE CAPABILITY SCORE
-            # Weights: RAM(20%), CPU(40%), BW(20%), Latency(20%)
-            stats["capability_score"] = (
-                0.2 * float(stats["norm_ram"]) + 
-                0.4 * float(stats["norm_cpu"]) + 
-                0.2 * float(stats["norm_bw"]) + 
-                0.2 * float(stats["norm_lat"])
-            )
+            # SELECTION STRATEGY LOGIC (Check local, then parent, then ENV)
+            strategy = "composite"
+            possible_paths = ["strategy.txt", "../strategy.txt", "src/strategy.txt"]
+            
+            found_file = False
+            for p in possible_paths:
+                if os.path.exists(p):
+                    try:
+                        with open(p, "r") as f:
+                            strategy = f.read().strip().lower()
+                            found_file = True
+                            break
+                    except: pass
+            
+            if not found_file:
+                strategy = os.environ.get("SELECTION_STRATEGY", "composite").lower()
+
+            if server_round == 1 and cid == list(client_stats.keys())[0]:
+                print(f"\n[CustomFedAvg] 📂 Searching in: {os.getcwd()}")
+                print(f"[CustomFedAvg] 🎯 ACTIVE SELECTION STRATEGY: {strategy.upper()}")
+            
+            if strategy == "bandwidth":
+                stats["capability_score"] = float(stats["norm_bw"])
+            elif strategy == "latency":
+                stats["capability_score"] = float(stats["norm_lat"])
+            elif strategy == "cpu":
+                stats["capability_score"] = float(stats["norm_cpu"])
+            elif strategy == "ram":
+                stats["capability_score"] = float(stats["norm_ram"])
+            else:
+                # COMPOSITE CAPABILITY SCORE (Default)
+                # Weights: RAM(20%), CPU(40%), BW(20%), Latency(20%)
+                stats["capability_score"] = (
+                    0.2 * float(stats["norm_ram"]) + 
+                    0.4 * float(stats["norm_cpu"]) + 
+                    0.2 * float(stats["norm_bw"]) + 
+                    0.2 * float(stats["norm_lat"])
+                )
+            
+            # Label the strategy in the stats for logging
+            stats["selection_strategy"] = strategy
 
         # Export the snapshot locally using Semantic Client Names (c1-c8)
         stats_file = f"logs/client_stats_round_{server_round}.json"
@@ -173,7 +220,7 @@ class CustomFedAvg(FedAvg):
             n_lat = float(stats.get("norm_lat", 0))
             
             status = "[SELECTED]" if node in sampled_cids else "[UNSELECTED]"
-            print(f"  {status} -> Client: {alias} | Score: {score:.2f} | RAM: {n_ram:.2f} CPU: {n_cpu:.2f} NET: {(n_bw+n_lat)/2:.2f}")
+            print(f"  {status} -> Client: {alias} | Score: {score:.2f} ({strategy[:3]}) | RAM: {n_ram:.2f} CPU: {n_cpu:.2f} NET: {(n_bw+n_lat)/2:.2f}")
             
         print(f"  [SUMMARY] -> {len(sampled_cids)} clients selected for training, {len(valid_clients) - len(sampled_cids)} clients actively sleeping.\n")
 

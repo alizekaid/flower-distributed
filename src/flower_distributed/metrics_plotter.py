@@ -35,7 +35,8 @@ class MetricsPlotter:
         }
         
         # Round timing: reset at init and after every round
-        self._round_start_time = time.time()
+        self._start_time = time.time()
+        self._round_start_time = self._start_time
         
         # Dedicated round timing log file
         self._timing_log_path = os.path.join(self.output_dir, 'round_times.log')
@@ -65,10 +66,11 @@ class MetricsPlotter:
         round_duration = time.time() - self._round_start_time
         
         # 4. Save to global history
+        cumulative_time = time.time() - self._start_time
         self.history["round"].append(round_num)
         self.history["loss"].append(loss)
         self.history["accuracy"].append(acc)
-        self.history["round_time"].append(round_duration)
+        self.history["round_time"].append(cumulative_time)
 
         # 5. Extract and Save Per-Client Metrics
         current_round_loss = {}
@@ -175,7 +177,7 @@ class MetricsPlotter:
         client_names = sorted(self.history["per_client_loss"].keys())
         
         # Helper to avoid code duplication for per-client subplots
-        def plot_client_lines(subplot_pos, title, ylabel, history_key):
+        def plot_client_lines(subplot_pos, title, ylabel, history_key, annotate=False):
             plt.subplot(4, 2, subplot_pos)
             for i, name in enumerate(client_names):
                 data = self.history[history_key].get(name, [0.0] * len(rounds))
@@ -185,6 +187,13 @@ class MetricsPlotter:
                 
                 plt.plot(rounds, data[:len(rounds)], 
                          label=name, marker=markers[i % len(markers)], alpha=0.8)
+                
+                # Annotate values above points if requested
+                if annotate:
+                    for r, v in zip(rounds, data[:len(rounds)]):
+                        if v > 0: # Only plot non-zero/active values to reduce clutter
+                            plt.annotate(f"{v:.1f}", (r, v), textcoords="offset points", 
+                                         xytext=(0,5), ha='center', fontsize=7, alpha=0.6)
             
             plt.title(title, fontsize=12, fontweight='bold')
             plt.xlabel('Round')
@@ -195,6 +204,11 @@ class MetricsPlotter:
         # Row 1: Global Validation (Weighted Avg)
         plt.subplot(4, 2, 1)
         plt.plot(rounds, self.history["loss"], marker='o', linewidth=3, color='black', label='Weighted Avg')
+        
+        # Annotate time above points
+        for r, l, t in zip(rounds, self.history["loss"], self.history["round_time"]):
+            plt.annotate(f"{t:.1f}s", (r, l), textcoords="offset points", xytext=(0,10), ha='center', fontsize=9, fontweight='bold', color='darkred')
+            
         plt.title('Global Validation Loss', fontsize=12, fontweight='bold')
         plt.xlabel('Round')
         plt.ylabel('Loss')
@@ -203,6 +217,11 @@ class MetricsPlotter:
 
         plt.subplot(4, 2, 2)
         plt.plot(rounds, self.history["accuracy"], marker='o', linewidth=3, color='black', label='Weighted Avg')
+        
+        # Annotate time above points
+        for r, a, t in zip(rounds, self.history["accuracy"], self.history["round_time"]):
+            plt.annotate(f"{t:.1f}s", (r, a), textcoords="offset points", xytext=(0,10), ha='center', fontsize=9, fontweight='bold', color='darkred')
+
         plt.title('Global Validation Accuracy', fontsize=12, fontweight='bold')
         plt.xlabel('Round')
         plt.ylabel('Accuracy')
@@ -210,16 +229,16 @@ class MetricsPlotter:
         plt.legend()
 
         # Row 2: Per-Client FL Metrics
-        plot_client_lines(3, 'Per-Client Evaluation Loss', 'Loss', 'per_client_loss')
-        plot_client_lines(4, 'Per-Client Evaluation Accuracy', 'Accuracy', 'per_client_accuracy')
+        plot_client_lines(3, 'Per-Client Evaluation Loss', 'Loss', 'per_client_loss', annotate=False)
+        plot_client_lines(4, 'Per-Client Evaluation Accuracy', 'Accuracy', 'per_client_accuracy', annotate=False)
 
         # Row 3: Network Resources
-        plot_client_lines(5, 'Client Link Bandwidth', 'Mbps', 'per_client_bw')
-        plot_client_lines(6, 'Client Link Latency', 'ms', 'per_client_lat')
+        plot_client_lines(5, 'Client Link Bandwidth', 'Mbps', 'per_client_bw', annotate=True)
+        plot_client_lines(6, 'Client Link Latency', 'ms', 'per_client_lat', annotate=True)
 
         # Row 4: Hardware Resources
-        plot_client_lines(7, 'Client CPU Usage', 'Percent (%)', 'per_client_cpu')
-        plot_client_lines(8, 'Client RAM Availability', 'MB', 'per_client_ram')
+        plot_client_lines(7, 'Client CPU Usage', 'Percent (%)', 'per_client_cpu', annotate=True)
+        plot_client_lines(8, 'Client RAM Availability', 'MB', 'per_client_ram', annotate=True)
 
         plt.tight_layout()
         
