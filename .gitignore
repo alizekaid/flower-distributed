@@ -7,3 +7,5 @@ data/
 PRESENTATION_GUIDE.md
 scripts/plot_metrics_from_logs.py
 logs
+final_model.pt
+last_simulation.log

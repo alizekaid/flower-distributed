@@ -31,7 +31,9 @@ class MetricsPlotter:
             "per_client_bw": {},       # client_name -> [bw1, bw2, ...]
             "per_client_lat": {},      # client_name -> [lat1, lat2, ...]
             "per_client_cpu": {},      # client_name -> [cpu1, cpu2, ...]
-            "per_client_ram": {}       # client_name -> [ram1, ram2, ...]
+            "per_client_ram": {},      # client_name -> [ram1, ram2, ...]
+            "per_client_iid": {},      # client_name -> [iid1, iid2, ...]
+            "per_client_volume": {}    # client_name -> [vol1, vol2, ...]
         }
         
         # Round timing: reset at init and after every round
@@ -135,7 +137,7 @@ class MetricsPlotter:
         
     def record_telemetry(self, round_num, export_stats):
         """
-        Records system telemetry (BW, Lat, CPU, RAM) for all clients in this round.
+        Records system telemetry (BW, Lat, CPU, RAM, IID) for all clients in this round.
         Called from the strategy.
         """
         all_clients = set(self.history["per_client_bw"].keys()) | set(export_stats.keys())
@@ -155,14 +157,19 @@ class MetricsPlotter:
 
             # Initialize history for new clients
             if name not in self.history["per_client_bw"]:
-                for key in ["per_client_bw", "per_client_lat", "per_client_cpu", "per_client_ram"]:
+                for key in ["per_client_bw", "per_client_lat", "per_client_cpu", "per_client_ram", "per_client_iid", "per_client_volume"]:
                     self.history[key][name] = [0.0] * (round_num - 1)
+            
+            # Extract IID Score
+            iid = float(stats.get("iid_score_raw", 0.0))
             
             # Append values
             self.history["per_client_bw"][name].append(bw)
             self.history["per_client_lat"][name].append(lat)
             self.history["per_client_cpu"][name].append(cpu)
             self.history["per_client_ram"][name].append(ram)
+            self.history["per_client_iid"][name].append(iid)
+            self.history["per_client_volume"][name].append(float(stats.get("item_count", 0)))
 
     def plot(self):
         """Generates and saves a modern 4x2-chart PNG of Global, Per-Client, and System metrics."""
@@ -170,7 +177,7 @@ class MetricsPlotter:
         if not rounds: return
 
         # Large detailed dashboard
-        plt.figure(figsize=(15, 24))
+        plt.figure(figsize=(15, 30))
         markers = ['o', 's', 'D', '^', 'v', '<', '>', 'p', '*', 'h']
         
         # Determine the clients to plot (those that have at least some data)
@@ -178,7 +185,7 @@ class MetricsPlotter:
         
         # Helper to avoid code duplication for per-client subplots
         def plot_client_lines(subplot_pos, title, ylabel, history_key, annotate=False):
-            plt.subplot(4, 2, subplot_pos)
+            plt.subplot(5, 2, subplot_pos)
             for i, name in enumerate(client_names):
                 data = self.history[history_key].get(name, [0.0] * len(rounds))
                 # Ensure data length matches rounds (pad if needed)
@@ -202,7 +209,7 @@ class MetricsPlotter:
             plt.legend(ncol=2, fontsize='small')
 
         # Row 1: Global Validation (Weighted Avg)
-        plt.subplot(4, 2, 1)
+        plt.subplot(5, 2, 1)
         plt.plot(rounds, self.history["loss"], marker='o', linewidth=3, color='black', label='Weighted Avg')
         
         # Annotate time above points
@@ -215,7 +222,7 @@ class MetricsPlotter:
         plt.grid(True, linestyle='--', alpha=0.7)
         plt.legend()
 
-        plt.subplot(4, 2, 2)
+        plt.subplot(5, 2, 2)
         plt.plot(rounds, self.history["accuracy"], marker='o', linewidth=3, color='black', label='Weighted Avg')
         
         # Annotate time above points
@@ -239,6 +246,41 @@ class MetricsPlotter:
         # Row 4: Hardware Resources
         plot_client_lines(7, 'Client CPU Usage', 'Percent (%)', 'per_client_cpu', annotate=True)
         plot_client_lines(8, 'Client RAM Availability', 'MB', 'per_client_ram', annotate=True)
+
+        # Row 5: Data Diversity & Quantity
+        plot_client_lines(9, 'Per-Client Distribution Balance (Entropy)', 'Score', 'per_client_iid', annotate=True)
+        
+        # New 10th Subplot: 2D ML Distribution (Quantity vs Quality)
+        plt.subplot(5, 2, 10)
+        for i, name in enumerate(client_names):
+            h_data = self.history["per_client_iid"].get(name, [0.0])
+            v_data = self.history["per_client_volume"].get(name, [0.0])
+            if h_data and v_data:
+                # Plot the latest point for each client
+                last_h = h_data[-1]
+                last_v = v_data[-1]
+                plt.scatter(last_v, last_h, label=name, marker=markers[i % len(markers)], s=100)
+                plt.annotate(name, (last_v, last_h), textcoords="offset points", xytext=(0,10), ha='center')
+        
+        plt.title('ML Distribution: Quality vs Quantity', fontsize=12, fontweight='bold')
+        plt.xlabel('Volume (Sample Count)')
+        plt.ylabel('Balance (Entropy)')
+        plt.grid(True, linestyle='--', alpha=0.3)
+        
+        # Fixed Axis Limits to keep quadrants consistent
+        plt.xlim(-100, 5200)
+        plt.ylim(-0.1, 2.6)
+        
+        # Bold Quadrant Dividers
+        plt.axhline(y=1.15, color='red', linestyle='--', alpha=0.3) 
+        plt.axvline(x=2500, color='red', linestyle='--', alpha=0.3) 
+        
+        # Quadrant Labels (Using transAxes for perfect relative positioning)
+        ax = plt.gca()
+        ax.text(0.75, 0.85, "ELITE", transform=ax.transAxes, fontsize=11, color='darkgreen', alpha=0.5, fontweight='bold', ha='center')
+        ax.text(0.25, 0.85, "FALSE CHAMP", transform=ax.transAxes, fontsize=11, color='darkorange', alpha=0.5, fontweight='bold', ha='center')
+        ax.text(0.75, 0.15, "BIG & SKEWED", transform=ax.transAxes, fontsize=11, color='darkred', alpha=0.5, fontweight='bold', ha='center')
+        ax.text(0.25, 0.15, "WEAK", transform=ax.transAxes, fontsize=11, color='gray', alpha=0.5, fontweight='bold', ha='center')
 
         plt.tight_layout()
         

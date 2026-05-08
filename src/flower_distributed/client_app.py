@@ -220,6 +220,7 @@ def build_telemetry_msg(msg: Message, context: Context):
         "bw_mbps": bw_mbps,
         "latency_ms": latency_ms,
         "iid_distribution": json.dumps(distribution),
+        "item_count": int(len(trainloader.dataset)),
     }
     return Message(content=RecordDict({"telemetry": ConfigRecord(config_data)}), reply_to=msg)
 

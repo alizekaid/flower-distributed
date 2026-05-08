@@ -24,14 +24,16 @@ from network.managers.traffic_manager import TrafficManager, add_traffic_command
 class FlowerTopology:
     """Custom Mininet topology for Flower FL."""
     
-    def __init__(self, test_only=False):
+    def __init__(self, test_only=False, non_interactive=False):
         """
         Initialize the Flower topology.
         
         Args:
             test_only: If True, only test connectivity without starting FL
+            non_interactive: If True, skip CLI and run server app
         """
         self.test_only = test_only
+        self.non_interactive = non_interactive
         self.net = None
         self.server = None
         self.clients = []
@@ -107,14 +109,16 @@ class FlowerTopology:
         # Heterogeneous resource and network profile mapping
         # (CPU_Quota_%, Memory_MB, Core_ID, BW_Mbps, Latency_ms)
         self.resource_profiles = [
-            (70, 5120,  0, 10, 100),  # c1: Rank 4
-            (100, 8192, 2, 20,  80),  # c2: Rank 1 (Switch)
-            (60, 4096,  4, 30,  60),  # c3: Rank 5
-            (50, 3072,  6, 40,  40),  # c4: Rank 6
-            (90, 7168,  8, 50,  20),  # c5: Rank 2 (Switch)
-            (40, 2048, 10, 60,  10),  # c6: Rank 7
-            (80, 6144, 12, 70,   5),  # c7: Rank 3 (Switch)
-            (30, 1024, 14, 80,   2),  # c8: Rank 8
+            (30, 2048,  0, 10, 150),  # c1: Data King (High IID, Very Weak HW)
+            (40, 4096,  2, 20, 100),  # c2: Data King (High IID, Weak HW)
+            (35, 3072,  4, 15, 120),  # c3: Data King (High IID, Weak HW)
+            (100, 8192, 6, 25,  80),  # c4: Compute King (Best CPU, Bad IID)
+            (90, 7168,  8, 30,  60),  # c5: Compute King (Strong CPU, Bad IID)
+            (45, 2048, 10, 100,  2),  # c6: Network Star (Best BW/Lat, Bad IID)
+            (55, 3072, 12, 90,   5),  # c7: Network Star (Strong BW/Lat, Med IID)
+            (60, 4096, 14, 50,  30),  # c8: All-Rounder (Balanced)
+            (80, 6144, 1, 70,   15),  # c9: Strong All-Rounder (Good at everything, master of none)
+            (25, 1024, 3, 5,   200),  # c10: The Weakling (Control)
         ]
         
         for i, name in enumerate(config.CLIENT_NAMES):
@@ -124,8 +128,6 @@ class FlowerTopology:
             # Use standard Host
             host = self.net.addHost(name, ip=f'{ip}/24', mac=mac)
             self.clients.append(host)
-            
-        c1, c2, c3, c4, c5, c6, c7, c8 = self.clients
         
         info("*** Connecting hosts to switches...\n")
         # Connect server h1 exclusively to s2
@@ -400,12 +402,13 @@ class FlowerTopology:
         
         cmd = (
             f"cd {config.FLOWER_APP_PATH} && "
-            f"{config.FLWR_RUN_BIN} . "
-            f"--run-config num-server-rounds=3 "
+            f"{config.FLWR_RUN_BIN} run . "
+            f"--stream "
+            f"--run-config num-server-rounds=12 "
         )
         
         info(f"    Command: {cmd}\n")
-        info("    This will run 3 federated learning rounds...\n")
+        info("    This will run 10 federated learning rounds...\n")
         
         # Run in foreground to see output
         result = self.server.cmd(cmd)
@@ -518,7 +521,11 @@ class FlowerTopology:
             add_traffic_commands(CLI, self.traffic_manager)
             
             # Enter CLI for monitoring
-            CLI(self.net)
+            if self.non_interactive:
+                info("\n*** Non-interactive mode: Starting ServerApp immediately...\n")
+                self.run_server_app()
+            else:
+                CLI(self.net)
             
         except KeyboardInterrupt:
             info("\n*** Interrupted by user\n")
@@ -550,6 +557,11 @@ def main():
         action='store_true',
         help='Only test topology connectivity without starting FL'
     )
+    parser.add_argument(
+        '--non-interactive',
+        action='store_true',
+        help='Run training automatically and exit without CLI'
+    )
     
     args = parser.parse_args()
     
@@ -557,7 +569,7 @@ def main():
     setLogLevel('info')
     
     # Create and run topology
-    topology = FlowerTopology(test_only=args.test_only)
+    topology = FlowerTopology(test_only=args.test_only, non_interactive=args.non_interactive)
     topology.run()
 
 

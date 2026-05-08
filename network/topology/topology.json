@@ -52,7 +52,7 @@
             "src_port": "c1-eth0",
             "dst_port": "s1-eth3",
             "bw": 60,
-            "delay": "100ms"
+            "delay": "150ms"
         },
         {
             "src": "c2",
@@ -60,7 +60,7 @@
             "src_port": "c2-eth0",
             "dst_port": "s1-eth4",
             "bw": 5,
-            "delay": "80ms"
+            "delay": "100ms"
         },
         {
             "src": "c3",
@@ -68,7 +68,7 @@
             "src_port": "c3-eth0",
             "dst_port": "s1-eth5",
             "bw": 80,
-            "delay": "60ms"
+            "delay": "120ms"
         },
         {
             "src": "c4",
@@ -76,7 +76,7 @@
             "src_port": "c4-eth0",
             "dst_port": "s1-eth6",
             "bw": 15,
-            "delay": "40ms"
+            "delay": "80ms"
         },
         {
             "src": "c5",
@@ -84,7 +84,7 @@
             "src_port": "c5-eth0",
             "dst_port": "s3-eth3",
             "bw": 30,
-            "delay": "20ms"
+            "delay": "60ms"
         },
         {
             "src": "c6",
@@ -92,7 +92,7 @@
             "src_port": "c6-eth0",
             "dst_port": "s3-eth4",
             "bw": 100,
-            "delay": "10ms"
+            "delay": "2ms"
         },
         {
             "src": "c7",
@@ -108,7 +108,23 @@
             "src_port": "c8-eth0",
             "dst_port": "s3-eth6",
             "bw": 7,
-            "delay": "2ms"
+            "delay": "30ms"
+        },
+        {
+            "src": "c9",
+            "dst": "s3",
+            "src_port": "c9-eth0",
+            "dst_port": "s3-eth7",
+            "bw": 70,
+            "delay": "15ms"
+        },
+        {
+            "src": "c10",
+            "dst": "s3",
+            "src_port": "c10-eth0",
+            "dst_port": "s3-eth8",
+            "bw": 5,
+            "delay": "200ms"
         }
     ],
     "hosts": [
@@ -174,6 +190,20 @@
             "ip": "10.0.0.9",
             "switch": "s3",
             "port": 6
+        },
+        {
+            "name": "c9",
+            "mac": "00:00:00:00:00:0a",
+            "ip": "10.0.0.10",
+            "switch": "s3",
+            "port": 7
+        },
+        {
+            "name": "c10",
+            "mac": "00:00:00:00:00:0b",
+            "ip": "10.0.0.11",
+            "switch": "s3",
+            "port": 8
         }
     ]
 }

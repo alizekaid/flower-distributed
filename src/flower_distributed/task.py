@@ -52,50 +52,85 @@ _global_dataset = None  # Cache CIFAR-10 dataset across calls in this process
 pytorch_transforms = Compose([ToTensor(), Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
 def load_data(partition_id: int, num_partitions: int):
-    """Load a local partition of CIFAR-10 data (no Hugging Face required).
-
-    This implementation uses `torchvision.datasets.CIFAR10` and partitions
-    the training set into `num_partitions` equally sized shards, one per client.
-    Each client then splits its shard into an 80/20 train/validation split.
+    """Load a local partition of CIFAR-10 data with Tiered Non-IID logic.
+    
+    Tiers:
+    - 0, 1, 2: GOOD (High IID / Uniform)
+    - 3, 4, 5: BAD  (Low IID / Highly Skewed)
+    - 6, 7, 8, 9: NORMAL (Mixed / Residual)
     """
     global _global_dataset
 
-    # Use mounted dataset path (set via environment variable or default to shared location)
     import os
     dataset_root = os.getenv("CIFAR10_DATASET_ROOT", "/home/alizekaid/Desktop/Flower_distributed/data/cifar10")
 
-    # Lazily create and cache the underlying CIFAR-10 training dataset
     if _global_dataset is None:
-        _global_dataset = CIFAR10(
-            root=dataset_root,
-            train=True,
-            download=False,  # Disable download - dataset should be pre-mounted
-            transform=pytorch_transforms,
-        )
+        _global_dataset = CIFAR10(root=dataset_root, train=True, download=False, transform=pytorch_transforms)
 
     dataset = _global_dataset
-    num_samples = len(dataset)
     
-    # Introduce deterministic shuffling for consistent partitioning across runs
-    # This ensures IID distribution while remaining exactly the same between consecutive runs.
-    indices = list(range(num_samples))
+    # 1. Group indices by label
+    label_indices = {i: [] for i in range(10)}
+    for idx in range(len(dataset)):
+        _, label = dataset[idx]
+        label_indices[label].append(idx)
+    
+    # 2. Shuffle indices within each label for determinism
     import random
-    random.seed(42)
-    random.shuffle(indices)
+    for i in range(10):
+        random.seed(42)
+        random.shuffle(label_indices[i])
 
-    shard_size = num_samples // num_partitions
+    partition_indices = []
+    
+    # 3. TIERED ALLOCATION LOGIC
+    # Tier 1: GOOD CLIENTS (0, 1, 2) -> Varying volumes
+    if partition_id < 3:
+        # c1: 200/class (2000), c2: 400/class (4000), c3: 600/class (6000)
+        per_class = [200, 400, 600][partition_id]
+        for i in range(10):
+            # We take from the beginning, but offsets ensure no overlap if needed
+            start = sum([200, 400, 600][:partition_id])
+            partition_indices.extend(label_indices[i][start : start + per_class])
 
-    if shard_size == 0:
-        raise ValueError(
-            f"Number of partitions ({num_partitions}) is larger than the number of "
-            f"samples in the dataset ({num_samples})."
-        )
+    # Tier 2: BAD CLIENTS (3, 4, 5) -> Extreme Skew
+    elif partition_id < 6:
+        t2_id = partition_id - 3
+        # Each client takes varying primary and secondary amounts
+        # c4: (2500, 500) -> 3000, c5: (3500, 1500) -> 5000, c6: (2800, 1200) -> 4000
+        p_count, s_count = [(2500, 500), (3500, 1500), (2800, 1200)][t2_id]
+        p_cls = t2_id * 2
+        s_cls = t2_id * 2 + 1
+        
+        # Primary: Start after Tier 1 (approx 200+400+600 = 1200 used)
+        partition_indices.extend(label_indices[p_cls][1500 : 1500 + p_count])
+        # Secondary: Start after Tier 1
+        partition_indices.extend(label_indices[s_cls][1500 : 1500 + s_count])
 
-    start = partition_id * shard_size
-    end = start + shard_size if partition_id < num_partitions - 1 else num_samples
+        # Tier 3: NORMAL CLIENTS (6, 7, 8, 9) -> Remaining Samples
+    else:
+        remaining = []
+        # Classes 0, 2, 4: All 5000 used by Good(1500) and Bad(3500)
+        # Classes 1, 3, 5: 2000 left each (Indices 3000-5000)
+        for i in [1, 3, 5]:
+            remaining.extend(label_indices[i][3000:5000])
+        # Classes 6, 7, 8, 9: 3500 left each (Indices 1500-5000)
+        for i in range(6, 10):
+            remaining.extend(label_indices[i][1500:5000])
+            
+        t3_id = partition_id - 6
+        import random as py_random
+        py_random.seed(42)  # Deterministic sharding
+        py_random.shuffle(remaining)
+        
+        # Heterogeneous shard sizes for Tier 3
+        shard_distributions = [1500, 3500, 5000, 2500] # Variable sizes for c7, c8, c9, c10
+        shard_size = shard_distributions[t3_id]
+        
+        # Calculate cumulative start
+        current_start = sum(shard_distributions[:t3_id])
+        partition_indices = remaining[current_start : current_start + shard_size]
 
-    # Select the shuffled indices for this partition
-    partition_indices = indices[start:end]
     client_subset = Subset(dataset, partition_indices)
 
     # Split client data: 80% train, 20% validation
@@ -107,7 +142,6 @@ def load_data(partition_id: int, num_partitions: int):
         generator=torch.Generator().manual_seed(42 + partition_id),
     )
 
-    # Batch size 64 is a great balance for 3GB VRAM.
     trainloader = DataLoader(train_subset, batch_size=64, shuffle=True)
     testloader = DataLoader(val_subset, batch_size=64)
     return trainloader, testloader
