@@ -12,6 +12,9 @@ sudo rm -f /tmp/client_*_bw.txt
 # Set PYTHONPATH to include project root
 export PYTHONPATH=$PYTHONPATH:$(pwd)
 
+echo "⏳ Pregenerating datasets and building PyTorch cache so Round 1 starts instantly..."
+PYTHONPATH=$PYTHONPATH ./flwr-env/bin/python3 scripts/pregenerate_dataset.py
+
 # Check for requested model
 if [ -z "$1" ]; then
     echo "ERROR: You must specify a model (e.g., ./run_infrastructure.sh simple_cnn | mobilenetv2 | densenet121)"

@@ -63,12 +63,44 @@ class BWAwareController(app_manager.RyuApp):
                                     instructions=inst,
                                     buffer_id=buffer_id if buffer_id else ofproto.OFP_NO_BUFFER)
         else:
-            # Table-miss and other permanent rules must NOT expire
             mod = parser.OFPFlowMod(datapath=datapath, priority=priority, match=match,
                                     idle_timeout=60, hard_timeout=0,
                                     instructions=inst,
                                     buffer_id=buffer_id if buffer_id else ofproto.OFP_NO_BUFFER)
         datapath.send_msg(mod)
+
+    def delete_flows_for_pair(self, path, src, dst):
+        """Explicitly delete all flow entries for a (src, dst) pair along an old path.
+        This prevents stale flows from surviving for up to idle_timeout=60s after rerouting.
+        """
+        for hop in path:
+            dp = self.datapaths.get(hop['dpid'])
+            if not dp:
+                continue
+            parser = dp.ofproto_parser
+            ofproto = dp.ofproto
+            # Delete forward flow
+            f_match = parser.OFPMatch(eth_src=src, eth_dst=dst)
+            mod = parser.OFPFlowMod(
+                datapath=dp,
+                command=ofproto.OFPFC_DELETE,
+                out_port=ofproto.OFPP_ANY,
+                out_group=ofproto.OFPG_ANY,
+                match=f_match,
+                priority=20,
+            )
+            dp.send_msg(mod)
+            # Delete reverse flow
+            r_match = parser.OFPMatch(eth_src=dst, eth_dst=src)
+            mod = parser.OFPFlowMod(
+                datapath=dp,
+                command=ofproto.OFPFC_DELETE,
+                out_port=ofproto.OFPP_ANY,
+                out_group=ofproto.OFPG_ANY,
+                match=r_match,
+                priority=20,
+            )
+            dp.send_msg(mod)
 
     def _get_widest_path(self, src_mac, dst_mac, silent=False):
         """
@@ -212,6 +244,9 @@ class BWAwareController(app_manager.RyuApp):
             # instead of every time a switch replies. This reduces Disk I/O.
             self.stats_manager.save_usage()
             
+            # HOT-RELOAD: Pick up dynamic topology capacity changes made by the mininet scenario engine
+            self.stats_manager.load_stats()
+            
             # PROACTIVE RE-EVALUATION: Check if better paths exist for active flows
             try:
                 self._re_evaluate_paths()
@@ -279,8 +314,13 @@ class BWAwareController(app_manager.RyuApp):
                 self.logger.info("     Current: %s (%.2f Mbps)", [h['name'] for h in current_path], current_bw)
                 self.logger.info("     New Best: %s (%.2f Mbps)", [h['name'] for h in widest_path], new_bw)
                 self.logger.info("     Improvement: %.2f Mbps", improvement)
-                
-                # Install new flows (overwrites existing ones)
+
+                # DELETE stale flows on the old path BEFORE installing new ones.
+                # Without this, old flow entries survive for idle_timeout=60s and
+                # packets continue using the congested path despite the reroute.
+                self.delete_flows_for_pair(current_path, src, dst)
+
+                # Install new flows on the new (wider) path
                 self.active_paths[(src, dst)] = widest_path
                 self._install_path_flows(widest_path, src, dst)
 

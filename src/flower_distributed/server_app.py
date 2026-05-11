@@ -269,7 +269,7 @@ class CustomFedAvg(FedAvg):
             elif strategy == "grid":
                 # GRID SEARCH STRATEGY: Load weights from temporary JSON file
                 # Default (fallback) if grid file missing
-                w_ram, w_cpu, w_bw, w_lat, w_dq = 0.05, 0.15, 0.10, 0.10, 0.6
+                w_ram, w_cpu, w_bw, w_lat, w_dq = 0.05, 0.10, 0.10, 0.10, 0.65
                 
                 grid_file = "grid_weights.json"
                 if os.path.exists(grid_file):
@@ -300,7 +300,7 @@ class CustomFedAvg(FedAvg):
             else:
                 # COMPOSITE CAPABILITY SCORE (Default / Fixed)
                 # Fixed Weights: RAM(20%), CPU(20%), BW(20%), Latency(20%), IID(20%)
-                w_ram, w_cpu, w_bw, w_lat, w_dq = 0.1, 0.1, 0.1, 0.5, 0.2
+                w_ram, w_cpu, w_bw, w_lat, w_dq = 0.1, 0.1, 0.1, 0.30, 0.40
                 
                 stats["capability_score"] = (
                     w_ram * float(stats["norm_ram"]) + 

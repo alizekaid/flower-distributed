@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Mininet topology for Flower Federated Learning.
-3-switch triangle: s1(c1,c2) - s2(c3) - s3(c4) - s4(h1)
-All three switches are fully interconnected (K3 graph).
+4-switch diamond: s1(c1,c2) - s2(c3) - s3(c4) - s4(h1)
+All four switches are fully interconnected (K4 graph).
 """
 
 import sys
@@ -40,18 +40,27 @@ class FlowerTopology:
         self.switch = None
         self.traffic_manager = None
         
-        # Dynamic Bandwidth & Latency Scenarios
-        # Format: { client_index: [[target_bw_mbps, target_lat_ms, trigger_after_round], ...] }
-        # Triggered when 'client_stats_round_X.json' appears in the logs.
+        # Dynamic Bandwidth & Latency Scenarios (Floored at 15 Mbps, No Surges)
         self.dynamic_bw_scenarios = {
-            7: [[2, 50, 1], [5, 30, 3], [7, 20, 4]],   # c8: Crash(R1: 2Mbps, 50ms), Recovery(R3: 5Mbps, 30ms), etc.
-            6: [[3, 60, 1], [8, 25, 3], [12, 15, 4]],  # c7: Similar pattern
-            5: [[100, 5, 2]],                         # c6: Powerhouse scale-up (100Mbps, 5ms) after R2
-            4: [[10, 40, 2], [30, 15, 4]],             # c5: Drop(R2), Recovery(R4)
-            3: [[15, 35, 3]],                         # c4: Drop after R3
-            2: [[80, 8, 3]],                          # c3: Scaling up after R3
-            1: [[5, 80, 4]],                          # c2: Severe degradation after R4
-            0: [[60, 10, 4]],                         # c1: Improvements after R4
+            7: [[15, 20, 1], [15, 15, 3], [15, 10, 4]],  # c8 (base 25)
+            6: [[15, 25, 1], [15, 15, 3], [15, 10, 4]],  # c7 (base 35)
+            5: [[16, 5, 2]],                             # c6 (base 40)
+            4: [[15, 20, 2], [15, 10, 4]],               # c5 (base 15)
+            3: [[15, 15, 3]],                            # c4 (base 15)
+            2: [[18, 8, 3]],                             # c3 (base 15)
+            1: [[18, 20, 4]],                            # c2 (base 15)
+            0: [[18, 10, 4]],                            # c1 (base 15)
+        }
+        
+        # Inter-Switch Bottleneck Scenarios (Dynamic Interface Throttling)
+        # Strategy: Progressive throttling of ONLY shortest-path links.
+        # This keeps the 30 Mbps backup core paths (s1-s3, s1-s5) fully open, 
+        # allowing FLOCK to demonstrate intelligence while Default FL stays trapped.
+        self.dynamic_switch_scenarios = {
+            2: [('s2', 's4', 2)],    # Round 2: Phase 1 Group A (Wait for baseline R1)
+            6: [('s2', 's4', 0.5)],  # Round 6: Phase 2 Group A (Hard block)
+            10: [('s2', 's6', 2)],   # Round 10: Phase 1 Group B 
+            14: [('s2', 's6', 0.5)], # Round 14: Phase 2 Group B (Hard block)
         }
         
     def create_topology(self):
@@ -71,33 +80,32 @@ class FlowerTopology:
         info("*** Adding remote controller (Ryu)\n")
         self.net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6653)
         
-        info("*** Adding 3 explicit switches for Triangle Topology...\n")
+        info("*** Adding 10 switches plus core switch...\n")
         switches = {}
-        for i in range(1, 4):
+        for i in range(1, 11):
             swname = f's{i}'
             dpid_str = str(i).zfill(16) 
             switches[swname] = self.net.addSwitch(swname, dpid=dpid_str)
         
+        # Add core switch
+        switches['core1'] = self.net.addSwitch('core1', dpid='0000000000000100')
+        
         self.switch = switches['s1'] # Set main hub reference
         
-        info("*** Creating links between switches (Triangle)...\n")
-        # Triangle topology: s1-s2, s2-s3, s1-s3
+        info("*** Creating links between switches...\n")
+        # Normal inter-switch links including formerly throttled shortest paths
         normal_links = [
-            ('s1', 's2'), ('s2', 's3'), ('s1', 's3')
-        ]
-        
-        # Throttled links: shortest-path routes that the BW-aware controller
-        # must detect as bottlenecks and route around.
-        throttled_links = [
-            # Intentionally left empty for now
+            ('core1', 's1'), ('core1', 's2'),
+            ('s1', 's5'), ('s1', 's3'),
+            ('s3', 's7'), ('s3', 's8'),
+            ('s4', 's7'), ('s4', 's8'),
+            ('s5', 's9'), ('s5', 's10'),
+            ('s6', 's9'), ('s6', 's10'),
+            ('s2', 's4'), ('s2', 's6')  # Left and Right wing gateways to server
         ]
 
         for src, dst in normal_links:
             self.net.addLink(switches[src], switches[dst], bw=config.SWITCH_BW, delay=config.DELAY)
-
-        for src, dst in throttled_links:
-            self.net.addLink(switches[src], switches[dst], bw=config.THROTTLED_LINK_BW, delay=config.DELAY)
-            info(f"    ⚠️  Throttled link {src}-{dst}: {config.THROTTLED_LINK_BW} Mbps\n")
             
         info("*** Adding hosts (h1, c1-c8)...\n")
         self.server = self.net.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01')
@@ -106,19 +114,15 @@ class FlowerTopology:
         self.clients = []
         # Heterogeneous resource and network profile mapping
         # (CPU_Quota_%, Memory_MB, Core_ID, BW_Mbps, Latency_ms)
-        # Heterogeneous resource and network profile mapping
-        # (CPU_Quota_%, Memory_MB, Core_ID, BW_Mbps, Latency_ms)
         self.resource_profiles = [
-            (30, 2048,  0, 10, 150),  # c1: Data King (High IID, Very Weak HW)
-            (40, 4096,  2, 20, 100),  # c2: Data King (High IID, Weak HW)
-            (35, 3072,  4, 15, 120),  # c3: Data King (High IID, Weak HW)
-            (100, 8192, 6, 25,  80),  # c4: Compute King (Best CPU, Bad IID)
-            (90, 7168,  8, 30,  60),  # c5: Compute King (Strong CPU, Bad IID)
-            (45, 2048, 10, 100,  2),  # c6: Network Star (Best BW/Lat, Bad IID)
-            (55, 3072, 12, 90,   5),  # c7: Network Star (Strong BW/Lat, Med IID)
-            (60, 4096, 14, 50,  30),  # c8: All-Rounder (Balanced)
-            (80, 6144, 1, 70,   15),  # c9: Strong All-Rounder (Good at everything, master of none)
-            (25, 1024, 3, 5,   200),  # c10: The Weakling (Control)
+            (90, 2048,  0, 15, 25),  # c1: Data King (High IID, Very Weak HW)
+            (90, 4096,  2, 15, 20),  # c2: Data King (High IID, Weak HW)
+            (90, 3072,  4, 15, 20),  # c3: Data King (High IID, Weak HW)
+            (80, 8192,  6, 15, 15),  # c4: Compute King (Best CPU, Bad IID)
+            (55, 7168,   8, 15, 15),  # c5: Compute King (Strong CPU, Bad IID)
+            (60, 2048,  10, 40,  2),  # c6: Network Star (Best BW/Lat, Bad IID)
+            (45, 3072,  12, 35,  5),  # c7: Network Star (Strong BW/Lat, Med IID)
+            (60, 4096,  14, 25, 10),  # c8: All-Rounder (Balanced)
         ]
         
         for i, name in enumerate(config.CLIENT_NAMES):
@@ -133,10 +137,17 @@ class FlowerTopology:
         # Connect server h1 exclusively to s2
         self.net.addLink(self.server, switches['s2'], bw=config.SERVER_BW, delay=config.DELAY)
         
-        # Distribute clients across switches (s1, s3) with physical link throttling
+        # Distribute clients across specific access switches
+        client_to_switch = {
+            0: 's7', 1: 's7',
+            2: 's8', 3: 's8',
+            4: 's9', 5: 's9',
+            6: 's10', 7: 's10'
+        }
+        
         for i, client in enumerate(self.clients):
             _, _, _, bw, lat = self.resource_profiles[i]
-            target_switch = switches['s1'] if i < 4 else switches['s3']
+            target_switch = switches[client_to_switch.get(i, 's7')]
             
             self.net.addLink(client, target_switch, bw=bw, delay=f"{lat}ms")
             info(f"    Link {config.CLIENT_NAMES[i]} <-> {target_switch}: {bw} Mbps, {lat} ms\n")
@@ -404,11 +415,11 @@ class FlowerTopology:
             f"cd {config.FLOWER_APP_PATH} && "
             f"{config.FLWR_RUN_BIN} run . "
             f"--stream "
-            f"--run-config num-server-rounds=12 "
+            f"--run-config num-server-rounds=20 "
         )
         
         info(f"    Command: {cmd}\n")
-        info("    This will run 10 federated learning rounds...\n")
+        info("    This will run 20 federated learning rounds...\n")
         
         # Run in foreground to see output
         result = self.server.cmd(cmd)
@@ -420,15 +431,43 @@ class FlowerTopology:
         
         def scenario_runner():
             info("\n[Scenario Engine] Started. Monitoring for End-of-Round triggers...\n")
-            applied = set()
+            applied_bw = set()
+            applied_traffic = set()
             
             # Watch for the creation of client_stats_round_X.json
             log_dir = config.LOG_DIR
             
             while True:
+                # 1. Switch Interface Throttling Scenarios for Controller Rerouting
+                for round_trigger, scenarios in self.dynamic_switch_scenarios.items():
+                    if round_trigger not in applied_traffic:
+                        trigger_file = os.path.join(log_dir, f"client_stats_round_{round_trigger}.json")
+                        if os.path.exists(trigger_file):
+                            time.sleep(0.5)
+                            info(f"\n[Scenario Engine] Triggering Link Throttle for Round {round_trigger}...\n")
+                            for sw1_name, sw2_name, target_bw in scenarios:
+                                try:
+                                    sw1 = self.net.get(sw1_name)
+                                    sw2 = self.net.get(sw2_name)
+                                    conns = sw1.connectionsTo(sw2)
+                                    if conns:
+                                        intf1, intf2 = conns[0]
+                                        intf1.config(bw=target_bw)
+                                        intf2.config(bw=target_bw)
+                                        intf1.params['bw'] = target_bw
+                                        intf2.params['bw'] = target_bw
+                                        info(f"    [Link] Dropped {sw1_name}-{sw2_name} to {target_bw} Mbps\n")
+                                except Exception as e:
+                                    info(f"    [Error] Failed applying throttle on {sw1_name}-{sw2_name}: {e}\n")
+                            
+                            applied_traffic.add(round_trigger)
+                            # Export the updated link speeds so background routing scripts see the change immediately
+                            self.export_topology_json()
+
+                # 2. Link BW adjustment scenarios
                 for client_idx, transitions in self.dynamic_bw_scenarios.items():
                     for target_bw, target_lat, trigger_round in transitions:
-                        if (client_idx, trigger_round) not in applied:
+                        if (client_idx, trigger_round) not in applied_bw:
                             trigger_file = os.path.join(log_dir, f"client_stats_round_{trigger_round}.json")
                             if os.path.exists(trigger_file):
                                 # Give the logger a tiny moment to flush, then apply change immediately
@@ -454,7 +493,7 @@ class FlowerTopology:
                                     with open(f"/tmp/client_{client_name}_bw.txt", "w") as f:
                                         f.write(str(target_bw))
                                         
-                                    applied.add((client_idx, trigger_round))
+                                    applied_bw.add((client_idx, trigger_round))
                                     
                                     # Update the static topology file so stats scripts see the new capacity
                                     self.export_topology_json()

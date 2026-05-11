@@ -33,10 +33,10 @@ clientapp = "flower_distributed.client_app:app"
 
 # Custom config values accessible via `context.run_config`
 [tool.flwr.app.config]
-num-server-rounds = 3
+num-server-rounds = 80
 fraction-train = 0.5
 local-epochs = 2
-lr = 0.01
+lr = 0.0005
 
 # Default federation to use when running the app
 [tool.flwr.federations]

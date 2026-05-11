@@ -1,0 +1,6 @@
+round,node_discovery_s,telemetry_poll_s,scoring_export_s,ranking_message_s,total_selection_s,available_clients,valid_clients,selected_clients,status
+1,0.0019,29.0840,0.0021,0.0006,29.0892,10,10,5,ok
+2,0.0017,28.9085,0.0018,0.0005,28.9130,10,10,5,ok
+3,0.0016,29.1601,0.0016,0.0005,29.1643,9,9,5,ok
+4,0.0017,27.0382,0.0005,0.0002,27.0409,9,9,5,ok
+5,0.0021,27.0509,0.0018,0.0005,27.0559,9,9,5,ok

@@ -30,13 +30,12 @@ class StatsManager:
             with open(self.topology_file, 'r') as f:
                 data = json.load(f)
                 for link in data.get('links', []):
-                    # Store bidirectional link data
+                    # Store bidirectional link data safely without overwriting tracking
                     pair = tuple(sorted([link['src'], link['dst']]))
-                    self.links[pair] = {
-                        'bw': link.get('bw'),
-                        'delay': link.get('delay'),
-                        'usage': 0.0  # Mbps
-                    }
+                    if pair not in self.links:
+                        self.links[pair] = {'usage': 0.0}
+                    self.links[pair]['bw'] = link.get('bw')
+                    self.links[pair]['delay'] = link.get('delay')
             return True
         except Exception as e:
             print(f"ERROR: Failed to load topology: {e}")

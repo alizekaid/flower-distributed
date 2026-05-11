@@ -7,7 +7,8 @@ from network.managers.stats_manager import get_stats_manager
 def main():
     # Initialize the manager
     stats = get_stats_manager()
-    stats.load_usage()
+    stats.load_stats()  # Reload capacity from topology.json (updated by scenario engine)
+    stats.load_usage()  # Reload live usage stats
     
     print("-" * 30)
     print("NETWORK STATISTICS CACHE")

@@ -16,7 +16,7 @@ import random
 import psutil
 import subprocess
 import json
-from flower_distributed.task import get_model, load_data
+from flower_distributed.task import get_model, load_data, get_client_metadata
 from flower_distributed.task import test as test_fn
 from flower_distributed.task import train as train_fn
 
@@ -124,8 +124,13 @@ def evaluate(msg: Message, context: Context):
     return Message(content=content, reply_to=msg)
 
 
+# Global cache for telemetry to avoid O(N) dataset scanning every round
+_cached_label_distribution = None
+
 def build_telemetry_msg(msg: Message, context: Context):
-    """Helper method to construct Resource and IID metrics dynamically."""
+    """Build system telemetry with local data quality (Cached O(1))."""
+    global _cached_label_distribution
+    import psutil
     # 1. Memory: Use static capacity (from env var) minus real per-process usage
     # RAM_LIMIT_MB = the capacity "budget" assigned to this client by the topology
     # rss (Resident Set Size) = actual physical RAM consumed by this process + children
@@ -144,7 +149,7 @@ def build_telemetry_msg(msg: Message, context: Context):
         ram_percent = min(100.0, (used_mb / ram_limit_mb) * 100)
     else:
         # Fallback for real deployment: use system-wide available RAM
-        print(f"⚠️  [Telemetry] RAM_LIMIT_MB not set for {client_name}. Falling back to system-wide metrics.")
+        print(f"⚠️  [Telemetry] RAM_LIMIT_MB not set. Falling back to system-wide metrics.")
         vm = psutil.virtual_memory()
         ram_available_mb = vm.available / (1024 * 1024)
         ram_percent = vm.percent
@@ -171,10 +176,8 @@ def build_telemetry_msg(msg: Message, context: Context):
         print(f"⚠️  [Telemetry] CPU_CORE_ID not set. Falling back to system average.")
         cpu_usage = psutil.cpu_percent(interval=0.1)
 
-    # Prove flawless IID partition setup across distributions dynamically:
     partition_id = context.node_config["partition-id"]
     num_partitions = context.node_config["num-partitions"]
-    trainloader, _ = load_data(partition_id, num_partitions)
     
     # Dynamic Network Probes
     # 1. Latency: Live ping to the server
@@ -206,10 +209,10 @@ def build_telemetry_msg(msg: Message, context: Context):
     else:
         bw_mbps = os.environ.get("LINK_BW", "15")
     
-    distribution = {}
-    for idx in range(len(trainloader.dataset)):
-        _, label = trainloader.dataset[idx]
-        distribution[str(label)] = distribution.get(str(label), 0) + 1
+    # INSTANT CACHE RETRIEVAL (Bypassing PyTorch entirely)
+    metadata = get_client_metadata(partition_id, num_partitions)
+    distribution = metadata["iid_distribution"]
+    item_count = metadata["item_count"]
     
     config_data = {
         "client_name": client_name,
@@ -219,8 +222,8 @@ def build_telemetry_msg(msg: Message, context: Context):
         "ram_available_mb": float(ram_available_mb),
         "bw_mbps": bw_mbps,
         "latency_ms": latency_ms,
-        "iid_distribution": json.dumps(distribution),
-        "item_count": int(len(trainloader.dataset)),
+        "iid_distribution": json.dumps(distribution) if isinstance(distribution, dict) else distribution,
+        "item_count": int(item_count),
     }
     return Message(content=RecordDict({"telemetry": ConfigRecord(config_data)}), reply_to=msg)
 
