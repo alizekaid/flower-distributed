@@ -252,6 +252,7 @@ class MetricsPlotter:
         
         # New 10th Subplot: 2D ML Distribution (Quantity vs Quality)
         plt.subplot(5, 2, 10)
+        max_v = 5200 # Minimum default limit
         for i, name in enumerate(client_names):
             h_data = self.history["per_client_iid"].get(name, [0.0])
             v_data = self.history["per_client_volume"].get(name, [0.0])
@@ -259,6 +260,8 @@ class MetricsPlotter:
                 # Plot the latest point for each client
                 last_h = h_data[-1]
                 last_v = v_data[-1]
+                if last_v > max_v:
+                    max_v = last_v
                 plt.scatter(last_v, last_h, label=name, marker=markers[i % len(markers)], s=100)
                 plt.annotate(name, (last_v, last_h), textcoords="offset points", xytext=(0,10), ha='center')
         
@@ -268,19 +271,27 @@ class MetricsPlotter:
         plt.grid(True, linestyle='--', alpha=0.3)
         
         # Fixed Axis Limits to keep quadrants consistent
-        plt.xlim(-100, 5200)
+        x_max = max_v * 1.1
+        plt.xlim(-100, x_max)
         plt.ylim(-0.1, 2.6)
         
         # Bold Quadrant Dividers
-        plt.axhline(y=1.15, color='red', linestyle='--', alpha=0.3) 
-        plt.axvline(x=2500, color='red', linestyle='--', alpha=0.3) 
+        x_div = 2500
+        y_div = 1.15
+        plt.axhline(y=y_div, color='red', linestyle='--', alpha=0.3) 
+        plt.axvline(x=x_div, color='red', linestyle='--', alpha=0.3) 
         
-        # Quadrant Labels (Using transAxes for perfect relative positioning)
-        ax = plt.gca()
-        ax.text(0.75, 0.85, "ELITE", transform=ax.transAxes, fontsize=11, color='darkgreen', alpha=0.5, fontweight='bold', ha='center')
-        ax.text(0.25, 0.85, "FALSE CHAMP", transform=ax.transAxes, fontsize=11, color='darkorange', alpha=0.5, fontweight='bold', ha='center')
-        ax.text(0.75, 0.15, "BIG & SKEWED", transform=ax.transAxes, fontsize=11, color='darkred', alpha=0.5, fontweight='bold', ha='center')
-        ax.text(0.25, 0.15, "WEAK", transform=ax.transAxes, fontsize=11, color='gray', alpha=0.5, fontweight='bold', ha='center')
+        # Quadrant Labels (Using data coordinates for correct positioning relative to dividers)
+        # Centers for left/right and top/bottom
+        x_left = (-100 + x_div) / 2
+        x_right = (x_div + x_max) / 2
+        y_top = (y_div + 2.6) / 2
+        y_bottom = (-0.1 + y_div) / 2
+
+        plt.text(x_right, y_top, "ELITE", fontsize=11, color='darkgreen', alpha=0.5, fontweight='bold', ha='center')
+        plt.text(x_left, y_top, "FALSE CHAMP", fontsize=11, color='darkorange', alpha=0.5, fontweight='bold', ha='center')
+        plt.text(x_right, y_bottom, "BIG & SKEWED", fontsize=11, color='darkred', alpha=0.5, fontweight='bold', ha='center')
+        plt.text(x_left, y_bottom, "WEAK", fontsize=11, color='gray', alpha=0.5, fontweight='bold', ha='center')
 
         plt.tight_layout()
         

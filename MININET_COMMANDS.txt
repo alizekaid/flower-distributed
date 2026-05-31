@@ -21,3 +21,22 @@ net
 
 # Dump node info
 dump
+
+# =========================================================
+# TRAFFIC GENERATION COMMANDS (Type these in Mininet CLI)
+# =========================================================
+
+# Generate random background noise between random clients
+traffic random
+
+# Generate fluctuating "drunk walk" traffic between c1 and c4
+traffic stochastic 5 25
+
+# Force heavy congestion on s1-s2 link (c1 -> h1) to trigger rerouting
+traffic congested 45M
+
+# Congest the backbone core paths
+traffic backbone 13M
+
+# Stop all background traffic
+traffic stop

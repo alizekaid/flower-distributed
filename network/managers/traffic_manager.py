@@ -157,7 +157,7 @@ def add_traffic_commands(cli_class, manager):
         """
         args = line.split()
         if not args:
-            print("Usage: traffic [congested|bottleneck|backbone|cross|random|stop] [bandwidth]")
+            print("Usage: traffic [congested|bottleneck|backbone|cross|random|stochastic|stop] [bandwidth]")
             return
 
         command = args[0]

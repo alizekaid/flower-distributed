@@ -543,7 +543,7 @@ class FlowerTopology:
             self.start_supernodes()
             
             # Start dynamic scenario engine in the background
-            self.schedule_scenario_engine()
+            #self.schedule_scenario_engine()
             
             info("\n" + "="*60 + "\n")
             info("Flower Federated Learning Environment Ready!\n")

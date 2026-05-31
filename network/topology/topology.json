@@ -51,7 +51,7 @@
             "dst": "s1",
             "src_port": "core1-eth1",
             "dst_port": "s1-eth1",
-            "bw": 30,
+            "bw": 2,
             "delay": "5ms"
         },
         {
@@ -147,7 +147,7 @@
             "dst": "s4",
             "src_port": "s2-eth2",
             "dst_port": "s4-eth3",
-            "bw": 0.5,
+            "bw": 2,
             "delay": "5ms"
         },
         {
@@ -155,7 +155,7 @@
             "dst": "s6",
             "src_port": "s2-eth3",
             "dst_port": "s6-eth3",
-            "bw": 0.5,
+            "bw": 30,
             "delay": "5ms"
         },
         {
@@ -171,7 +171,7 @@
             "dst": "s7",
             "src_port": "c1-eth0",
             "dst_port": "s7-eth3",
-            "bw": 18,
+            "bw": 15,
             "delay": "25ms"
         },
         {
@@ -179,7 +179,7 @@
             "dst": "s7",
             "src_port": "c2-eth0",
             "dst_port": "s7-eth4",
-            "bw": 18,
+            "bw": 15,
             "delay": "20ms"
         },
         {
@@ -187,7 +187,7 @@
             "dst": "s8",
             "src_port": "c3-eth0",
             "dst_port": "s8-eth3",
-            "bw": 18,
+            "bw": 15,
             "delay": "20ms"
         },
         {
@@ -211,7 +211,7 @@
             "dst": "s9",
             "src_port": "c6-eth0",
             "dst_port": "s9-eth4",
-            "bw": 16,
+            "bw": 40,
             "delay": "2ms"
         },
         {
@@ -219,7 +219,7 @@
             "dst": "s10",
             "src_port": "c7-eth0",
             "dst_port": "s10-eth3",
-            "bw": 15,
+            "bw": 35,
             "delay": "5ms"
         },
         {
@@ -227,7 +227,7 @@
             "dst": "s10",
             "src_port": "c8-eth0",
             "dst_port": "s10-eth4",
-            "bw": 15,
+            "bw": 25,
             "delay": "10ms"
         }
     ],
